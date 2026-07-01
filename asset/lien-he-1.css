@@ -1,0 +1,475 @@
+/* ----------------------------------section-01 */
+.section.lien-he-1782459858787 {
+    padding: 80px 0 !important
+}
+
+
+.row-1782459858787 .lh-head h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.25;
+    letter-spacing: -0.025em;
+}
+
+.row-1782459858787 .lh-head h1 span {
+    color: #d93838;
+}
+
+
+.row-1782459858787 .lh-head p {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #242424;
+    font-weight: 500;
+    line-height: 1.625;
+    max-width: 480px;
+
+}
+
+@media (min-width: 1024px) {
+    .row-1782459858787 .lh-head h1 {
+        font-size: 34px;
+    }
+
+    .row-1782459858787 .lh-head p {
+        margin-top: 16px;
+        font-size: 15px;
+    }
+
+}
+
+
+@media (min-width: 1024px) {
+    .row-1782459858787 .lh-head h1 {
+        font-size: 42px;
+    }
+
+    .row-1782459858787 .lh-head p {
+        font-size: 17px;
+    }
+
+
+}
+
+/* ------------------------------------section-02 */
+.section.lien-he-1782460618618 {
+    margin-top: -80px;
+}
+
+.row-1782460618618 {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 16px;
+}
+
+/* Class & Selectors: Chỉ đặt tên class cho thẻ div con trực tiếp (.row-1782460618618 .contact-card) */
+.row-1782460618618 .contact-card {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #eee8e3;
+    background-color: #ffffff;
+    padding: 24px 32px;
+    box-shadow: 0 4px 18px rgba(40, 25, 10, 0.06);
+}
+
+/* Định dạng các thẻ con bên trong thông qua CSS Selector cấp bậc */
+.row-1782460618618 .contact-card>div:first-child {
+    margin-right: 32px;
+    flex-shrink: 0;
+    display: flex;
+    height: 60px;
+    width: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: #fde9e9;
+}
+
+/* Toàn bộ các icon FontAwesome đều được chuyển sang style tại đây */
+.row-1782460618618 .contact-card>div:first-child>i {
+    font-size: 28px;
+    color: #e00000;
+}
+
+.row-1782460618618 .contact-card>div:last-child>h3 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+    color: #171717;
+}
+
+/* Khoảng cách bottom của h3 tùy biến theo từng card gốc */
+.row-1782460618618>div:nth-child(1) .contact-card>div:last-child>h3,
+.row-1782460618618>div:nth-child(2) .contact-card>div:last-child>h3 {
+    margin: 0 0 8px 0;
+}
+
+.row-1782460618618>div:nth-child(3) .contact-card>div:last-child>h3 {
+    margin: 0 0 12px 0;
+}
+
+.row-1782460618618 .contact-card>div:last-child>p:nth-of-type(1) {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Custom riêng cho phần text của từng card */
+.row-1782460618618>div:nth-child(1) .contact-card>div:last-child>p:nth-of-type(1) {
+    color: #e00000;
+}
+
+.row-1782460618618>div:nth-child(2) .contact-card>div:last-child>p:nth-of-type(1) {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #555555;
+}
+
+.row-1782460618618>div:nth-child(3) .contact-card>div:last-child>p:nth-of-type(1) {
+    margin: 0;
+    max-width: 235px;
+    font-size: 13.5px;
+    font-weight: 500;
+    line-height: 1.55;
+    color: #555555;
+}
+
+.row-1782460618618 .contact-card>div:last-child>p:nth-of-type(2) {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1;
+    color: #555555;
+}
+
+/* Responsive cho Desktop (md trở lên) */
+@media (min-width: 768px) {
+    .row-1782460618618 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 4px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .row-1782460618618 {
+        gap: 16px;
+    }
+}
+
+/* ------------------------------------section-03 */
+
+.row-1782462051148 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    width: 100%;
+}
+
+.row-1782462051148 .form-card,
+.row-1782462051148 .showroom-card {
+    height: 100%;
+    border: 1px solid #ececec;
+    border-radius: 8px;
+    background: #ffffff;
+    padding: 20px;
+}
+
+.row-1782462051148 .form-card>h2,
+.row-1782462051148 .showroom-card>h2 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.25;
+    color: #151515;
+}
+
+.row-1782462051148 .form-card>h2 {
+    margin-bottom: 12px;
+}
+
+.row-1782462051148 .showroom-card>h2 {
+    margin-bottom: 20px;
+}
+
+.row-1782462051148 .form-card>p {
+    border-bottom: 1px solid #f14343;
+    padding-bottom: 12px;
+    margin: 0 0 20px;
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.6;
+    color: #666666;
+}
+
+.row-1782462051148 .form-card .wpcf7-form {
+    display: grid;
+    gap: 12px;
+    margin: 0;
+}
+
+.row-1782462051148 .form-card .wpcf7-form>p {
+    margin: 0;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label {
+    position: relative;
+    display: block;
+    margin: 0;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label>span:first-child:not(.wpcf7-form-control-wrap) {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    color: #777777;
+    z-index: 2;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label:nth-of-type(4)>span:first-child:not(.wpcf7-form-control-wrap) {
+    top: 18px;
+    transform: none;
+}
+
+.row-1782462051148 .form-card .wpcf7-form-control-wrap {
+    display: block;
+    width: 100%;
+}
+
+.row-1782462051148 .form-card .wpcf7-form input[type="text"],
+.row-1782462051148 .form-card .wpcf7-form input[type="email"],
+.row-1782462051148 .form-card .wpcf7-form input[type="tel"] {
+    width: 100%;
+    height: 42px;
+    border: 1px solid #e6e6e6;
+    border-radius: 7px;
+    background: #ffffff;
+    padding: 0 16px 0 44px;
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #333333;
+    outline: none;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.row-1782462051148 .form-card .wpcf7-form textarea {
+    width: 100%;
+    min-height: 92px;
+    resize: vertical;
+    border: 1px solid #e6e6e6;
+    border-radius: 7px;
+    background: #ffffff;
+    padding: 16px 16px 16px 44px;
+    font-size: 12.5px;
+    font-weight: 500;
+    line-height: 1.625;
+    color: #333333;
+    outline: none;
+    box-shadow: none;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.row-1782462051148 .form-card .wpcf7-form input:focus,
+.row-1782462051148 .form-card .wpcf7-form textarea:focus {
+    border-color: #d90000;
+    box-shadow: 0 0 0 2px #fef2f2;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label:nth-of-type(5) {
+    display: grid;
+    grid-template-columns: 15px 1fr;
+    align-items: start;
+    gap: 12px;
+    padding-top: 4px;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label:nth-of-type(5) .wpcf7-form-control-wrap {
+    width: 15px;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label:nth-of-type(5) .wpcf7-form-control {
+    display: block;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label:nth-of-type(5) .wpcf7-list-item {
+    display: block;
+    margin: 0;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label:nth-of-type(5) .wpcf7-list-item-label {
+    display: none;
+}
+
+.row-1782462051148 .form-card .wpcf7-form input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    margin: 2px 0 0;
+    border: 1px solid #d8d8d8;
+    border-radius: 4px;
+    accent-color: #d90000;
+}
+
+.row-1782462051148 .form-card .wpcf7-form label:nth-of-type(5)>span:last-child:not(.wpcf7-form-control-wrap) {
+    position: static;
+    transform: none;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #626262;
+}
+
+.row-1782462051148 .form-card .wpcf7-form a {
+    font-weight: 700;
+    color: #e00000;
+    text-decoration: none;
+}
+
+.row-1782462051148 .form-card .wpcf7-form a:hover {
+    text-decoration: underline;
+}
+
+.row-1782462051148 .form-card .wpcf7-form button,
+.row-1782462051148 .form-card .wpcf7-form input[type="submit"] {
+    display: inline-grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: fit-content;
+    height: 36px;
+    margin-top: 8px;
+    border: 0;
+    border-radius: 6px;
+    background: #df0000;
+    padding: 0 28px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(223, 0, 0, 0.18);
+    transition: background-color 0.2s ease;
+}
+
+.row-1782462051148 .form-card .wpcf7-form button:hover,
+.row-1782462051148 .form-card .wpcf7-form input[type="submit"]:hover {
+    background: #c90000;
+}
+
+.row-1782462051148 .form-card .wpcf7-form button>i {
+    font-size: 14px;
+}
+
+.row-1782462051148 .form-card .wpcf7-not-valid-tip {
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #d90000;
+}
+
+.row-1782462051148 .form-card .wpcf7-response-output {
+    margin: 12px 0 0;
+    padding: 10px 12px;
+    border-radius: 6px;
+    font-size: 12.5px;
+    line-height: 1.5;
+}
+
+.row-1782462051148 .showroom-card>div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+}
+
+.row-1782462051148 .showroom-card>div>div>div {
+    height: 250px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    border-radius: 4px;
+    background: #f2f2f2;
+}
+
+.row-1782462051148 .showroom-card iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.row-1782462051148 .showroom-card h3 {
+    margin: 0 0 4px;
+    font-size: 18px;
+    font-weight: 800;
+    line-height: 1.25;
+    color: #e00000;
+}
+
+.row-1782462051148 .showroom-card>div>div:nth-child(2) h3 {
+    margin-bottom: 8px;
+}
+
+.row-1782462051148 .showroom-card p {
+    margin: 0;
+    max-width: 330px;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.65;
+    color: #444444;
+}
+
+.row-1782462051148 .showroom-card h3+p {
+    margin-bottom: 4px;
+    font-size: 12.5px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: #333333;
+}
+
+@media (min-width: 768px) {
+
+    .row-1782462051148 .form-card,
+    .row-1782462051148 .showroom-card {
+        padding: 20px 24px;
+    }
+
+    .row-1782462051148 .form-card>h2,
+    .row-1782462051148 .showroom-card>h2 {
+        font-size: 19px;
+    }
+
+    .row-1782462051148 .showroom-card>div {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 28px;
+    }
+
+    .row-1782462051148 .showroom-card>div>div>div {
+        height: 368px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .row-1782462051148 {
+        grid-template-columns: 0.92fr 1.62fr;
+    }
+}
+
+
+/* ------------------------------------section-04 */
+.row-1782465736211 {}
+
+
+@media (min-width: 1024px) {
+    .row-1782465736211 .policy-grid-1782465688368 {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap: 0;
+    }
+}
