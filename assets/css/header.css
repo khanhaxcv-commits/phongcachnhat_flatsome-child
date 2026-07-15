@@ -6,7 +6,7 @@ Tùy chỉnh ▸ Header ▸ Header Mobile Menu / Overlay
 Tùy chỉnh ▸ Header ▸ Sticky Header
 Tùy chỉnh ▸ Header ▸ Dropdown Style bỏ tick Default Dropdowns ▸ Add arrow Shows a focusing arrow towards the active menu item.
 /*==============================*/
-
+/* 
 #header .header-bg-color {
     background: var(--surface-bg) !important;
     backdrop-filter: blur(12px);
@@ -114,4 +114,4 @@ Tùy chỉnh ▸ Header ▸ Dropdown Style bỏ tick Default Dropdowns ▸ Add a
         margin-left: auto !important;
         margin-right: 0 !important;
     }
-}
+} */

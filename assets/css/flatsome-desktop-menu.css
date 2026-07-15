@@ -3,12 +3,12 @@
 /* Custom nested submenu / flyout - optimized                                                */
 /* ======================================================================================== */
 
-.header-nav-main,
-.header-nav-main * {
+.header-bottom-nav ,
+.header-bottom-nav  * {
     box-sizing: border-box;
 }
 
-.header-nav-main {
+.header-bottom-nav  {
     --mm-dropdown-width: 218px;
     --mm-duration: 0.18s;
     --mm-ease: ease;
@@ -23,17 +23,17 @@
     padding: 0;
 }
 
-.header-nav-main ul,
-.header-nav-main li {
+.header-bottom-nav  ul,
+.header-bottom-nav  li {
     list-style: none;
 }
 
-.header-nav-main>li {
+.header-bottom-nav >li {
     height: 100%;
 }
 
 /* Reset Flatsome spacing */
-.header-nav-main:is(.nav-spacing-large, .nav-spacing-xlarge)>li {
+.header-bottom-nav :is(.nav-spacing-large, .nav-spacing-xlarge)>li {
     margin: 0;
 }
 
@@ -41,12 +41,12 @@
 /* LEVEL 1 - Main menu item                                                                  */
 /* ======================================================================================== */
 
-.header-nav-main>li {
+.header-bottom-nav >li {
     position: relative;
     margin: 0;
 }
 
-.header-nav-main>li>a.nav-top-link {
+.header-bottom-nav >li>a.nav-top-link {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -65,22 +65,22 @@
 }
 
 /* Hover hoặc đúng menu cấp 1 hiện tại */
-.header-nav-main>li:is(:hover, .current-menu-item, .current_page_item)>a.nav-top-link {
+.header-bottom-nav >li:is(:hover, .current-menu-item, .current_page_item)>a.nav-top-link {
     color: var(--link-color) !important;
 }
 
 /* Remove Flatsome underline effects */
-.header-nav-main>li>a.nav-top-link::before {
+.header-bottom-nav >li>a.nav-top-link::before {
     display: none;
 }
 
 /* Hide default Flatsome dropdown icon */
-.header-nav-main>li>a.nav-top-link .icon-angle-down {
+.header-bottom-nav >li>a.nav-top-link .icon-angle-down {
     display: none !important;
 }
 
 /* Level 1 dropdown icon */
-.header-nav-main>li:is(.menu-item-has-children, .has-dropdown)>a.nav-top-link::after {
+.header-bottom-nav >li:is(.menu-item-has-children, .has-dropdown)>a.nav-top-link::after {
     content: "\f107";
     display: inline-flex;
     align-items: center;
@@ -99,8 +99,8 @@
         opacity var(--mm-duration) var(--mm-ease);
 }
 
-.header-nav-main>li:is(.menu-item-has-children, .has-dropdown):is(:hover, .current-dropdown)>a.nav-top-link::after,
-.header-nav-main>li>a.nav-top-link[aria-expanded="true"]::after {
+.header-bottom-nav >li:is(.menu-item-has-children, .has-dropdown):is(:hover, .current-dropdown)>a.nav-top-link::after,
+.header-bottom-nav >li>a.nav-top-link[aria-expanded="true"]::after {
     opacity: 1;
     transform: translateY(1px) rotate(180deg);
 }
@@ -109,7 +109,7 @@
 /* DROPDOWN BASE - Apply for all submenu levels                                               */
 /* ======================================================================================== */
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) {
     display: block !important;
     width: var(--mm-dropdown-width);
     min-width: var(--mm-dropdown-width);
@@ -135,7 +135,7 @@
 /* LEVEL 2 - Dropdown below main menu                                                        */
 /* ======================================================================================== */
 
-.header-nav-main>li> :is(.sub-menu, .nav-dropdown) {
+.header-bottom-nav >li> :is(.sub-menu, .nav-dropdown) {
     position: absolute;
     top: 100%;
     left: 50% !important;
@@ -145,14 +145,14 @@
 }
 
 /* JS anti-overflow: dropdown cấp 2 căn phải khi bị tràn */
-.header-nav-main>li> :is(.sub-menu, .nav-dropdown).is-align-right {
+.header-bottom-nav >li> :is(.sub-menu, .nav-dropdown).is-align-right {
     left: auto !important;
     right: 0 !important;
     transform: translateY(8px);
 }
 
 /* Show level 2 */
-.header-nav-main>li:is(:hover, .current-dropdown)> :is(.sub-menu, .nav-dropdown) {
+.header-bottom-nav >li:is(:hover, .current-dropdown)> :is(.sub-menu, .nav-dropdown) {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -160,7 +160,7 @@
 }
 
 /* Show level 2 when aligned right */
-.header-nav-main>li:is(:hover, .current-dropdown)> :is(.sub-menu, .nav-dropdown).is-align-right {
+.header-bottom-nav >li:is(:hover, .current-dropdown)> :is(.sub-menu, .nav-dropdown).is-align-right {
     transform: translateY(0);
 }
 
@@ -168,7 +168,7 @@
 /* NESTED SUBMENU - Level 3, 4, 5...                                                         */
 /* ======================================================================================== */
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) :is(.sub-menu, .nav-dropdown) {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) :is(.sub-menu, .nav-dropdown) {
     position: absolute !important;
     top: 0;
     left: 100%;
@@ -178,7 +178,7 @@
 }
 
 /* Show nested submenu */
-.header-nav-main :is(.sub-menu, .nav-dropdown) li:hover> :is(.sub-menu, .nav-dropdown) {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li:hover> :is(.sub-menu, .nav-dropdown) {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -186,13 +186,13 @@
 }
 
 /* JS anti-overflow: flyout cấp sâu bay ngược sang trái */
-.header-nav-main :is(.sub-menu, .nav-dropdown) :is(.sub-menu, .nav-dropdown).is-left {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) :is(.sub-menu, .nav-dropdown).is-left {
     left: auto !important;
     right: 100% !important;
     transform: translateX(-8px);
 }
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) li:hover> :is(.sub-menu, .nav-dropdown).is-left {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li:hover> :is(.sub-menu, .nav-dropdown).is-left {
     transform: translateX(0);
 }
 
@@ -200,14 +200,14 @@
 /* SUBMENU ITEM + LINK - Apply for all submenu levels                                        */
 /* ======================================================================================== */
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) li {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li {
     position: relative;
     display: block;
     width: 100%;
     margin: 0 !important;
 }
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) li>a {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li>a {
     display: flex;
     align-items: center;
     min-height: 46px;
@@ -228,14 +228,14 @@
         border-color var(--mm-duration) var(--mm-ease);
 }
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) li:is(:hover)>a,
-.header-nav-main :is(.sub-menu, .nav-dropdown) li>a:hover {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li:is(:hover)>a,
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li>a:hover {
     background: transparent !important;
     background-color: transparent !important;
     color: var(--link-color) !important;
 }
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) li:last-child>a {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li:last-child>a {
     border-bottom: none;
 }
 
@@ -243,13 +243,13 @@
 /* ARROW FOR SUBMENU ITEM HAS CHILD                                                          */
 /* ======================================================================================== */
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) li:is(.menu-item-has-children, .has-child)>a {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li:is(.menu-item-has-children, .has-child)>a {
     justify-content: space-between;
     gap: 12px;
 }
 
 /* Font Awesome Pro v7 - fa-angle-right */
-.header-nav-main :is(.sub-menu, .nav-dropdown) li:is(.menu-item-has-children, .has-child)>a::after {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li:is(.menu-item-has-children, .has-child)>a::after {
     content: "\f105";
     display: inline-flex;
     align-items: center;
@@ -267,7 +267,7 @@
         opacity var(--mm-duration) var(--mm-ease);
 }
 
-.header-nav-main :is(.sub-menu, .nav-dropdown) li:is(.menu-item-has-children, .has-child):hover>a::after {
+.header-bottom-nav  :is(.sub-menu, .nav-dropdown) li:is(.menu-item-has-children, .has-child):hover>a::after {
     opacity: 1;
     transform: translateX(2px);
 }
@@ -276,7 +276,7 @@
 /* FIX FLATSOME NAV-COLUMN BEHAVIOR                                                          */
 /* ======================================================================================== */
 
-.header-nav-main :is(.sub-menu.nav-column, .nav-dropdown.nav-column, .nav-column) {
+.header-bottom-nav  :is(.sub-menu.nav-column, .nav-dropdown.nav-column, .nav-column) {
     display: block !important;
     flex: none !important;
     width: var(--mm-dropdown-width) !important;
@@ -289,18 +289,18 @@
 /* ======================================================================================== */
 
 @media (max-width: 1180px) and (min-width: 850px) {
-    .header-nav-main>li>a.nav-top-link {
+    .header-bottom-nav >li>a.nav-top-link {
         padding: 0 12px;
         font-size: 13px;
     }
 }
 
 @media (max-width: 849px) {
-    .header-nav-main {
+    .header-bottom-nav  {
         min-height: 44px;
     }
 
-    .header-nav-main>li>a.nav-top-link {
+    .header-bottom-nav >li>a.nav-top-link {
         min-height: 44px;
         padding: 0 12px;
         font-size: 13px;

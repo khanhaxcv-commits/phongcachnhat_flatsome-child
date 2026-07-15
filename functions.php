@@ -1,6 +1,33 @@
 <?php
 
+$theme_includes = array(
+    // 'inc/cleanup/contact-form-7.php',
+    // 'inc/cleanup/disable-wpautop.php',
+    // 'inc/fonts.php',
 
+    'inc/enqueue-theme-styles.php',
+    // 'inc/enqueue-external-assets.php',
+    // 'inc/enqueue-vendor-scripts.php',
+    'inc/enqueue-theme-scripts.php',
+    'inc/enqueue-fontawesome.php',
+
+    // 'inc/breadcrumbs.php',
+    // 'inc/modules/blog-category-archive.php',
+    // 'inc/modules/blog-single.php',
+    // 'inc/blog.php',
+    // 'inc/preloader.php',
+    // 'inc/migration.php',
+);
+
+foreach ($theme_includes as $theme_include) {
+
+    $theme_file = get_stylesheet_directory() . '/' . $theme_include;
+
+    if (file_exists($theme_file)) {
+
+        require_once $theme_file;
+    }
+}
 function add_rankmath_caps_to_shop_manager()
 {
     $role = get_role('shop_manager'); // role Quản lý cửa hàng (WooCommerce)
@@ -92,9 +119,9 @@ function phongcachnhat_enqueue_styles()
     if (is_singular('post')) {
         wp_enqueue_style(
             'phongcachnhat-blog',
-            get_stylesheet_directory_uri() . '/asset/blog.css',
+            get_stylesheet_directory_uri() . '/assets/blog.css',
             array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/asset/blog.css')
+            filemtime(get_stylesheet_directory() . '/assets/blog.css')
         );
     }
 
@@ -102,9 +129,9 @@ function phongcachnhat_enqueue_styles()
     if (is_category()) {
         wp_enqueue_style(
             'phongcachnhat-category',
-            get_stylesheet_directory_uri() . '/asset/category.css',
+            get_stylesheet_directory_uri() . '/assets/category.css',
             array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/asset/category.css')
+            filemtime(get_stylesheet_directory() . '/assets/category.css')
         );
     }
 
@@ -112,27 +139,27 @@ function phongcachnhat_enqueue_styles()
     if (is_front_page() || is_home() || is_page('trang-chu')) {
         wp_enqueue_style(
             'phongcachnhat-trang-chu-1',
-            get_stylesheet_directory_uri() . '/asset/trang-chu-1.css',
+            get_stylesheet_directory_uri() . '/assets/trang-chu-1.css',
             array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/asset/trang-chu-1.css')
+            filemtime(get_stylesheet_directory() . '/assets/trang-chu-1.css')
         );
     }
 
     if (is_page('lien-he')) {
         wp_enqueue_style(
             'phongcachnhat-lien-he-1',
-            get_stylesheet_directory_uri() . '/asset/lien-he-1.css',
+            get_stylesheet_directory_uri() . '/assets/lien-he-1.css',
             array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/asset/lien-he-1.css')
+            filemtime(get_stylesheet_directory() . '/assets/lien-he-1.css')
         );
     }
 
     if (function_exists('is_product') && is_product()) {
         wp_enqueue_style(
             'phongcachnhat-san-pham',
-            get_stylesheet_directory_uri() . '/asset/san-pham.css',
+            get_stylesheet_directory_uri() . '/assets/san-pham.css',
             array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/asset/san-pham.css')
+            filemtime(get_stylesheet_directory() . '/assets/san-pham.css')
         );
     }
 
@@ -140,16 +167,16 @@ function phongcachnhat_enqueue_styles()
     // add js 
     wp_enqueue_script(
         'phongcachnhat-custom',
-        get_stylesheet_directory_uri() . '/asset/custom/custom.js',
+        get_stylesheet_directory_uri() . '/assets/custom/custom.js',
         array(),
-        filemtime(get_stylesheet_directory() . '/asset/custom/custom.js'),
+        filemtime(get_stylesheet_directory() . '/assets/custom/custom.js'),
         true
     );
 	wp_enqueue_script(
         'phongcachnhat-prod-short-description',
-        get_stylesheet_directory_uri() . '/asset/js/product-short-description.js',
+        get_stylesheet_directory_uri() . '/assets/js/product-short-description.js',
         array(),
-        filemtime(get_stylesheet_directory() . '/asset/js/product-short-description.js'),
+        filemtime(get_stylesheet_directory() . '/assets/js/product-short-description.js'),
         true
     );
 }
