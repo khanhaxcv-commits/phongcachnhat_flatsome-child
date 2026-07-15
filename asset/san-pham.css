@@ -185,6 +185,7 @@
     display: flex;
     align-items: stretch;
     gap: 10px;
+    margin-top: 12px;
 }
 
 /* O tang/giam so luong ben trai */
@@ -262,7 +263,7 @@
 
 /* Nut mua ngay mau do */
 .product .chitiet form.cart .button.ux-buy-now-button {
-    background: linear-gradient(180deg, #ff4b35 0%, #ef1f12 100%) !important;
+    background: #e22426 !important;
 }
 
 .product .chitiet form.cart .button.ux-buy-now-button::before {
@@ -332,10 +333,12 @@
 
 .product .desc-products .row-left .tab-panels img {
     border-radius: 12px;
+	margin: 1.2rem 0;
 }
 
-/* --------------------- */
 
+
+/* --------------------- */
 .product .desc-products .row-left .nav-tabs+.tab-panels {
     border: none;
 }
@@ -410,6 +413,124 @@
 .product .desc-products .row-left .tab-panels .panel {
     padding: 0;
 }
+
+/* css noi dung va mau link trong noi dung bai viet san pham */
+.product .desc-products .row-left .tab-panels .panel.entry-content {
+    line-height: 1.75;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content a {
+    color: #e11d27 !important;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content a:hover {
+    color: #b91c1c !important;
+    text-decoration-color: currentColor;
+}
+
+div#ez-toc-container {
+    width: 100%;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content .ez-toc-container-direction a {
+    color: inherit !important;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content p {
+    margin-bottom: 0.5em;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content .ez-toc-container-direction {
+    margin-top: 1.25rem;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content figure {
+    margin-top: 1.2em;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content iframe {
+    border-radius: 12px;
+    margin: 1.2rem 0;
+}
+
+/* css bullet cho danh sach trong noi dung bai viet san pham */
+.product .desc-products .row-left .tab-panels .panel.entry-content ul:not(.ez-toc-list) {
+    margin: 0 0 1.3em;
+    padding-left: 0;
+    list-style: none;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content ul:not(.ez-toc-list) li {
+    position: relative;
+    margin-bottom: 0.35em;
+    padding-left: 24px;
+    list-style: none;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content ul:not(.ez-toc-list) li::before {
+    content: "\f058";
+    position: absolute;
+    top: 0.28em;
+    left: 0;
+    color: #cd363e;
+    font-family: "Font Awesome 6 Free";
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content .ez-toc-container-direction li {
+    position: static !important;
+}
+
+.product .desc-products .row-left .tab-panels .panel.entry-content .ez-toc-container-direction ul li::before,
+.product .desc-products .row-left .tab-panels .panel.entry-content .ez-toc-container-direction li::before {
+    content: none !important;
+    display: none !important;
+}
+
+.devvn_readmore_flatsome_more a:after {
+    border-top-color: #e11d27 !important;
+}
+
+.devvn_readmore_flatsome_less a:after {
+    border-bottom-color: #e11d27 !important;
+}
+
+
+/* ------css ol li bai viet san pham */
+.single-product .entry-content ol:not(.ez-toc-list) {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    list-style: none;
+    counter-reset: product-list;
+}
+
+.single-product .entry-content ol:not(.ez-toc-list) li {
+    position: relative;
+    margin-left: 0 !important;
+    padding-left: 22px;
+    counter-increment: product-list;
+    list-style: none;
+}
+
+.single-product .entry-content ol:not(.ez-toc-list) li::before {
+    content: counter(product-list);
+    position: absolute;
+    top: 0.28em;
+    left: 0;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #cd363e;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 15px;
+    text-align: center;
+}
+
+/* ---------- */
 
 @media (max-width: 549px) {
     .product .desc-products .row-left .nav-tabs {
@@ -589,7 +710,7 @@
     font-weight: 700;
     line-height: 1.25;
     letter-spacing: 0;
-    text-transform: none;
+    text-transform: capitalize;
     border-bottom: 1px solid rgba(15, 23, 42, 0.12);
     visibility: visible;
 }
@@ -646,7 +767,7 @@
 .product .row-1782551044858 h3 {
     position: relative;
     display: block;
-    padding: 0 0 12 18px;
+    padding: 0 0 12px 18px;
     color: #1f2937;
     background: transparent;
     font-size: 24px;
@@ -659,6 +780,7 @@
 
 .product .row-1782551044858 h3 span {
     border-bottom: none;
+	text-transform: capitalize;
 }
 
 .product .row-1782551044858 h3::before {
@@ -688,4 +810,159 @@
 
 .product .row-1782551044858 .section-title b {
     display: none;
+}
+
+/* -------------------------- */
+
+.product-short-description {
+    --psd-red: #e51f35;
+    --psd-red-soft: #fff1f2;
+    --psd-border: #f1c9cd;
+    --psd-text: #4f4f4f;
+    --psd-heading: #2f2f2f;
+
+    position: relative;
+    margin: 16px 0;
+    padding: 18px 22px;
+    border: 1px solid var(--psd-border);
+    border-radius: 12px;
+    background:
+        radial-gradient(circle at 0 0, rgba(229, 31, 53, 0.08), transparent 34%);
+    box-shadow: 0 6px 20px rgba(229, 31, 53, 0.06);
+    color: var(--psd-text);
+}
+
+.product-short-description ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.product-short-description .psd-main-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0 0 10px;
+    color: var(--psd-red);
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.product-short-description .psd-main-title i {
+    width: 28px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.product-short-description li {
+    display: block;
+    position: relative;
+    margin: 7px 0;
+    padding-left: 30px;
+    line-height: 1.55;
+    font-size: 15px;
+}
+
+.product-short-description li i {
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 20px;
+    color: var(--psd-red);
+    text-align: center;
+    font-size: 13px;
+}
+
+.product-short-description li strong {
+    color: var(--psd-heading);
+    font-size: inherit;
+    font-weight: 800;
+}
+
+.product-short-description li:not(.psd-section-title) strong {
+    display: inline;
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
+}
+
+.product-short-description li.psd-section-title {
+    margin-top: 12px;
+    padding-left: 40px;
+}
+
+.product-short-description li.psd-section-title strong {
+    color: var(--psd-heading);
+    font-size: 17px;
+}
+
+.product-short-description li.psd-section-title i {
+    top: 1px;
+    width: 28px;
+    font-size: 19px;
+}
+
+.product-short-description li.psd-section-title + li {
+    margin-top: 4px;
+}
+
+.product-short-description li.psd-section-title:not(:first-of-type) {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(229, 31, 53, 0.14);
+}
+
+.product-short-description a {
+    color: var(--psd-red);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.product-short-description a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+    .product-short-description {
+        margin: 14px 0;
+        padding: 14px;
+        border-radius: 10px;
+    }
+
+    .product-short-description .psd-main-title {
+        gap: 8px;
+        font-size: 19px;
+        line-height: 1.2;
+    }
+
+    .product-short-description .psd-main-title i {
+        width: 24px;
+        font-size: 24px;
+    }
+
+    .product-short-description li {
+        padding-left: 26px;
+        font-size: 14px;
+        line-height: 1.45;
+    }
+
+    .product-short-description li i {
+        top: 3px;
+        width: 18px;
+        font-size: 12px;
+    }
+
+    .product-short-description li.psd-section-title {
+        padding-left: 34px;
+    }
+
+    .product-short-description li.psd-section-title i {
+        width: 24px;
+        font-size: 17px;
+    }
+
+    .product-short-description li.psd-section-title strong {
+        font-size: 16px;
+    }
 }

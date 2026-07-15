@@ -159,7 +159,7 @@ if (have_posts()) : ?>
                         </h2>
 
                         <div class="cvn-post-card__author">
-                            Dang boi: <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>"><?php the_author(); ?></a>
+                            Đăng bởi: <a href="<?php echo esc_url(get_author_posts_url(get_the_author_meta('ID'))); ?>"><?php the_author(); ?></a>
                             <time class="cvn-post-card__meta-date" datetime="<?php echo esc_attr(get_the_date('c')); ?>">
                                 <?php echo esc_html(get_the_date('d/m/Y')); ?>
                             </time>

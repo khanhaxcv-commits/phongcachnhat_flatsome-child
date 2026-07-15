@@ -276,7 +276,7 @@
   align-self: flex-start;
   margin-bottom: 7px;
   padding: 6px 9px;
-  border-radius: 5px;
+  border-radius: 6px;
   background: #cd363e;
   color: #FFFDF8;
   font-size: 11px;
@@ -355,7 +355,7 @@
   bottom: 10px;
   min-width: 78px;
   padding: 7px 11px;
-  border-radius: 999px;
+  border-radius: 6px;
   background: #cd363e;
   color: #FFFDF8;
   font-size: 12px;
@@ -410,7 +410,7 @@
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--primary, #ff7a00);
+  background: #cd363e;
 }
 
 .cvn-post-card__excerpt {

@@ -2,6 +2,10 @@
     padding: 180px 0 40px !important;
 }
 
+.section-trang-chu-1 .product-small.box:hover {
+    border: 1px solid #ff8181;
+}
+
 
 .trang-chu-1781943065961 {
     position: relative;
@@ -367,6 +371,56 @@
 }
 
 
+/* Mobile - Card danh mục: ảnh ở trên, chữ ở dưới */
+@media (max-width: 549px) {
+    .row-1781947520563 .product-category .box-category {
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 130px;
+        padding: 8px 6px 10px;
+    }
+
+    .row-1781947520563 .product-category .box-image {
+        width: 56%;
+        max-width: 86px;
+        height: 82px;
+        flex: 0 0 82px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+    }
+
+    .row-1781947520563 .product-category .box-image img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 78px;
+        object-fit: contain;
+        transform: translateY(-4px) scale(1);
+        transform-origin: top center;
+    }
+
+    .row-1781947520563 .product-category .box-category:hover .box-image img {
+        transform: translateY(-4px) scale(1.06);
+    }
+
+    .row-1781947520563 .product-category .box-text {
+        width: 100%;
+        max-width: none;
+        flex: 0 0 auto;
+        padding: 0 !important;
+    }
+
+    .row-1781947520563 .product-category .box-text h5 {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        white-space: normal;
+    }
+
+}
+
 
 /* ------------------------------section-04 */
 /* .row-1781948790525 {
@@ -454,7 +508,7 @@
     border-radius: 12px;
     border: 1px solid #f1e4d6;
     background-color: #fff7f1;
-    ;
+    height: 100%;
     box-shadow: 0 8px 24px rgba(80, 45, 20, 0.06);
 }
 
@@ -481,7 +535,14 @@
     font-weight: 700;
     line-height: 1.25;
     color: #2a211b;
+    text-transform: capitalize;
 }
+
+.row-1781960839836 .feature-banner-main>div>div:nth-of-type(1)>h2 span {
+    color: #e3342f;
+
+}
+
 
 .row-1781960839836 .feature-banner-main>div>div:nth-of-type(1)>p {
     margin-bottom: 16px;
@@ -737,6 +798,7 @@
 @media (min-width: 640px) {
     .row-1781961735306 {
         grid-template-columns: 0.8fr 1.2fr;
+        gap: 0;
     }
 
     .row-1781961735306 .promo-container {
@@ -799,6 +861,28 @@
 
 .row-1781961735306 .flickity-viewport .box-image img {
     height: 190px;
+}
+
+@media (max-width: 560px) {
+    .section.trang-chu-1781961735306 .row-1781961735306 .flickity-viewport .product-small .col-inner {
+        height: auto !important;
+        min-height: 300px;
+    }
+
+    .row-1781961735306 .flickity-viewport .box-image {
+        height: 182px;
+    }
+
+    .row-1781961735306 .flickity-viewport .box-image img {
+        height: 182px;
+        object-fit: contain;
+    }
+
+    .row-1781961735306 .product-small.box .box-text {
+        min-height: 104px;
+        padding: 10px 10px 12px;
+    }
+
 }
 
 /* --------------------------------------section-07 */
@@ -1161,7 +1245,6 @@
     padding-bottom: 0;
 }
 
-
 .row-1782028231515 .box-vertical {
     padding: 6px;
     border: 1px solid;
@@ -1170,18 +1253,17 @@
     border: 1px solid rgba(126, 86, 54, 0.16);
     box-shadow: 0 14px 35px rgba(83, 54, 31, 0.08);
     transition: all 0.3s ease;
+    margin-bottom: 8px;
+}
+
+.row-1782028231515 .box-shade {
+    margin-bottom: 12px;
 }
 
 .row-1782028231515 .box-vertical:hover {
     transform: translateY(-3px);
     border-color: rgba(216, 34, 34, 0.22);
     box-shadow: 0 18px 42px rgba(83, 54, 31, 0.12);
-}
-
-
-.row-1782028231515 .box-vertical .box-image .image-cover,
-.row-1782028231515 .box-overlay .box-image .image-cover {
-    border-radius: 12px;
 }
 
 .row-1782028231515 .box-overlay .post-title {
@@ -1192,30 +1274,87 @@
     margin-bottom: 12px;
 }
 
-/* css nut tabs */
-.row-1782028231515 .nav {}
+/* -------------------------------------------------- css nut tabs */
+.row-1782028231515 .tabs-tintuc .nav {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 26px;
+    margin: 0;
+}
 
-.row-1782028231515 .nav li {}
-
-.row-1782028231515 .nav li a {}
-
-.row-1782028231515 .nav li a span {}
-
-.row-1782028231515 .nav li a {
+.row-1782028231515 .tabs-tintuc .nav li {
+    position: relative;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    color: #6f6258;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: capitalize;
+    transition: color 0.3s ease;
 }
 
-.row-1782028231515 .nav li a i {
-    font-size: 15px;
-    color: currentColor;
-    line-height: 1;
+.row-1782028231515 .tabs-tintuc .nav li a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 2px;
+    background: #d82222;
+    opacity: 1 !important;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s ease;
 }
+
+.row-1782028231515 .tabs-tintuc .nav li a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 2px;
+    background: #d82222;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.35s ease;
+}
+
+
+.row-1782028231515 .tabs-tintuc .nav li a span {
+    text-transform: capitalize;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.row-1782028231515 .tabs-tintuc .nav li:hover a,
+.row-1782028231515 .tabs-tintuc .nav li.active a {
+    color: #111827;
+}
+
+.row-1782028231515 .tabs-tintuc .nav li:hover a::before,
+.row-1782028231515 .tabs-tintuc .nav li.active a::before,
+.row-1782028231515 .tabs-tintuc .nav li:hover a::after,
+.row-1782028231515 .tabs-tintuc .nav li.active a::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.row-1782028231515 .box-shade .box-text h5 {
+    font-size: 30px;
+    font-weight: 700;
+}
+
+.row-1782028231515 .box-shade .box-text h5:hover {
+    color: #e3342f;
+}
+
 
 /* Ảnh */
 .row-1782028231515 .box-vertical .box-image .image-cover,
-.row-1782028231515 .box-overlay .box-image .image-cover {
+.row-1782028231515 .box-shade .box-image .image-cover {
     border-radius: 12px;
 }
 
@@ -1229,10 +1368,6 @@
 
 
 /* -----------------------------------------------sản phẩm theo danh mục */
-.row-1782363034123 .col {
-    padding-bottom: 0;
-}
-
 .row-1782363034123 .pcn-section-head {
     display: grid;
     grid-template-columns: 1fr 560px;
@@ -1243,6 +1378,7 @@
 .row-1782363034123 .pcn-section-head h2 {
     margin: 0;
     max-width: 560px;
+    text-transform: capitalize;
     font-size: 36px;
     line-height: 1.15;
     font-weight: 800;
@@ -1252,12 +1388,12 @@
 .row-1782363034123 .pcn-section-head h2 span {
     display: block;
     margin-top: 2px;
-    color: #ff7158;
+    color: #e3342f;
 }
 
 .row-1782363034123 .pcn-section-head p {
     margin: 0;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.7;
     color: #4b5563;
 }
@@ -1300,7 +1436,7 @@
     font-size: 14px;
     font-weight: 700;
     line-height: 1.2;
-    text-transform: uppercase;
+    text-transform: capitalize;
     transition: color 0.3s ease;
 }
 

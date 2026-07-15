@@ -21,4 +21,25 @@ jQuery(document).ready(function ($) {
     addProductTabIcons();
 
     setTimeout(addProductTabIcons, 500);
+	
+	 // -------------------------------- xử lý ẩn tabs hiện videos sản phẩm, khi tabs ko có video.
+
+    function hideEmptyProductVideos() {
+        $('.product .desc-products .row-left .az-video-slider-container').each(function () {
+            const $videoContainer = $(this);
+            const hasVideo = $videoContainer.find('.az-video-thumb, .az-video-wrapper, a[href*="youtube.com"], a[href*="youtu.be"], iframe, video').length > 0;
+
+            if (hasVideo) {
+                return;
+            }
+
+            const $videoBlock = $videoContainer.closest('.col');
+            ($videoBlock.length ? $videoBlock : $videoContainer).hide();
+        });
+    }
+
+    hideEmptyProductVideos();
+
+    setTimeout(hideEmptyProductVideos, 500);
+	
 });
