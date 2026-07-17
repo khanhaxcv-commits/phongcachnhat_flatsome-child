@@ -167,9 +167,9 @@ function phongcachnhat_enqueue_styles()
     // add js 
     wp_enqueue_script(
         'phongcachnhat-custom',
-        get_stylesheet_directory_uri() . '/assets/custom/custom.js',
+        get_stylesheet_directory_uri() . '/assets/js/custom.js',
         array(),
-        filemtime(get_stylesheet_directory() . '/assets/custom/custom.js'),
+        filemtime(get_stylesheet_directory() . '/assets/js/custom.js'),
         true
     );
 	wp_enqueue_script(
