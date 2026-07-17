@@ -190,91 +190,43 @@ function enqueue_styles()
     /*
      * 8. Page-specific styles
      */
-    // $page_handles = array();
+    $page_handles = array();
 
-    // if (is_front_page()) {
-    //     if (
-    //         enqueue_css_file(
-    //             'trang-chu-1-css',
-    //             'trang-chu-1.css',
-    //             $global_deps
-    //         )
-    //     ) {
-    //         $page_handles[] = 'trang-chu-1-css';
-    //     }
-    // }
+    if (is_front_page() || is_home() || is_page('trang-chu')) {
+        if (
+            enqueue_css_file(
+                'trang-chu-1-css',
+                'trang-chu-1.css',
+                $global_deps
+            )
+        ) {
+            $page_handles[] = 'trang-chu-1-css';
+        }
+    }
 
-    // if (is_page('doi-ngu-bac-si-1')) {
-    //     if (
-    //         enqueue_css_file(
-    //             'doi-ngu-bac-si-1-css',
-    //             'doi-ngu-bac-si-1.css',
-    //             $global_deps
-    //         )
-    //     ) {
-    //         $page_handles[] = 'doi-ngu-bac-si-1-css';
-    //     }
-    // }
+    if (is_page('lien-he')) {
+        if (
+            enqueue_css_file(
+                'lien-he-1-css',
+                'lien-he-1.css',
+                $global_deps
+            )
+        ) {
+            $page_handles[] = 'lien-he-1-css';
+        }
+    }
+    if (function_exists('is_product') && is_product()) {
+        if (
+            enqueue_css_file(
+                'san-pham-css',
+                'san-pham.css',
+                $global_deps
+            )
+        ) {
+            $page_handles[] = 'san-pham-css';
+        }
+    }
 
-    // if (is_page('chi-tiet-bac-si') || is_page('bac-si-nguyen-van-minh')) {
-    //     if (
-    //         enqueue_css_file(
-    //             'chi-tiet-bac-si-css',
-    //             'chi-tiet-bac-si.css',
-    //             $global_deps
-    //         )
-    //     ) {
-    //         $page_handles[] = 'chi-tiet-bac-si-css';
-    //     }
-    // }
-
-    // if (is_page('chi-tiet-bac-si-1')) {
-    //     if (
-    //         enqueue_css_file(
-    //             'chi-tiet-bac-si-1-css',
-    //             'chi-tiet-bac-si-1.css',
-    //             $global_deps
-    //         )
-    //     ) {
-    //         $page_handles[] = 'chi-tiet-bac-si-1-css';
-    //     }
-    // }
-
-    // if (is_page('lien-he-1')) {
-    //     if (
-    //         enqueue_css_file(
-    //             'lien-he-1-css',
-    //             'lien-he-1.css',
-    //             $global_deps
-    //         )
-    //     ) {
-    //         $page_handles[] = 'lien-he-1-css';
-    //     }
-    // }
-
-    // if (is_page('co-so-vat-chat-1')) {
-    //     if (
-    //         enqueue_css_file(
-    //             'co-so-vat-chat-1-css',
-    //             'co-so-vat-chat-1.css',
-    //             $global_deps
-    //         )
-    //     ) {
-    //         $page_handles[] = 'co-so-vat-chat-1-css';
-    //     }
-    // }
-
-    // if (is_page('gioi-thieu-1')) {
-    //     if (
-    //         enqueue_css_file(
-    //             'gioi-thieu-1-css',
-    //             'gioi-thieu-1.css',
-    //             $global_deps
-    //         )
-    //     ) {
-    //         $page_handles[] = 'gioi-thieu-1-css';
-    //     }
-    // }
 
     /*
      * 9. Customize CSS
