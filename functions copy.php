@@ -1,9 +1,9 @@
 <?php
 
 $theme_includes = array(
-    'inc/cleanup/contact-form-7.php',
-    'inc/cleanup/disable-wpautop.php',
-    'inc/fonts.php',
+    // 'inc/cleanup/contact-form-7.php',
+    // 'inc/cleanup/disable-wpautop.php',
+    // 'inc/fonts.php',
 
     'inc/enqueue-theme-styles.php',
     // 'inc/enqueue-external-assets.php',
@@ -69,12 +69,38 @@ add_filter('use_block_editor_for_post', '__return_false');
 
 
 
+// ------------------------------code mới--------------------------------------
 
+add_action('init', function () {
+    remove_filter('the_content', 'wpautop');
+    remove_filter('the_excerpt', 'wpautop');
+    remove_filter('comment_text', 'wpautop', 30);
+});
 
 // css page ---------------------------------------------
 
 function phongcachnhat_enqueue_styles()
 {
+    wp_enqueue_style(
+        'plana-font-body',
+        'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Great+Vibes&display=swap',
+        array(),
+        null
+    );
+
+    // wp_enqueue_style(
+    //     'plana-font-heading',
+    //     'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap',
+    //     array(),
+    //     null
+    // );
+    // wp_enqueue_style(
+    //     'phongcachnhat-font-merriweather',
+    //     'https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap',
+    //     array(),
+    //     null
+    // );
+
     wp_enqueue_style(
         'phongcachnhat-reset',
         get_stylesheet_directory_uri() . '/reset.css',
@@ -136,6 +162,23 @@ function phongcachnhat_enqueue_styles()
             filemtime(get_stylesheet_directory() . '/assets/san-pham.css')
         );
     }
+
+
+    // add js 
+    wp_enqueue_script(
+        'phongcachnhat-custom',
+        get_stylesheet_directory_uri() . '/assets/custom/custom.js',
+        array(),
+        filemtime(get_stylesheet_directory() . '/assets/custom/custom.js'),
+        true
+    );
+	wp_enqueue_script(
+        'phongcachnhat-prod-short-description',
+        get_stylesheet_directory_uri() . '/assets/js/product-short-description.js',
+        array(),
+        filemtime(get_stylesheet_directory() . '/assets/js/product-short-description.js'),
+        true
+    );
 }
 
 add_action('wp_enqueue_scripts', 'phongcachnhat_enqueue_styles');
@@ -1632,11 +1675,10 @@ function custom_flat_child_category_rewrite_rules()
     }
 }
 
-function ishen_decode_vietnamese_text($text)
-{
+function ishen_decode_vietnamese_text( $text ) {
     $text = (string) $text;
 
-    return html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+    return html_entity_decode( $text, ENT_QUOTES | ENT_HTML5, 'UTF-8' );
 }
 
 /**
@@ -1655,17 +1697,16 @@ function ishen_decode_vietnamese_text($text)
  * - Nếu truyền ids thì hiển thị đúng thứ tự ids.
  * - columns là số item trên 1 dòng ở desktop.
  */
-remove_shortcode('dmsp_con');
-add_shortcode('dmsp_con', 'ishen_dmsp_con_shortcode');
+remove_shortcode( 'dmsp_con' );
+add_shortcode( 'dmsp_con', 'ishen_dmsp_con_shortcode' );
 
-function ishen_dmsp_con_shortcode($atts)
-{
+function ishen_dmsp_con_shortcode( $atts ) {
 
     /**
      * Chỉ chạy ở trang danh mục sản phẩm WooCommerce.
      * Nếu shortcode bị chèn ở Page/Post/UX Block khác thì dừng ngay.
      */
-    if (! function_exists('is_product_category') || ! is_product_category()) {
+    if ( ! function_exists( 'is_product_category' ) || ! is_product_category() ) {
         return '';
     }
 
@@ -1686,13 +1727,13 @@ function ishen_dmsp_con_shortcode($atts)
      * Xử lý số cột desktop.
      * Cho phép linh động: 1 đến 8 cột.
      */
-    $columns = absint($atts['columns']);
+    $columns = absint( $atts['columns'] );
 
-    if ($columns < 1) {
+    if ( $columns < 1 ) {
         $columns = 5;
     }
 
-    if ($columns > 8) {
+    if ( $columns > 8 ) {
         $columns = 8;
     }
 
@@ -1704,16 +1745,16 @@ function ishen_dmsp_con_shortcode($atts)
      * Ví dụ:
      * [dmsp_con ids="15,8,22,10" columns="5"]
      */
-    if (! empty($atts['ids'])) {
+    if ( ! empty( $atts['ids'] ) ) {
 
         $ids = array_filter(
             array_map(
                 'absint',
-                explode(',', $atts['ids'])
+                explode( ',', $atts['ids'] )
             )
         );
 
-        if (empty($ids)) {
+        if ( empty( $ids ) ) {
             return '';
         }
 
@@ -1725,6 +1766,7 @@ function ishen_dmsp_con_shortcode($atts)
                 'hide_empty' => (bool) $atts['hide_empty'],
             )
         );
+
     } else {
 
         /**
@@ -1739,8 +1781,8 @@ function ishen_dmsp_con_shortcode($atts)
 
         if (
             ! $current_term ||
-            ! isset($current_term->term_id) ||
-            ! isset($current_term->taxonomy) ||
+            ! isset( $current_term->term_id ) ||
+            ! isset( $current_term->taxonomy ) ||
             $current_term->taxonomy !== $taxonomy
         ) {
             return '';
@@ -1749,7 +1791,7 @@ function ishen_dmsp_con_shortcode($atts)
         $terms = get_terms(
             array(
                 'taxonomy'   => $taxonomy,
-                'parent'     => absint($current_term->term_id),
+                'parent'     => absint( $current_term->term_id ),
                 'hide_empty' => (bool) $atts['hide_empty'],
                 'orderby'    => 'menu_order',
                 'order'      => 'ASC',
@@ -1760,57 +1802,57 @@ function ishen_dmsp_con_shortcode($atts)
     /**
      * Không có danh mục con / danh mục hợp lệ thì không hiển thị gì.
      */
-    if (empty($terms) || is_wp_error($terms)) {
+    if ( empty( $terms ) || is_wp_error( $terms ) ) {
         return '';
     }
 
     ob_start();
-?>
+    ?>
 
-    <div class="ishen-dmsp-con-wrap container" style="--dmsp-columns: <?php echo esc_attr($columns); ?>;">
+    <div class="ishen-dmsp-con-wrap container" style="--dmsp-columns: <?php echo esc_attr( $columns ); ?>;">
 
-        <?php foreach ($terms as $term) : ?>
+        <?php foreach ( $terms as $term ) : ?>
 
             <?php
-            if (! $term instanceof WP_Term) {
+            if ( ! $term instanceof WP_Term ) {
                 continue;
             }
 
-            $term_link = get_term_link($term, $taxonomy);
+            $term_link = get_term_link( $term, $taxonomy );
 
-            if (is_wp_error($term_link)) {
+            if ( is_wp_error( $term_link ) ) {
                 continue;
             }
 
             // Decode tên danh mục trước khi đưa ra frontend để không bị hiện dạng Ch&#432;a c&#7853;p nh&#7853;t.
-            $term_name = ishen_decode_vietnamese_text($term->name);
+            $term_name = ishen_decode_vietnamese_text( $term->name );
 
-            $thumbnail_id = get_term_meta($term->term_id, 'thumbnail_id', true);
+            $thumbnail_id = get_term_meta( $term->term_id, 'thumbnail_id', true );
 
-            if ($thumbnail_id) {
+            if ( $thumbnail_id ) {
                 $image_html = wp_get_attachment_image(
                     $thumbnail_id,
                     'medium',
                     false,
                     array(
                         'class'   => 'ishen-dmsp-con-img-tag',
-                        'alt'     => esc_attr($term_name),
+                        'alt'     => esc_attr( $term_name ),
                         'loading' => 'lazy',
                     )
                 );
             } else {
-                $image_html = '<img class="ishen-dmsp-con-img-tag" src="' . esc_url(wc_placeholder_img_src()) . '" alt="' . esc_attr($term_name) . '" loading="lazy">';
+                $image_html = '<img class="ishen-dmsp-con-img-tag" src="' . esc_url( wc_placeholder_img_src() ) . '" alt="' . esc_attr( $term_name ) . '" loading="lazy">';
             }
             ?>
 
-            <a class="ishen-dmsp-con-item" href="<?php echo esc_url($term_link); ?>">
+            <a class="ishen-dmsp-con-item" href="<?php echo esc_url( $term_link ); ?>">
 
                 <span class="ishen-dmsp-con-img">
                     <?php echo $image_html; ?>
                 </span>
 
                 <span class="ishen-dmsp-con-title">
-                    <?php echo esc_html($term_name); ?>
+                    <?php echo esc_html( $term_name ); ?>
                 </span>
 
             </a>
@@ -1819,6 +1861,6 @@ function ishen_dmsp_con_shortcode($atts)
 
     </div>
 
-<?php
+    <?php
     return ob_get_clean();
 }
