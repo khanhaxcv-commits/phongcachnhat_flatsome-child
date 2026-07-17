@@ -63,6 +63,10 @@
     gap: 16px;
 }
 
+.row-1782460618618>div {
+    height: 100%;
+}
+
 /* Class & Selectors: Chỉ đặt tên class cho thẻ div con trực tiếp (.row-1782460618618 .contact-card) */
 .row-1782460618618 .contact-card {
     height: 100%;
@@ -384,11 +388,11 @@
     line-height: 1.5;
 }
 
-.row-1782462051148 .showroom-card>div {
+/* .row-1782462051148 .showroom-card>div {
     display: grid;
     grid-template-columns: 1fr;
     gap: 24px;
-}
+} */
 
 .row-1782462051148 .showroom-card>div>div>div {
     height: 250px;
@@ -446,10 +450,10 @@
         font-size: 19px;
     }
 
-    .row-1782462051148 .showroom-card>div {
+    /* .row-1782462051148 .showroom-card>div {
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 28px;
-    }
+    } */
 
     .row-1782462051148 .showroom-card>div>div>div {
         height: 368px;
