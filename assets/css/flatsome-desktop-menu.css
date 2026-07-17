@@ -64,6 +64,10 @@
     transition: color 0.2s ease;
 }
 
+.header-bottom-nav>li>a.nav-top-link:first-child() {
+    padding-left: 0;
+}
+
 /* Hover hoặc đúng menu cấp 1 hiện tại */
 .header-bottom-nav>li:is(:hover, .current-menu-item, .current_page_item)>a.nav-top-link {
     color: var(--link-color) !important;

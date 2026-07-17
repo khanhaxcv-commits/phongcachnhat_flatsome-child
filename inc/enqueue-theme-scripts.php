@@ -12,6 +12,10 @@
  * 2. flatsome-desktop-menu.js
  * ↓
  * 3. theme.js
+ * ↓
+ * 4. custom.js
+ * ↓
+ * 5. product-short-description.js
  */
 
 if (!defined('ABSPATH')) {
@@ -127,6 +131,38 @@ if (!function_exists('enqueue_theme_scripts')) {
         enqueue_script_file(
             'theme-js',
             'theme.js',
+            array_unique(
+                array_merge(
+                    $vendor_deps,
+                    $menu_deps
+                )
+            )
+        );
+        /**
+         * 4. custom.js
+         *
+         * Location:
+         * assets/js/custom.js
+         */
+        enqueue_script_file(
+            'custom-js',
+            'custom.js',
+            array_unique(
+                array_merge(
+                    $vendor_deps,
+                    $menu_deps
+                )
+            )
+        );
+        /**
+         * 5. product-short-description.js
+         *
+         * Location:
+         * assets/js/product-short-description.js
+         */
+        enqueue_script_file(
+            'product-short-description-js',
+            'product-short-description.js',
             array_unique(
                 array_merge(
                     $vendor_deps,
