@@ -77,6 +77,20 @@
     overflow: hidden;
 }
 
+/* Search đã có border riêng trên input, bỏ lớp card bên ngoài của menu item. */
+#main-menu.mobile-sidebar .nav-sidebar>li.header-search-form {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    overflow: visible;
+}
+
+#main-menu.mobile-sidebar .header-search-form .searchform {
+    border-radius: 12px;
+    background: #fff;
+}
+
 #main-menu.mobile-sidebar .nav-sidebar>li>a {
     position: relative;
     display: flex;
@@ -275,6 +289,43 @@
 /* Item có submenu chừa chỗ cho nút */
 #main-menu.mobile-sidebar .nav-sidebar li:is(.menu-item-has-children, .has-child)>a {
     padding-right: 44px !important;
+}
+
+/* Giờ mở cửa */
+#main-menu .html_top_right_text {
+    padding: 0 !important;
+}
+
+#main-menu .pcn-open-time {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 58px;
+    padding: 9px 14px;
+    color: var(--text-heading);
+}
+
+#main-menu .pcn-open-time>div:first-child {
+    flex: 0 0 18px;
+    text-align: center;
+}
+
+#main-menu .pcn-open-time i {
+    margin: 0;
+    font-size: 16px;
+}
+
+#main-menu .pcn-open-time strong,
+#main-menu .pcn-open-time p {
+    margin: 0;
+    color: inherit;
+    font-size: 13px;
+    line-height: 1.35;
+}
+
+#main-menu .pcn-open-time strong {
+    display: block;
+    font-weight: 700;
 }
 
 /* ======================================================================================== */
