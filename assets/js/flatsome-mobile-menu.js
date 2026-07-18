@@ -25,7 +25,8 @@
     "thiet bi thong minh": "fa-microchip",
     "tin tuc": "fa-newspaper",
     "lien he": "fa-address-book",
-    showroom: "fa-location-dot",
+    "tai khoan": "fa-user",
+    "dang nhap": "fa-user",
   };
 
   /**
@@ -51,7 +52,9 @@
    * Không lấy nội dung từ icon đã được chèn vào.
    */
   function getMenuLinkText($link) {
-    return $.trim($link.clone().children().remove().end().text());
+    return $.trim(
+      $link.clone().find(".mobile-menu-item-icon").remove().end().text(),
+    );
   }
 
   /**
@@ -124,14 +127,17 @@
 
     /*
      * Tìm tất cả li có submenu.
+     * Hỗ trợ:
+     * - ul.sub-menu của menu WordPress
+     * - ul.children của account-item WooCommerce
      */
     var $parentItems = $nav.find("li").filter(function () {
-      return $(this).children("ul.sub-menu").length > 0;
+      return $(this).children("ul.sub-menu, ul.children").length > 0;
     });
 
     $parentItems.each(function () {
       var $item = $(this);
-      var $submenu = $item.children("ul.sub-menu").first();
+      var $submenu = $item.children("ul.sub-menu, ul.children").first();
       var $link = $item.children("a").first();
 
       if (!$submenu.length || !$link.length) {
@@ -146,7 +152,8 @@
       var $defaultToggle = $item.children("button.toggle").first();
 
       /*
-       * Nút toggle custom dành cho các cấp sâu.
+       * Nút toggle custom dành cho các cấp không có toggle mặc định,
+       * bao gồm account-item WooCommerce.
        */
       var $customToggle = $item
         .children("button.mobile-submenu-toggle")
@@ -217,7 +224,7 @@
 
         var $toggle = $(this);
         var $item = $toggle.closest("li");
-        var $submenu = $item.children("ul.sub-menu").first();
+        var $submenu = $item.children("ul.sub-menu, ul.children").first();
 
         if (!$submenu.length) {
           return;

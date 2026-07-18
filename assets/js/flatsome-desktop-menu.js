@@ -9,7 +9,7 @@
   ======================================================================================== */
 
   function initMainMenuNestedFlyout() {
-    var $menu = $(".header-nav-main");
+    var $menu = $(".header-bottom-nav");
 
     if (!$menu.length) {
       return;
