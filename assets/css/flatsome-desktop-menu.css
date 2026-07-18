@@ -53,7 +53,7 @@
     height: 100%;
     min-height: 48px;
     padding: 0 18px;
-    color: var(--text-heading) !important;
+    color: var(--text-main) !important;
     font-size: 16px;
     font-weight: 700;
     line-height: 1 !important;
@@ -64,13 +64,13 @@
     transition: color 0.2s ease;
 }
 
-.header-bottom-nav>li>a.nav-top-link:first-child() {
+.header-bottom-nav>li:first-child>a.nav-top-link {
     padding-left: 0;
 }
 
 /* Hover hoặc đúng menu cấp 1 hiện tại */
 .header-bottom-nav>li:is(:hover, .current-menu-item, .current_page_item)>a.nav-top-link {
-    color: var(--link-color) !important;
+    color: var(--primary) !important;
 }
 
 /* Remove Flatsome underline effects */
@@ -218,9 +218,9 @@
     width: 100%;
     margin: 0 !important;
     padding: 0 16px;
-    border-bottom: 1px solid var(--border-ui);
+    border-bottom: 1px solid rgba(var(--text-rgb), 0.07);
     background: transparent !important;
-    color: var(--text-soft-ui);
+    color: var(--text-main);
     font-size: 14px;
     font-weight: 500;
     line-height: 1.35;
@@ -232,11 +232,11 @@
         border-color var(--mm-duration) var(--mm-ease);
 }
 
-.header-bottom-nav :is(.sub-menu, .nav-dropdown) li:is(:hover)>a,
+.header-bottom-nav :is(.sub-menu, .nav-dropdown) li:is( :hover)>a,
 .header-bottom-nav :is(.sub-menu, .nav-dropdown) li>a:hover {
-    background: transparent !important;
-    background-color: transparent !important;
-    color: var(--link-color) !important;
+    background: var(--primary-50) !important;
+    background-color: var(--primary-50) !important;
+    color: var(--primary-700) !important;
 }
 
 .header-bottom-nav :is(.sub-menu, .nav-dropdown) li:last-child>a {
