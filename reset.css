@@ -1,0 +1,163 @@
+/* .col,
+.columns,
+.gallery-item {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    width: 100%;
+} */
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre,
+form,
+.button,
+button,
+fieldset,
+input,
+select,
+textarea {
+    margin: 0;
+}
+
+fieldset {
+    margin: 0;
+    padding: 0;
+}
+
+legend {
+    padding: 0;
+}
+
+ol,
+ul,
+menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+.select-resize-ghost,
+.select2-container .select2-choice,
+.select2-container .select2-selection,
+input[type="date"],
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="search"],
+input[type="tel"],
+input[type="text"],
+input[type="url"],
+select,
+textarea {
+    box-sizing: border-box;
+    display: block;
+    width: 100%;
+    height: auto;
+    font-size: unset;
+}
+
+
+.clear:after,
+.clearfix:after,
+.container:after,
+.row:after {
+    content: none;
+}
+
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+    content: "";
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.post {
+    margin: 0;
+    padding: 0;
+}
+
+.page-wrapper {
+    margin: 0;
+    padding: 0;
+}
+
+.collapse {
+    visibility: visible !important;
+}
+
+.img-inner {
+    width: 100% !important;
+}
+
+
+.row ul li {
+    margin: 0 !important;
+}
+
+.button span {
+    line-height: inherit;
+}
+
+
+img {
+    max-width: 100%;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+    outline: 0;
+}
+
+a:focus {
+    text-decoration: none;
+    outline: 0;
+}
+
+.button, button, input[type=button], input[type=reset], input[type=submit] {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-sizing: border-box;
+    color: currentColor;
+    cursor: pointer;
+    display: inline-block;
+    font-size: unset;
+    font-weight: bolder;
+    letter-spacing: normal;
+    line-height: 1;
+    margin-right: 0;
+    margin-top: 0;
+    max-width: 100%;
+    min-height: 1px;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-rendering: optimizeLegibility;
+    text-shadow: none;
+    text-transform: uppercase;
+    transition: transform .3s,border .3s,background .3s,box-shadow .3s,opacity .3s,color .3s;
+    vertical-align: middle;
+}

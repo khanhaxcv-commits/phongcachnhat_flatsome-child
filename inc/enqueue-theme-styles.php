@@ -225,6 +225,15 @@ function enqueue_styles()
         ) {
             $page_handles[] = 'danh-muc-san-pham-css';
         }
+        if (
+            enqueue_css_file(
+                'product-filter-css',
+                'product-filter.css',
+                $global_deps
+            )
+        ) {
+            $page_handles[] = 'product-filter-css';
+        }
     }
     if (function_exists('is_product') && is_product()) {
         if (

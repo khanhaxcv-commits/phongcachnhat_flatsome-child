@@ -17,6 +17,10 @@ $theme_includes = array(
     // 'inc/blog.php',
     // 'inc/preloader.php',
     // 'inc/migration.php',
+    // 'inc/product-filter-test.php',
+    '/inc/product-filter-functions.php',
+    '/inc/product-filter-render.php',
+    '/inc/product-filter-query.php'
 );
 
 foreach ($theme_includes as $theme_include) {

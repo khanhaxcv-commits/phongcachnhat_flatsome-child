@@ -353,7 +353,9 @@ html body h6 {
 #wrapper,
 #main,
 #main.dark {
+    /* background-color: #f2f4f7 !important; */
     background-color: #fff !important;
+
 }
 
 /* <--- Bố cục chính */
