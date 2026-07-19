@@ -382,10 +382,7 @@ html body h6 {
         padding: 40px 0px !important;
     }
 
-    .section .row {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
+   
 }
 
 @media (min-width: 1024px) {
@@ -393,10 +390,7 @@ html body h6 {
         padding: 80px 0px !important;
     } */
 
-    .section .row {
-        padding-left: 15px;
-        padding-right: 15px;
-    }
+  
 }
 
 .row-grid {
@@ -835,7 +829,7 @@ html body h6 {
     display: grid;
     grid-template-columns: repeat(1, minmax(0, 1fr));
     gap: 32px;
-    padding: 24px 20px;
+    padding: 24px 0px;
     color: #141414;
 }
 
@@ -2099,10 +2093,6 @@ span.hdevvn-show-cats li {
 
 .exc-custom {
     background: #00499eba none repeat;
-}
-
-.category-page-row {
-    padding: 10px;
 }
 
 .category-page-row .banner-danhmuc img {

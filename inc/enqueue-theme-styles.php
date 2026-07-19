@@ -215,6 +215,17 @@ function enqueue_styles()
             $page_handles[] = 'lien-he-1-css';
         }
     }
+    if (is_product_category()) {
+        if (
+            enqueue_css_file(
+                'danh-muc-san-pham-css',
+                'danh-muc-san-pham.css',
+                $global_deps
+            )
+        ) {
+            $page_handles[] = 'danh-muc-san-pham-css';
+        }
+    }
     if (function_exists('is_product') && is_product()) {
         if (
             enqueue_css_file(
