@@ -79,7 +79,6 @@
 
     border-radius: 8px;
 
-    background: #fff;
 
     font-size: 14px;
 
@@ -355,7 +354,7 @@
     }
 
     .apply-mobile-filter {
-        background: #d9a441;
+        background: var(--primary);
 
         color: #fff;
     }

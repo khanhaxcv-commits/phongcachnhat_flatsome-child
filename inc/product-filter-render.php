@@ -142,7 +142,7 @@ function render_product_filter_bar()
     ======================================= -->
 
 
-        <button class="open-filter-drawer">
+        <button class="open-filter-drawer mb">
 
 
             <i class="fa-light fa-sliders"></i>
