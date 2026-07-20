@@ -3,7 +3,7 @@
 $theme_includes = array(
     // 'inc/cleanup/contact-form-7.php',
     // 'inc/cleanup/disable-wpautop.php',
-    // 'inc/fonts.php',
+    'inc/fonts.php',
 
     'inc/blog/video-icon.php',
     'inc/blog/single-post-header.php',
@@ -64,26 +64,6 @@ foreach ($theme_includes as $theme_include) {
 
 function phongcachnhat_enqueue_styles()
 {
-    wp_enqueue_style(
-        'plana-font-body',
-        'https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Great+Vibes&display=swap',
-        array(),
-        null
-    );
-
-    // wp_enqueue_style(
-    //     'plana-font-heading',
-    //     'https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap',
-    //     array(),
-    //     null
-    // );
-    // wp_enqueue_style(
-    //     'phongcachnhat-font-merriweather',
-    //     'https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&display=swap',
-    //     array(),
-    //     null
-    // );
-
     wp_enqueue_style(
         'phongcachnhat-reset',
         get_stylesheet_directory_uri() . '/reset.css',
