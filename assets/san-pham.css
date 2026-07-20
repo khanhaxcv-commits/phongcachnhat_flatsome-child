@@ -333,7 +333,7 @@
 
 .product .desc-products .row-left .tab-panels img {
     border-radius: 12px;
-	margin: 1.2rem 0;
+    margin: 1.2rem 0;
 }
 
 
@@ -470,12 +470,13 @@ div#ez-toc-container {
 .product .desc-products .row-left .tab-panels .panel.entry-content ul:not(.ez-toc-list) li::before {
     content: "\f058";
     position: absolute;
-    top: 0.28em;
+    top: 0.5em;
     left: 0;
     color: #cd363e;
-    font-family: "Font Awesome 6 Free";
+    font-family: "Font Awesome 7 Pro";
     font-size: 14px;
-    font-weight: 800;
+    font-style: normal;
+    font-weight: 400;
     line-height: 1;
 }
 
@@ -517,17 +518,24 @@ div#ez-toc-container {
 .single-product .entry-content ol:not(.ez-toc-list) li::before {
     content: counter(product-list);
     position: absolute;
-    top: 0.28em;
+    top: 0.6em;
     left: 0;
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: #cd363e;
-    color: #fff;
+    background: #fff;
+    box-sizing: border-box;
+    border: 1px solid #cd363e;
+    color: #cd363e;
     font-size: 10px;
     font-weight: 700;
     line-height: 15px;
     text-align: center;
+}
+
+/* Chừa chỗ cho nút Xem thêm/Thu gọn, tránh đè lên dòng mô tả cuối. */
+.single-product .woocommerce-Tabs-panel--description {
+    padding-bottom: 40px !important;
 }
 
 /* ---------- */
@@ -780,7 +788,7 @@ div#ez-toc-container {
 
 .product .row-1782551044858 h3 span {
     border-bottom: none;
-	text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .product .row-1782551044858 h3::before {
@@ -903,7 +911,7 @@ div#ez-toc-container {
     font-size: 19px;
 }
 
-.product-short-description li.psd-section-title + li {
+.product-short-description li.psd-section-title+li {
     margin-top: 4px;
 }
 

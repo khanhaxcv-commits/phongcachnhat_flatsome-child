@@ -520,12 +520,13 @@ div#ez-toc-container {
  .cvn-single-post .entry-content ul li::before {
    content: "\f058";
    position: absolute;
-   top: 0.28em;
+   top: 0.5em;
    left: 0;
    color: #cd363e;
-   font-family: "Font Awesome 6 Free";
+   font-family: "Font Awesome 7 Pro";
    font-size: 14px;
-   font-weight: 900;
+   font-style: normal;
+   font-weight: 400;
    line-height: 1;
  }
 
@@ -564,16 +565,18 @@ div#ez-toc-container {
  .cvn-single-post .entry-content ol li::before {
    content: counter(blog-list);
    position: absolute;
-   top: 0.12em;
+   top: 0.6em;
    left: 0;
    width: 15px;
    height: 15px;
+   box-sizing: border-box;
+   border: 1px solid #cd363e;
    border-radius: 50%;
-   background: #cd363e;
-   color: #fff;
+   background: #fff;
+   color: #cd363e;
    font-size: 10px;
    font-weight: 700;
-   line-height: 15px;
+   line-height: 13px;
    text-align: center;
  }
 
