@@ -1,8 +1,9 @@
 <?php
 
 $theme_includes = array(
-    // 'inc/cleanup/contact-form-7.php',
+    'inc/cleanup/contact-form-7.php',
     // 'inc/cleanup/disable-wpautop.php',
+    'inc/cleanup/editor.php',
     'inc/fonts.php',
 
     'inc/blog/video-icon.php',
@@ -42,8 +43,8 @@ $theme_includes = array(
     // 'inc/modules/blog-category-archive.php',
     // 'inc/modules/blog-single.php',
     // 'inc/blog.php',
-    // 'inc/preloader.php',
-    // 'inc/migration.php',
+    'inc/preloader.php',
+    'inc/migration.php',
     // 'inc/product-filter-test.php',
     '/inc/product-filter-functions.php',
     '/inc/product-filter-render.php',
@@ -60,76 +61,6 @@ foreach ($theme_includes as $theme_include) {
     }
 }
 
-// css page ---------------------------------------------
-
-function phongcachnhat_enqueue_styles()
-{
-    wp_enqueue_style(
-        'phongcachnhat-reset',
-        get_stylesheet_directory_uri() . '/reset.css',
-        array(),
-        filemtime(get_stylesheet_directory() . '/reset.css')
-    );
-
-    wp_enqueue_style(
-        'phongcachnhat-style',
-        get_stylesheet_uri(),
-        array('phongcachnhat-reset', 'plana-font-body'),
-        filemtime(get_stylesheet_directory() . '/style.css')
-    );
-
-    // Single post page
-    if (is_singular('post')) {
-        wp_enqueue_style(
-            'phongcachnhat-blog',
-            get_stylesheet_directory_uri() . '/assets/blog.css',
-            array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/assets/blog.css')
-        );
-    }
-
-    // Category archive page
-    if (is_category()) {
-        wp_enqueue_style(
-            'phongcachnhat-category',
-            get_stylesheet_directory_uri() . '/assets/category.css',
-            array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/assets/category.css')
-        );
-    }
-
-
-    if (is_front_page() || is_home() || is_page('trang-chu')) {
-        wp_enqueue_style(
-            'phongcachnhat-trang-chu-1',
-            get_stylesheet_directory_uri() . '/assets/trang-chu-1.css',
-            array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/assets/trang-chu-1.css')
-        );
-    }
-
-    if (is_page('lien-he')) {
-        wp_enqueue_style(
-            'phongcachnhat-lien-he-1',
-            get_stylesheet_directory_uri() . '/assets/lien-he-1.css',
-            array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/assets/lien-he-1.css')
-        );
-    }
-
-    if (function_exists('is_product') && is_product()) {
-        wp_enqueue_style(
-            'phongcachnhat-san-pham',
-            get_stylesheet_directory_uri() . '/assets/san-pham.css',
-            array('phongcachnhat-style'),
-            filemtime(get_stylesheet_directory() . '/assets/san-pham.css')
-        );
-    }
-}
-
-add_action('wp_enqueue_scripts', 'phongcachnhat_enqueue_styles');
-
-// --------------------------------------------------------------------------------
 
 
 //add_action( 'phpmailer_init', function( $phpmailer ) {

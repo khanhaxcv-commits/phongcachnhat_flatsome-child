@@ -218,12 +218,12 @@ function enqueue_styles()
     if (is_product_category()) {
         if (
             enqueue_css_file(
-                'danh-muc-san-pham-css',
-                'danh-muc-san-pham.css',
+                'product-category-css',
+                'product-category.css',
                 $global_deps
             )
         ) {
-            $page_handles[] = 'danh-muc-san-pham-css';
+            $page_handles[] = 'product-category-css';
         }
         if (
             enqueue_css_file(
@@ -238,12 +238,12 @@ function enqueue_styles()
     if (function_exists('is_product') && is_product()) {
         if (
             enqueue_css_file(
-                'san-pham-css',
-                'san-pham.css',
+                'product-single-css',
+                'product-single.css',
                 $global_deps
             )
         ) {
-            $page_handles[] = 'san-pham-css';
+            $page_handles[] = 'product-single-css';
         }
     }
 
