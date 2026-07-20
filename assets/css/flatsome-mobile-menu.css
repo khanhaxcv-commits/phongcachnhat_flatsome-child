@@ -13,12 +13,12 @@
     --mb-bg: var(--section-bg);
     --mb-surface: var(--surface-bg);
     --mb-border: var(--border-ui);
-    --mb-border-active: var(--border-ui);
-    --mb-heading: var(--text-heading);
+    --mb-border-active: var(--badge-primary-border);
+    --mb-heading: var(--text-main);
     --mb-text: var(--text-main);
-    --mb-text-muted: var(--text-disabled);
+    --mb-text-muted: var(--text-sub);
     --mb-active: var(--primary);
-    --mb-active-bg: var(--badge-primary-bg);
+    --mb-active-bg: var(--primary-50);
 }
 
 /* ======================================================================================== */
@@ -88,14 +88,14 @@
 
 #main-menu.mobile-sidebar .header-search-form .searchform {
     border-radius: 12px;
-    background: #fff;
+    background: var(--surface-bg);
 }
 
 #main-menu.mobile-sidebar .nav-sidebar>li>a {
     position: relative;
     display: flex;
     align-items: center;
-    min-height: 46px;
+    min-height: 44px;
     width: 100%;
     padding: 0 46px 0 14px;
     color: var(--mb-heading);
@@ -110,29 +110,33 @@
         color var(--transition-ui),
         background-color var(--transition-ui);
 }
-#main-menu.mobile-sidebar .nav-sidebar > li > a {
+
+
+
+#main-menu.mobile-sidebar .nav-sidebar>li>a {
     gap: 10px;
 }
 
-#main-menu.mobile-sidebar
-.nav-sidebar > li > a > .mobile-menu-item-icon {
+#main-menu.mobile-sidebar .nav-sidebar>li>a>.mobile-menu-item-icon {
     display: inline-flex;
     flex: 0 0 18px;
     align-items: center;
     justify-content: center;
     font-size: 18px;
     line-height: 1;
-	opacity: 1 !important;
+    opacity: 1 !important;
 }
 
-#main-menu.mobile-sidebar
-.nav-sidebar > li:is(
-    .is-open,
+#main-menu.mobile-sidebar .nav-sidebar>li>a>span {
+    margin-left: 0 !important;
+}
+
+#main-menu.mobile-sidebar .nav-sidebar>li:is(.is-open,
     .current-menu-item,
-    .current_page_item
-) > a > .mobile-menu-item-icon {
+    .current_page_item)>a>.mobile-menu-item-icon {
     color: var(--mb-active);
 }
+
 /* Level 1 đang mở hoặc là trang hiện tại */
 #main-menu.mobile-sidebar .nav-sidebar>li:is(.is-open, .current-menu-item, .current_page_item) {
     background: var(--mb-surface);
@@ -169,11 +173,11 @@
 /* SUBMENU TOGGLE BEHAVIOR                                                                   */
 /* ======================================================================================== */
 
-#main-menu.mobile-sidebar .nav-sidebar li:is(.menu-item-has-children, .has-child)>.sub-menu {
+#main-menu.mobile-sidebar .nav-sidebar li:is(.menu-item-has-children, .has-child)>:is(.sub-menu, .children) {
     display: none !important;
 }
 
-#main-menu.mobile-sidebar .nav-sidebar li:is(.menu-item-has-children, .has-child).is-open>.sub-menu {
+#main-menu.mobile-sidebar .nav-sidebar li:is(.menu-item-has-children, .has-child).is-open>:is(.sub-menu, .children) {
     display: block !important;
 }
 
@@ -181,19 +185,19 @@
 /* SUBMENU STRUCTURE                                                                          */
 /* ======================================================================================== */
 
-#main-menu.mobile-sidebar .nav-sidebar .sub-menu {
+#main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) {
     position: relative;
     margin: 2px 0;
     padding: 2px;
     background: transparent;
 }
 
-#main-menu.mobile-sidebar .nav-sidebar .sub-menu .sub-menu {
+#main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) :is(.sub-menu, .children) {
     margin: 2px 0 0;
     /* padding-left: 12px; */
 }
 
-#main-menu.mobile-sidebar .nav-sidebar .sub-menu li {
+#main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) li {
     margin: 2px 0;
     border: none;
     background: transparent;
@@ -203,7 +207,7 @@
 /* SUBMENU LINK - SHARED                                                                      */
 /* ======================================================================================== */
 
-#main-menu.mobile-sidebar .nav-sidebar .sub-menu li>a {
+#main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) li>a {
     position: relative;
     display: flex;
     align-items: center;
@@ -224,9 +228,18 @@
 }
 
 /* Submenu item đang mở */
-#main-menu.mobile-sidebar .nav-sidebar .sub-menu li.is-open>a {
+#main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) li.is-open>a {
     color: var(--primary);
-    background: rgba(var(--primary-rgb), 0.08) !important;
+    background: var(--primary-50) !important;
+    font-weight: 600;
+}
+
+
+/* Account item: mục WooCommerce hiện tại dùng cùng màu active của submenu */
+#main-menu.mobile-sidebar .nav-sidebar .account-item>.children>li:is(.current-menu-item,
+    .current_page_item)>a {
+    color: var(--primary);
+    background: var(--primary-50) !important;
     font-weight: 600;
 }
 
@@ -268,7 +281,7 @@
 }
 
 /* Cấp con thấp hơn */
-#main-menu.mobile-sidebar .nav-sidebar .sub-menu li> :is(button.toggle, button.mobile-submenu-toggle) {
+#main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) li> :is(button.toggle, button.mobile-submenu-toggle) {
     width: 38px !important;
     height: 38px !important;
     min-height: 38px !important;
@@ -304,7 +317,7 @@
 
 /* Open state: đổi màu và xoay cả button */
 #main-menu.mobile-sidebar .nav-sidebar li.is-open> :is(button.toggle, button.mobile-submenu-toggle) {
-    color: var(--link-color) !important;
+    color: var(--mb-active) !important;
     transform: rotate(180deg) !important;
 }
 
@@ -314,38 +327,38 @@
 }
 
 /* Giờ mở cửa */
-#main-menu .html_top_right_text {
+#main-menu.mobile-sidebar .html_top_right_text {
     padding: 0 !important;
 }
 
-#main-menu .pcn-open-time {
+#main-menu.mobile-sidebar .pcn-open-time {
     display: flex;
     align-items: center;
     gap: 10px;
     min-height: 58px;
     padding: 9px 14px;
-    color: var(--text-heading);
+    color: var(--text-main);
 }
 
-#main-menu .pcn-open-time>div:first-child {
+#main-menu.mobile-sidebar .pcn-open-time>div:first-child {
     flex: 0 0 18px;
     text-align: center;
 }
 
-#main-menu .pcn-open-time i {
+#main-menu.mobile-sidebar .pcn-open-time i {
     margin: 0;
     font-size: 16px;
 }
 
-#main-menu .pcn-open-time strong,
-#main-menu .pcn-open-time p {
+#main-menu.mobile-sidebar .pcn-open-time strong,
+#main-menu.mobile-sidebar .pcn-open-time p {
     margin: 0;
     color: inherit;
     font-size: 13px;
     line-height: 1.35;
 }
 
-#main-menu .pcn-open-time strong {
+#main-menu.mobile-sidebar .pcn-open-time strong {
     display: block;
     font-weight: 700;
 }
@@ -364,5 +377,5 @@
 }
 
 .mfp-wrap.off-canvas .mfp-close:hover {
-    color: var(--link-color) !important;
+    color: var(--primary) !important;
 }

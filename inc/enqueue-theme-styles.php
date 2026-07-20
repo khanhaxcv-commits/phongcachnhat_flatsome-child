@@ -215,15 +215,35 @@ function enqueue_styles()
             $page_handles[] = 'lien-he-1-css';
         }
     }
-    if (function_exists('is_product') && is_product()) {
+    if (is_product_category()) {
         if (
             enqueue_css_file(
-                'san-pham-css',
-                'san-pham.css',
+                'product-category-css',
+                'product-category.css',
                 $global_deps
             )
         ) {
-            $page_handles[] = 'san-pham-css';
+            $page_handles[] = 'product-category-css';
+        }
+        if (
+            enqueue_css_file(
+                'product-filter-css',
+                'product-filter.css',
+                $global_deps
+            )
+        ) {
+            $page_handles[] = 'product-filter-css';
+        }
+    }
+    if (function_exists('is_product') && is_product()) {
+        if (
+            enqueue_css_file(
+                'product-single-css',
+                'product-single.css',
+                $global_deps
+            )
+        ) {
+            $page_handles[] = 'product-single-css';
         }
     }
 

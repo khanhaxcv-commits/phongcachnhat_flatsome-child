@@ -139,6 +139,22 @@ if (!function_exists('enqueue_theme_scripts')) {
             )
         );
         /**
+         * 3.1 product-filter.js
+         *
+         * Location:
+         * /assets/js/product-filter.js
+         */
+        enqueue_script_file(
+            'product-filter-js',
+            'product-filter.js',
+            array_unique(
+                array_merge(
+                    $vendor_deps,
+                    $menu_deps
+                )
+            )
+        );
+        /**
          * 4. custom.js
          *
          * Location:
