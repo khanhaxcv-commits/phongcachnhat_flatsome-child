@@ -125,23 +125,6 @@ function phongcachnhat_enqueue_styles()
             filemtime(get_stylesheet_directory() . '/assets/san-pham.css')
         );
     }
-
-
-    // add js 
-    wp_enqueue_script(
-        'phongcachnhat-custom',
-        get_stylesheet_directory_uri() . '/assets/js/custom.js',
-        array(),
-        filemtime(get_stylesheet_directory() . '/assets/js/custom.js'),
-        true
-    );
-    wp_enqueue_script(
-        'phongcachnhat-prod-short-description',
-        get_stylesheet_directory_uri() . '/assets/js/product-short-description.js',
-        array(),
-        filemtime(get_stylesheet_directory() . '/assets/js/product-short-description.js'),
-        true
-    );
 }
 
 add_action('wp_enqueue_scripts', 'phongcachnhat_enqueue_styles');
