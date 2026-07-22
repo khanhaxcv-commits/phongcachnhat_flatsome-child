@@ -1803,9 +1803,6 @@ i.icons.icon-buildpc {
     text-transform: unset;
 }
 
-.current-subcategories {
-    margin-bottom: -36px !important;
-}
 
 .box-category:hover .box-image img {
     animation: rung 2s infinite !important;
@@ -2107,68 +2104,7 @@ span.hdevvn-show-cats li {
     padding: 10px 0 0 10px;
 }
 
-/* ----------------------------------------css side bar danh mục sản phẩm */
-.category-page-row #shop-sidebar {
-    padding: 16px 14px;
-    background: var(--white);
-    border: 1px solid #f1f1f1;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
 
-.category-page-row #shop-sidebar .widget:last-child {
-    margin-bottom: 0;
-}
-
-/* Tiêu đề từng bộ lọc: nền đỏ thương hiệu bo tròn. */
-.category-page-row #shop-sidebar .widget>.widget-title {
-    display: block;
-    width: 100%;
-    margin-bottom: 10px;
-    padding: 11px 18px;
-    color: var(--white);
-    background: var(--primary);
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 700;
-    line-height: 1.35;
-    text-align: left;
-}
-
-/* Danh mục: chỉ chỉnh hàng và chữ, giữ nguyên icon/dấu tích đang có trên UI. */
-.category-page-row #shop-sidebar .widget_product_categories ul.product-categories {
-    padding: 0 6px;
-}
-
-.category-page-row #shop-sidebar .widget_product_categories ul.product-categories>li {
-    min-height: 42px;
-    margin: 0;
-    padding: 10px 25px 10px 30px;
-    border-bottom: 1px solid #ededed;
-    font-size: 14px;
-    line-height: 21px;
-}
-
-.category-page-row #shop-sidebar .widget_product_categories ul.product-categories>li:last-child {
-    border-bottom: 0;
-}
-
-.category-page-row #shop-sidebar .widget_product_categories ul.product-categories>li>a {
-    color: var(--text-soft);
-    font-weight: 600;
-}
-
-.category-page-row #shop-sidebar .widget_product_categories ul.product-categories>li>.count {
-    float: right;
-    color: #999;
-    font-size: 12px;
-}
-
-/* Đổi màu dấu tích active; mục con tiếp tục dùng vị trí mặc định. */
-.category-page-row #shop-sidebar ul.product-categories li.cat-item.active::before {
-    color: var(--primary);
-    top: 18px;
-}
 
 /* -------------------------------------------------------------------------css product globe */
 
