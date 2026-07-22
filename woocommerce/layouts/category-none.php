@@ -8,9 +8,8 @@
  */
 ?>
 
-<div class="row category-page-row">
-
-    <div class="col large-12">
+<div class="row container">
+    <div class="">
 
         <?php
 
@@ -27,18 +26,18 @@
         do_action('woocommerce_before_main_content');
 
 
-        if (fl_woocommerce_version_check('8.8.0')) {
+        // if (fl_woocommerce_version_check('8.8.0')) {
 
-            /**
-             * Hook: woocommerce_shop_loop_header.
-             *
-             * @hooked woocommerce_product_taxonomy_archive_header - 10
-             */
-            do_action('woocommerce_shop_loop_header');
-        } else {
+        /**
+         * Hook: woocommerce_shop_loop_header.
+         *
+         * @hooked woocommerce_product_taxonomy_archive_header - 10
+         */
+        // do_action('woocommerce_shop_loop_header');
+        // } else {
 
-            do_action('woocommerce_archive_description');
-        }
+        // do_action('woocommerce_archive_description');
+        // }
 
         render_product_filter_bar();
 

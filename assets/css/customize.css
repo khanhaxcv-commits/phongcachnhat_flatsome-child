@@ -1,0 +1,235 @@
+/************************************/
+/*** 	   side bar danh mục sản phẩm		  ***/
+/************************************/
+.category-page-row #shop-sidebar {
+    padding: 16px 14px;
+    background: var(--white);
+    border: 1px solid #f1f1f1;
+    border-radius: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.category-page-row #shop-sidebar .widget:last-child {
+    margin-bottom: 0;
+}
+
+/* Tiêu đề từng bộ lọc: nền đỏ thương hiệu bo tròn. */
+.category-page-row #shop-sidebar .widget>.widget-title {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 11px 18px;
+    color: var(--white);
+    background: var(--primary);
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1.35;
+    text-align: left;
+}
+
+/* Danh mục: chỉ chỉnh hàng và chữ, giữ nguyên icon/dấu tích đang có trên UI. */
+.category-page-row #shop-sidebar .widget_product_categories ul.product-categories {
+    padding: 0 6px;
+}
+
+.category-page-row #shop-sidebar .widget_product_categories ul.product-categories>li {
+    min-height: 42px;
+    margin: 0;
+    padding: 10px 25px 10px 30px;
+    border-bottom: 1px solid #ededed;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.category-page-row #shop-sidebar .widget_product_categories ul.product-categories>li:last-child {
+    border-bottom: 0;
+}
+
+.category-page-row #shop-sidebar .widget_product_categories ul.product-categories>li>a {
+    color: var(--text-soft);
+    font-weight: 600;
+}
+
+.category-page-row #shop-sidebar .widget_product_categories ul.product-categories>li>.count {
+    float: right;
+    color: #999;
+    font-size: 12px;
+}
+
+/* Đổi màu dấu tích active; mục con tiếp tục dùng vị trí mặc định. */
+.category-page-row #shop-sidebar ul.product-categories li.cat-item.active::before {
+    color: var(--primary);
+    top: 18px;
+}
+
+/************************************/
+/*** 	   Danh mục sản phẩm 	breadcrumb	  ***/
+/************************************/
+
+.category-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2px;
+    margin: 0 0 12px;
+    color: var(--text-sub);
+    font-size: 15px;
+    font-weight: 600;
+
+}
+
+.category-breadcrumb .breadcrumb-current {
+    color: var(--text-sub);
+}
+
+.category-breadcrumb .breadcrumb-current a {
+    color: #023868;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.category-breadcrumb .breadcrumb-current a:hover {
+    color: var(--primary);
+}
+
+.category-breadcrumb .divider {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+    font-size: 12px;
+}
+
+.category-breadcrumb .divider i {
+    display: block;
+}
+
+/************************************/
+/*** 	   Danh mục sản phẩm hero	  ***/
+/************************************/
+/* .category-intro {
+    display: grid;
+    grid-template-columns: 45fr 55fr;
+    align-items: stretch;
+    gap: 34px;
+}
+
+.category-intro__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.term-description h1 {
+    position: relative;
+    margin: 0 0 30px;
+    padding-bottom: 18px;
+    color: var(--text-heading);
+    font-size: clamp(34px, 3.2vw, 52px);
+    font-weight: 800;
+    line-height: 1.16;
+    letter-spacing: -0.035em;
+}
+
+.term-description h1::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 38px;
+    height: 4px;
+    border-radius: var(--radius-pill);
+    background: var(--primary);
+}
+
+.term-description p {
+    margin: 0 0 16px;
+    color: var(--text-soft-ui);
+    font-size: 16px;
+    line-height: 1.75;
+}
+
+.term-description p:last-child {
+    margin-bottom: 0;
+}
+
+.term-description p:first-of-type {
+    position: relative;
+}
+
+
+.term-description span {
+    color: inherit !important;
+    font-size: inherit !important;
+}
+
+.term-description a {
+    color: var(--link-color);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+.term-description a:hover {
+    color: var(--link-hover);
+}
+
+.category-intro__banner {
+    min-height: 405px;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    background: var(--surface-bg-soft);
+    box-shadow: var(--shadow-ui-strong);
+}
+
+.category-intro__banner img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 405px;
+    object-fit: cover;
+}
+
+@media (max-width: 991px) {
+    .category-page {
+        width: min(100% - 30px, 760px);
+    }
+
+    .category-intro {
+        grid-template-columns: 1fr;
+    }
+
+    .category-intro__content {
+        padding-block: 0;
+    }
+
+    .category-intro__banner,
+    .category-intro__banner img {
+        min-height: 300px;
+    }
+}
+
+@media (max-width: 575px) {
+    .category-page {
+        width: min(100% - 24px, 540px);
+        padding-top: 20px;
+    }
+
+    .term-description h1 {
+        margin-bottom: 24px;
+    }
+
+    .term-description p:first-of-type {
+        padding-top: 72px;
+    }
+
+    .category-intro {
+        gap: 24px;
+    }
+
+    .category-intro__banner,
+    .category-intro__banner img {
+        min-height: 220px;
+    }
+} */

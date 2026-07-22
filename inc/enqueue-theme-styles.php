@@ -254,20 +254,20 @@ function enqueue_styles()
      * customize.css dùng làm file override cuối cùng.
      * Nếu file này đang chứa :root/token thì nên chuyển phần đó về style.css.
      */
-    // $customize_deps = array_unique(
-    //     array_merge(
-    //         array('flatsome-child-style'),
-    //         $global_deps,
-    //         $layout_handles,
-    //         $page_handles
-    //     )
-    // );
+    $customize_deps = array_unique(
+        array_merge(
+            array('flatsome-child-style'),
+            $global_deps,
+            $layout_handles,
+            $page_handles
+        )
+    );
 
-    // enqueue_css_file(
-    //     'customize-css',
-    //     'customize.css',
-    //     $customize_deps
-    // );
+    enqueue_css_file(
+        'customize-css',
+        'customize.css',
+        $customize_deps
+    );
 }
 
 add_action('wp_enqueue_scripts', 'enqueue_styles', 1);

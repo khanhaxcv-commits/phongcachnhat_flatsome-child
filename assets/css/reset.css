@@ -1,11 +1,3 @@
-/* .col,
-.columns,
-.gallery-item {
-    margin: 0;
-    padding: 0;
-    position: relative;
-    width: 100%;
-} */
 blockquote,
 dl,
 dd,
@@ -135,7 +127,11 @@ a:focus {
     outline: 0;
 }
 
-.button, button, input[type=button], input[type=reset], input[type=submit] {
+.button,
+button,
+input[type=button],
+input[type=reset],
+input[type=submit] {
     background-color: transparent;
     border: none;
     border-radius: 0;
@@ -158,6 +154,6 @@ a:focus {
     text-rendering: optimizeLegibility;
     text-shadow: none;
     text-transform: uppercase;
-    transition: transform .3s,border .3s,background .3s,box-shadow .3s,opacity .3s,color .3s;
+    transition: transform .3s, border .3s, background .3s, box-shadow .3s, opacity .3s, color .3s;
     vertical-align: middle;
 }

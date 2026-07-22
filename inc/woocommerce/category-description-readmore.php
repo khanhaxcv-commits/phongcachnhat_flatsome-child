@@ -15,8 +15,8 @@ function devvn_readmore_taxonomy_flatsome()
             .term-description {
                 overflow: hidden;
                 position: relative;
-                margin-bottom: 20px;
-                padding-bottom: 25px;
+                margin-bottom: 10px;
+                padding-bottom: 20px;
             }
 
             .devvn_readmore_taxonomy_flatsome {
@@ -24,45 +24,39 @@ function devvn_readmore_taxonomy_flatsome()
                 cursor: pointer;
                 position: absolute;
                 z-index: 10;
-                bottom: 0;
+                bottom: -5px;
                 width: 100%;
                 background: #fff;
             }
 
             .devvn_readmore_taxonomy_flatsome:before {
-                height: 55px;
-                margin-top: -45px;
-                content: "";
-                background: -moz-linear-gradient(top,
-                        rgba(255, 255, 255, 0) 0%,
-                        rgba(255, 255, 255, 1) 100%);
-                background: -webkit-linear-gradient(top,
-                        rgba(255, 255, 255, 0) 0%,
-                        rgba(255, 255, 255, 1) 100%);
-                background: linear-gradient(to bottom,
-                        rgba(255, 255, 255, 0) 0%,
-                        rgba(255, 255, 255, 1) 100%);
-                filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff00',
-                        endColorstr='#ffffff',
-                        GradientType=0);
-                display: block;
+                content: '';
+                background: linear-gradient(to bottom, rgba(255 255 255/0), rgba(255 255 255/62.5), rgba(255 255 255/1));
+                bottom: -30px;
+                height: 88px;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                margin-bottom: 3px;
             }
 
             .devvn_readmore_taxonomy_flatsome a {
-                color: #318A00;
+                font-weight: bold;
+                color: #2D348F;
                 display: block;
+                margin: 0 auto;
+                text-align: center;
+                position: relative;
             }
 
-            .devvn_readmore_taxonomy_flatsome a:after {
-                content: '';
-                width: 0;
-                right: 0;
-                border-top: 6px solid #318A00;
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
+            .devvn_readmore_taxonomy_flatsome a::after {
+                content: "\f078";
+                font-family: "Font Awesome 7 Pro";
+                font-weight: 900;
+                font-size: 12px;
+                color: #2D348F;
+                margin-left: 6px;
                 display: inline-block;
-                vertical-align: middle;
-                margin: -2px 0 0 5px;
             }
 
             .devvn_readmore_taxonomy_flatsome_less:before {
@@ -70,10 +64,7 @@ function devvn_readmore_taxonomy_flatsome()
             }
 
             .devvn_readmore_taxonomy_flatsome_less a:after {
-                border-top: 0;
-                border-left: 6px solid transparent;
-                border-right: 6px solid transparent;
-                border-bottom: 6px solid #318A00;
+                transform: rotate(180deg);
             }
         </style>
 

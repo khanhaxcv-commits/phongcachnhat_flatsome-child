@@ -14,6 +14,8 @@ $theme_includes = array(
     'inc/admin/rank-math-shop-manager.php',
     'inc/admin/woocommerce-admin-header.php',
 
+    'inc/woocommerce/category-header.php',
+    'inc/woocommerce/category-breadcrumb.php',
     'inc/woocommerce/checkout-fields.php',
     'inc/woocommerce/product-tabs.php',
     'inc/woocommerce/installation-gallery.php',
@@ -34,14 +36,14 @@ $theme_includes = array(
     'inc/woocommerce/product-affiliate-links.php',
 
     'inc/enqueue-theme-styles.php',
-    // 'inc/enqueue-external-assets.php',
+    'inc/enqueue-external-assets.php',
     // 'inc/enqueue-vendor-scripts.php',
     'inc/enqueue-theme-scripts.php',
     'inc/enqueue-fontawesome.php',
 
     // 'inc/breadcrumbs.php',
-    // 'inc/modules/blog-category-archive.php',
-    // 'inc/modules/blog-single.php',
+    'inc/modules/blog-category-archive.php',
+    'inc/modules/blog-single.php',
     // 'inc/blog.php',
     'inc/preloader.php',
     'inc/migration.php',
