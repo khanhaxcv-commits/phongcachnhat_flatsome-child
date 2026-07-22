@@ -18,8 +18,6 @@
  * 5. gsap.min.js
  * ↓
  * 6. ScrollTrigger.min.js
- * ↓
- * 7. tailwind
  */
 
 if (!defined('ABSPATH')) {
@@ -142,19 +140,7 @@ if (!function_exists('enqueue_external_assets')) {
         //     '3.7.1'
         // );
 
-        /**
-         * 7. tailwind
-         *
-         * CDN:
-         * Tailwind CSS v4 Play CDN
-         */
-        enqueue_external_script(
-            'tailwindcss',
-            'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4',
-            array(),
-            '4',
-            false
-        );
+
     }
 }
 

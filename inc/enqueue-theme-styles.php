@@ -247,7 +247,15 @@ function enqueue_styles()
         }
     }
 
-
+    if (
+        enqueue_css_file(
+            'tailwind-css',
+            'tailwind.css',
+            $global_deps
+        )
+    ) {
+        $page_handles[] = 'tailwind-css';
+    }
     /*
      * 9. Customize CSS
      *

@@ -131,35 +131,63 @@ function get_attribute_terms_by_category($category_id, $taxonomy)
 }
 
 /**
- * Render bộ sắp xếp sản phẩm
+ * Render bộ sắp xếp sản phẩm.
  */
 function render_custom_catalog_ordering()
 {
-    $current_order = isset($_GET['orderby']) ? wc_clean($_GET['orderby']) : 'menu_order';
-    $base_url      = remove_query_arg('orderby');
+    $current_order = isset($_GET['orderby'])
+        ? wc_clean(wp_unslash($_GET['orderby']))
+        : 'menu_order';
+
+    $base_url = remove_query_arg('orderby');
 
     $orders = [
         'menu_order' => 'Nổi bật',
         'popularity' => 'Bán chạy',
-        'date'       => 'Mới',
+        'date'       => 'Mới nhất',
         'price'      => 'Giá thấp - cao',
         'price-desc' => 'Giá cao - thấp',
     ];
 ?>
-    <div class="custom-product-ordering">
-        <label class="ordering-label">Sắp xếp theo:</label>
-        <div class="ordering-select-wrap">
-            <select class="ordering-select" onchange="if(this.value){window.location.href=this.value;}">
-                <?php foreach ($orders as $key => $label):
-                    $url = add_query_arg('orderby', $key, $base_url);
-                ?>
-                    <option value="<?php echo esc_url($url); ?>" <?php selected($current_order, $key); ?>>
+
+    <div class="custom-product-ordering flex items-center gap-3">
+
+        <label class="ordering-label m-0 shrink-0 text-[14px] font-medium text-[var(--text-soft-ui)]">
+            Sắp xếp theo:
+        </label>
+
+        <div class="ordering-select-wrap relative w-[240px]">
+
+            <select
+                class="ordering-select m-0 h-11 w-full rounded-[var(--radius-input)] border border-[var(--input-border)] bg-[var(--surface-bg-muted)] px-4 text-[14px] font-medium text-[var(--input-text)] outline-none transition duration-200 hover:border-[var(--border-accent)] hover:bg-[var(--surface-bg-accent)] focus:border-[var(--input-focus-border)] focus:bg-[var(--surface-bg)] focus:ring-4 focus:ring-[var(--focus-ring-ui)]"
+                onchange="if(this.value){window.location.href=this.value;}"
+                aria-label="Sắp xếp sản phẩm">
+
+                <?php foreach ($orders as $key => $label) : ?>
+
+                    <?php
+                    $url = add_query_arg(
+                        'orderby',
+                        $key,
+                        $base_url
+                    );
+                    ?>
+
+                    <option
+                        value="<?php echo esc_url($url); ?>"
+                        <?php selected($current_order, $key); ?>>
+
                         <?php echo esc_html($label); ?>
+
                     </option>
+
                 <?php endforeach; ?>
+
             </select>
-            <i class="fa-light fa-angle-down ordering-select-icon"></i>
+
         </div>
+
     </div>
+
 <?php
 }
