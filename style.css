@@ -2106,6 +2106,200 @@ span.hdevvn-show-cats li {
 
 
 
+/* --------------------------------------------------------------css mô ta san pham page danh mục san pham */
+
+.tax-product_cat .term-description {
+    padding: 0 0 25px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #262626;
+    line-height: 1.7;
+    box-shadow: none;
+}
+
+.tax-product_cat .term-description a:not(.devvn_readmore_taxonomy_flatsome a) {
+    color: #cd363e;
+}
+
+.tax-product_cat .term-description>h1,
+.tax-product_cat .term-description>h2,
+.tax-product_cat .term-description>h3,
+.tax-product_cat .term-description>h4 {
+    position: relative;
+    margin: 0 0 16px;
+    padding-left: 28px;
+    color: #171717;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.tax-product_cat .term-description>h1::before,
+.tax-product_cat .term-description>h2::before,
+.tax-product_cat .term-description>h3::before,
+.tax-product_cat .term-description>h4::before {
+    content: "";
+    position: absolute;
+    top: 0.12em;
+    bottom: 0.12em;
+    left: 0;
+    width: 7px;
+    border-radius: 999px;
+    background: #cd363e;
+}
+
+@media (max-width: 549px) {
+    .tax-product_cat .term-description {
+        padding-bottom: 25px;
+    }
+
+    .tax-product_cat .term-description>h1,
+    .tax-product_cat .term-description>h2,
+    .tax-product_cat .term-description>h3,
+    .tax-product_cat .term-description>h4 {
+        padding-left: 22px;
+    }
+
+    .tax-product_cat .term-description>h1::before,
+    .tax-product_cat .term-description>h2::before,
+    .tax-product_cat .term-description>h3::before,
+    .tax-product_cat .term-description>h4::before {
+        width: 6px;
+    }
+}
+
+
+/* ------------------ Nội dung mô tả dài được WooCommerce tách thành các con trực tiếp của shop-container. */
+.tax-product_cat .shop-container>h2,
+.tax-product_cat .shop-container>h3,
+.tax-product_cat .shop-container>h4 {
+    position: relative;
+    margin: 30px 0 16px;
+    padding: 0 0 0 28px;
+    border: 0;
+    background: transparent;
+    color: #171717;
+    font-weight: 700;
+    line-height: 1.4;
+}
+
+.tax-product_cat .shop-container>h2::before,
+.tax-product_cat .shop-container>h3::before,
+.tax-product_cat .shop-container>h4::before {
+    content: "";
+    position: absolute;
+    top: 0.12em;
+    bottom: 0.12em;
+    left: 0;
+    width: 7px;
+    border-radius: 999px;
+    background: #cd363e;
+}
+
+.tax-product_cat .shop-container>p {
+    margin-bottom: 14px;
+    color: #333;
+    line-height: 1.7;
+}
+
+.tax-product_cat .shop-container>ul,
+.tax-product_cat .shop-container>ol {
+    margin: 0 0 20px;
+    padding: 16px 0px;
+    display: grid;
+    gap: 8px;
+    list-style: none;
+}
+
+.tax-product_cat .shop-container>ul>li {
+    position: relative;
+    margin-bottom: 7px;
+    padding-left: 25px;
+    list-style: none;
+    line-height: 1.6;
+}
+
+.tax-product_cat .shop-container>ul>li:last-child {
+    margin-bottom: 0;
+}
+
+.tax-product_cat .shop-container>ul>li::before {
+    content: "\f058";
+    position: absolute;
+    top: 0.35em;
+    left: 0;
+    color: #cd363e;
+    font-family: "Font Awesome 7 Pro";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.tax-product_cat .shop-container>ol {
+    counter-reset: category-description-list;
+}
+
+.tax-product_cat .shop-container>ol>li {
+    position: relative;
+    margin-bottom: 7px;
+    padding-left: 26px;
+    counter-increment: category-description-list;
+    line-height: 1.6;
+}
+
+.tax-product_cat .shop-container>ol>li::before {
+    content: counter(category-description-list);
+    position: absolute;
+    top: 0.35em;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    box-sizing: border-box;
+    border: 1px solid #cd363e;
+    border-radius: 50%;
+    background: #fff;
+    color: #cd363e;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 14px;
+    text-align: center;
+}
+
+.tax-product_cat .shop-container> :is(p, ul, ol, h2, h3, h4) a {
+    color: #cd363e;
+    font-weight: 600;
+}
+
+.tax-product_cat .shop-container img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 18px 0;
+    border-radius: 12px;
+}
+
+@media (max-width: 549px) {
+
+    .tax-product_cat .shop-container>h2,
+    .tax-product_cat .shop-container>h3,
+    .tax-product_cat .shop-container>h4 {
+        margin-top: 22px;
+        padding-left: 22px;
+    }
+
+    .tax-product_cat .shop-container>h2::before,
+    .tax-product_cat .shop-container>h3::before,
+    .tax-product_cat .shop-container>h4::before {
+        width: 6px;
+    }
+
+    .tax-product_cat .shop-container>ul,
+    .tax-product_cat .shop-container>ol {
+        padding: 14px 0;
+    }
+}
+
 /* -------------------------------------------------------------------------css product globe */
 
 .product-small.box {
@@ -2642,7 +2836,7 @@ span.hdevvn-show-cats li:hover a {
     border-width: 20px 20px 0 0;
     border-color: #ffd004 transparent transparent transparent;
     position: absolute;
-    top: 43px;
+    top: 36px;
     left: 0;
 }
 
@@ -2654,7 +2848,7 @@ span.hdevvn-show-cats li:hover a {
     border-width: 0 20px 20px 0;
     border-color: transparent #ffd004 #ffd00400 #ffcf00;
     position: absolute;
-    top: 43px;
+    top: 36px;
     left: unset;
     right: 0;
 }
