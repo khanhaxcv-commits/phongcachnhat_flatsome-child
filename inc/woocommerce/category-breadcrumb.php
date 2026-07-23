@@ -31,6 +31,6 @@ function render_category_breadcrumb()
         'wrap_after'  => '</nav>',
         'before'      => '<span class="breadcrumb-current">',
         'after'       => '</span>',
-        'home'        => 'Home',
+        'home' => __('Trang chủ', 'flatsome-child'),
     ]);
 }
