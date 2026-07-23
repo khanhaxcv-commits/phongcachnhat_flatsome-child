@@ -5,7 +5,7 @@
  * Only run on product category archive
  */
 
-add_action('woocommerce_before_shop_loop', 'test_dynamic_filter_data', 5);
+// add_action('woocommerce_before_shop_loop', 'test_dynamic_filter_data', 5);
 
 function test_dynamic_filter_data()
 {
