@@ -90,11 +90,11 @@ if (!class_exists('Blog_Single')) {
                 return;
             }
 ?>
-            <div class="blog-single-breadcrumb-bar">
+            <!-- <div class="blog-single-breadcrumb-bar">
                 <div class="container">
                     <?php echo self::get_breadcrumb_html(); ?>
                 </div>
-            </div>
+            </div> -->
         <?php
         }
 

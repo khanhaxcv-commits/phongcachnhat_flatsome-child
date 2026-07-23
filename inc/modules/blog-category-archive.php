@@ -317,7 +317,7 @@ if (!class_exists('Blog_Category_Archive')) {
                 style="--blog-category-hero-image: url('<?php echo esc_url($hero_image_url); ?>');">
                 <div class="blog-category-hero__overlay"></div>
 
-                <div class="blog-category-hero__inner container">
+                <!-- <div class="blog-category-hero__inner container">
                     <div class="blog-category-hero__content">
                         <?php echo self::get_breadcrumb_html($term); ?>
 
@@ -331,7 +331,7 @@ if (!class_exists('Blog_Category_Archive')) {
                             </div>
                         <?php endif; ?>
                     </div>
-                </div>
+                </div> -->
             </section>
         <?php
         }
