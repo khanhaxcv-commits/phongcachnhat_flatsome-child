@@ -451,14 +451,13 @@ document.addEventListener("DOMContentLoaded", function () {
   */
 
   function triggerProductLoopUpdated() {
-    if (window.jQuery) {
+    if (
+      window.jQuery &&
+      document.querySelector(".woocommerce-cart")
+    ) {
       window
         .jQuery(document.body)
         .trigger("updated_wc_div");
-
-      window
-        .jQuery(document.body)
-        .trigger("wc_fragments_refreshed");
     }
 
     window.dispatchEvent(new Event("resize"));
@@ -625,19 +624,19 @@ document.addEventListener("DOMContentLoaded", function () {
           settings.targetURL.toString();
       }
     } finally {
+      const isCurrentRequest =
+        activeRequestController === requestController;
+
       if (settings.requestMode === "append") {
         setLoadMoreLoading(
           settings.loadMoreButton,
           false,
         );
-      } else {
+      } else if (isCurrentRequest) {
         setResultsLoading(false);
       }
 
-      if (
-        activeRequestController ===
-        requestController
-      ) {
+      if (isCurrentRequest) {
         activeRequestController = null;
       }
     }

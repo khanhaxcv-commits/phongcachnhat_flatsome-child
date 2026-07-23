@@ -108,7 +108,8 @@ function get_product_filter_ajax_tax_query($filters, $category_id = 0)
 
     $active_filters = get_product_filter_active_filters(
         $filters,
-        $allowed_taxonomies
+        $allowed_taxonomies,
+        true
     );
 
     foreach ($active_filters as $taxonomy => $term_ids) {

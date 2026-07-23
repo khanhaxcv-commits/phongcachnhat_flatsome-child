@@ -1,5 +1,7 @@
 <?php
 
+defined('ABSPATH') || exit;
+
 
 add_filter(
     'woocommerce_product_query_tax_query',
@@ -22,8 +24,16 @@ function product_filter_query($tax_query)
         ? get_product_filter_taxonomies_for_category($category_id)
         : wc_get_attribute_taxonomy_names();
 
+    $custom_filters = [];
+
+    foreach ($_GET as $query_key => $query_value) {
+        if (strpos((string) $query_key, 'cs_') === 0) {
+            $custom_filters[$query_key] = $query_value;
+        }
+    }
+
     $active_filters = get_product_filter_active_filters(
-        $_GET,
+        $custom_filters,
         $allowed_taxonomies
     );
 
