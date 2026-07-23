@@ -1,4 +1,27 @@
 document.addEventListener("DOMContentLoaded", function () {
+  function syncFilterViewportHeight() {
+    const viewportHeight = window.visualViewport
+      ? window.visualViewport.height
+      : window.innerHeight;
+
+    if (viewportHeight > 0) {
+      document.documentElement.style.setProperty(
+        "--filter-viewport-height",
+        Math.round(viewportHeight) + "px",
+      );
+    }
+  }
+
+  syncFilterViewportHeight();
+  window.addEventListener("resize", syncFilterViewportHeight);
+
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener(
+      "resize",
+      syncFilterViewportHeight,
+    );
+  }
+
   /*
   |--------------------------------------------------------------------------
   | ELEMENTS
