@@ -94,7 +94,40 @@ function render_product_load_more_button(
  *
  * @return array
  */
-function get_product_filter_ajax_tax_query($filters)
+function get_product_filter_ajax_tax_query($filters, $category_id = 0)
+{
+    $tax_query = WC()->query->get_tax_query();
+
+    if (!is_array($tax_query)) {
+        $tax_query = [];
+    }
+
+    $allowed_taxonomies = $category_id
+        ? get_product_filter_taxonomies_for_category($category_id)
+        : wc_get_attribute_taxonomy_names();
+
+    $active_filters = get_product_filter_active_filters(
+        $filters,
+        $allowed_taxonomies
+    );
+
+    foreach ($active_filters as $taxonomy => $term_ids) {
+        if (empty($term_ids)) {
+            continue;
+        }
+
+        $tax_query[] = [
+            'taxonomy' => $taxonomy,
+            'field'    => 'term_id',
+            'terms'    => $term_ids,
+            'operator' => 'IN',
+        ];
+    }
+
+    return $tax_query;
+}
+
+function get_product_filter_ajax_tax_query_legacy($filters)
 {
     $tax_query = WC()->query->get_tax_query();
 
@@ -310,7 +343,8 @@ function load_filtered_products()
      * Tax query mặc định của WooCommerce.
      */
     $tax_query = get_product_filter_ajax_tax_query(
-        $filters
+        $filters,
+        $category_id
     );
 
     /**
@@ -458,9 +492,16 @@ function load_filtered_products()
 
     $wp_query = $original_wp_query;
 
+    $dynamic_filters = $request_mode === 'replace'
+        ? get_dynamic_product_filters($category_id, $filters)
+        : [];
+
     wp_send_json_success(
         array(
             'html'          => $html,
+            'filters'       => prepare_product_filter_options_for_json(
+                $dynamic_filters
+            ),
             'requestMode'   => $request_mode,
             'foundProducts' => (int) $product_query->found_posts,
             'currentPage'   => $paged,

@@ -176,11 +176,16 @@ document.addEventListener("DOMContentLoaded", function () {
     const filters = {};
 
     url.searchParams.forEach(function (value, key) {
-      if (!key.startsWith("cs_")) {
+      if (
+        !key.startsWith("cs_") &&
+        !key.startsWith("filter_")
+      ) {
         return;
       }
 
-      const filterKey = key.replace("cs_", "");
+      const filterKey = key.startsWith("cs_")
+        ? key.replace("cs_", "")
+        : key.replace("filter_", "");
 
       filters[filterKey] = value;
     });
@@ -196,7 +201,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let hasFilter = false;
 
     url.searchParams.forEach(function (value, key) {
-      if (key.startsWith("cs_") && value) {
+      if (
+        (key.startsWith("cs_") || key.startsWith("filter_")) &&
+        value
+      ) {
         hasFilter = true;
       }
     });
@@ -227,7 +235,11 @@ document.addEventListener("DOMContentLoaded", function () {
      * Xóa toàn bộ filter cũ.
      */
     Array.from(url.searchParams.keys()).forEach(function (key) {
-      if (key.startsWith("cs_")) {
+      if (
+        key.startsWith("cs_") ||
+        key.startsWith("filter_") ||
+        key.startsWith("query_type_")
+      ) {
         url.searchParams.delete(key);
       }
     });
@@ -279,6 +291,24 @@ document.addEventListener("DOMContentLoaded", function () {
   |--------------------------------------------------------------------------
   */
 
+  function setFilterSelectValue(select, value) {
+    const requestedValue = value || "";
+
+    select.value = requestedValue;
+
+    if (select.value || !requestedValue) {
+      return;
+    }
+
+    const matchingOption = Array.from(select.options).find(function (option) {
+      return option.dataset.termSlug === requestedValue;
+    });
+
+    if (matchingOption) {
+      select.value = matchingOption.value;
+    }
+  }
+
   function syncFilterUI(url) {
     const filters = getFiltersFromURL(url);
     const orderby = getOrderbyFromURL(url);
@@ -290,7 +320,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .forEach(function (select) {
         const filterKey = select.dataset.filter;
 
-        select.value = filters[filterKey] || "";
+        setFilterSelectValue(
+          select,
+          filters[filterKey] || "",
+        );
       });
 
     document
@@ -298,7 +331,10 @@ document.addEventListener("DOMContentLoaded", function () {
       .forEach(function (select) {
         const filterKey = select.dataset.filter;
 
-        select.value = filters[filterKey] || "";
+        setFilterSelectValue(
+          select,
+          filters[filterKey] || "",
+        );
       });
 
     if (mobileOrderingSelect) {
@@ -331,6 +367,81 @@ document.addEventListener("DOMContentLoaded", function () {
         !hasActiveFilterState(url),
       );
     }
+  }
+
+  function updateDynamicFilterOptions(filterData, targetURL) {
+    if (!Array.isArray(filterData)) {
+      return;
+    }
+
+    const filters = {};
+    const selectedFilters = getFiltersFromURL(targetURL);
+
+    filterData.forEach(function (filter) {
+      if (filter && filter.key) {
+        filters[filter.key] = filter;
+      }
+    });
+
+    function updateSelect(select, filter, isMobile) {
+      while (select.options.length) {
+        select.remove(0);
+      }
+
+      const placeholder = document.createElement("option");
+      placeholder.value = "";
+      placeholder.textContent = isMobile
+        ? "Chọn " + String(filter.label || "").toLowerCase()
+        : filter.label || "";
+      select.appendChild(placeholder);
+
+      (Array.isArray(filter.terms) ? filter.terms : []).forEach(function (term) {
+        const option = document.createElement("option");
+        option.value = String(term.id);
+        option.textContent = term.name || "";
+        option.dataset.termSlug = term.slug || "";
+        select.appendChild(option);
+      });
+
+      setFilterSelectValue(
+        select,
+        selectedFilters[filter.key] || "",
+      );
+    }
+
+    document
+      .querySelectorAll(".product-filter-item[data-filter-key]")
+      .forEach(function (item) {
+        const key = item.dataset.filterKey;
+        const filter = filters[key];
+        const hasOptions = !!filter && Array.isArray(filter.terms)
+          && filter.terms.length > 0;
+        const select = item.querySelector(".product-filter-select");
+
+        item.hidden = !hasOptions;
+        item.classList.toggle("hidden", !hasOptions);
+
+        if (filter && select) {
+          updateSelect(select, filter, false);
+        }
+      });
+
+    document
+      .querySelectorAll(".drawer-item[data-filter-key]")
+      .forEach(function (item) {
+        const key = item.dataset.filterKey;
+        const filter = filters[key];
+        const hasOptions = !!filter && Array.isArray(filter.terms)
+          && filter.terms.length > 0;
+        const select = item.querySelector(".mobile-filter-select");
+
+        item.hidden = !hasOptions;
+        item.classList.toggle("hidden", !hasOptions);
+
+        if (filter && select) {
+          updateSelect(select, filter, true);
+        }
+      });
   }
 
   /*
@@ -544,6 +655,11 @@ document.addEventListener("DOMContentLoaded", function () {
     updateHistory,
   ) {
     resultsContent.innerHTML = data.html;
+
+    updateDynamicFilterOptions(
+      data.filters,
+      targetURL,
+    );
 
     if (updateHistory) {
       window.history.pushState(

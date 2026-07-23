@@ -107,7 +107,206 @@ function get_product_category_scope_tt_ids($category_id)
 /**
  * Lấy bộ lọc động cho danh mục sản phẩm hiện tại.
  */
-function get_dynamic_product_filters()
+function get_product_filter_taxonomies_for_category($category_id)
+{
+    $category_id = (int) $category_id;
+
+    if ($category_id <= 0) {
+        return [];
+    }
+
+    $category = get_term($category_id, 'product_cat');
+
+    if (!$category || is_wp_error($category)) {
+        return [];
+    }
+
+    $config = get_filter_config();
+
+    if (!empty($config['override'][$category->slug])) {
+        $taxonomies = $config['override'][$category->slug];
+    } else {
+        $taxonomies = get_category_attributes_auto($category_id);
+    }
+
+    $exclude = !empty($config['exclude'])
+        ? (array) $config['exclude']
+        : [];
+
+    $taxonomies = array_values(array_unique(array_filter(
+        array_map('sanitize_key', (array) $taxonomies)
+    )));
+
+    return array_values(array_filter(
+        $taxonomies,
+        function ($taxonomy) use ($exclude) {
+            return taxonomy_exists($taxonomy)
+                && !in_array($taxonomy, $exclude, true);
+        }
+    ));
+}
+
+function prepare_product_filter_options_for_json($filters)
+{
+    $payload = [];
+
+    foreach ((array) $filters as $filter) {
+        $terms = [];
+
+        foreach ((array) ($filter['terms'] ?? []) as $term) {
+            if (!$term || empty($term->term_id)) {
+                continue;
+            }
+
+            $terms[] = [
+                'id'   => (int) $term->term_id,
+                'name' => (string) $term->name,
+                'slug' => (string) $term->slug,
+            ];
+        }
+
+        $payload[] = [
+            'key'   => (string) ($filter['key'] ?? ''),
+            'label' => (string) ($filter['label'] ?? ''),
+            'terms' => $terms,
+        ];
+    }
+
+    return $payload;
+}
+
+function get_product_filter_term_ids($value, $taxonomy)
+{
+    $values = [];
+
+    foreach (is_array($value) ? $value : [$value] as $raw_value) {
+        if (is_string($raw_value) && strpos($raw_value, ',') !== false) {
+            $values = array_merge($values, explode(',', $raw_value));
+        } else {
+            $values[] = $raw_value;
+        }
+    }
+
+    $term_ids = [];
+
+    foreach ($values as $single_value) {
+        $term_id = absint($single_value);
+        $term = $term_id > 0
+            ? get_term($term_id, $taxonomy)
+            : get_term_by('slug', sanitize_title($single_value), $taxonomy);
+
+        if ($term && !is_wp_error($term)) {
+            $term_ids[] = (int) $term->term_id;
+        }
+    }
+
+    return array_values(array_unique(array_filter($term_ids)));
+}
+
+function get_product_filter_active_filters(
+    $raw_filters = null,
+    $allowed_taxonomies = null
+) {
+    $raw_filters = $raw_filters === null ? $_GET : $raw_filters;
+
+    if (!is_array($raw_filters)) {
+        return [];
+    }
+
+    if ($allowed_taxonomies === null) {
+        $allowed_taxonomies = wc_get_attribute_taxonomy_names();
+    }
+
+    $allowed_lookup = array_fill_keys(
+        array_values(array_unique(array_filter(
+            array_map('sanitize_key', (array) $allowed_taxonomies)
+        ))),
+        true
+    );
+
+    $active_filters = [];
+
+    foreach ($raw_filters as $key => $value) {
+        $key = sanitize_key(wp_unslash((string) $key));
+
+        if (strpos($key, 'cs_') === 0) {
+            $attribute_key = substr($key, 3);
+        } elseif (strpos($key, 'filter_') === 0) {
+            $attribute_key = substr($key, 7);
+        } else {
+            // AJAX sends filter keys without a prefix.
+            $attribute_key = $key;
+        }
+
+        $attribute_key = sanitize_title($attribute_key);
+        $taxonomy = 'pa_' . $attribute_key;
+
+        if (
+            !$attribute_key
+            || !isset($allowed_lookup[$taxonomy])
+            || !taxonomy_exists($taxonomy)
+        ) {
+            continue;
+        }
+
+        $term_ids = get_product_filter_term_ids($value, $taxonomy);
+
+        if (!empty($term_ids)) {
+            $active_filters[$taxonomy] = $term_ids;
+        }
+    }
+
+    ksort($active_filters);
+
+    return $active_filters;
+}
+
+function get_dynamic_product_filters($category_id = 0, $raw_active_filters = null)
+{
+    if (!$category_id) {
+        if (!is_product_category()) {
+            return [];
+        }
+
+        $category_id = get_queried_object_id();
+    }
+
+    $category_id = (int) $category_id;
+
+    if ($category_id <= 0) {
+        return [];
+    }
+
+    $taxonomies = get_product_filter_taxonomies_for_category($category_id);
+
+    if (empty($taxonomies)) {
+        return [];
+    }
+
+    $active_filters = get_product_filter_active_filters(
+        $raw_active_filters,
+        $taxonomies
+    );
+
+    $filters = [];
+
+    foreach ($taxonomies as $taxonomy) {
+        $filters[] = [
+            'key'      => str_replace('pa_', '', $taxonomy),
+            'taxonomy' => $taxonomy,
+            'label'    => wc_attribute_label($taxonomy),
+            'terms'    => get_attribute_terms_by_category_faceted(
+                $category_id,
+                $taxonomy,
+                $active_filters
+            ),
+        ];
+    }
+
+    return $filters;
+}
+
+function get_dynamic_product_filters_legacy()
 {
     if (!is_product_category()) {
         return [];
@@ -316,6 +515,179 @@ function get_category_attributes_auto($category_id)
  * Lấy các term của một attribute đang được sử dụng
  * bởi sản phẩm trong danh mục hiện tại.
  */
+function get_attribute_terms_by_category_faceted(
+    $category_id,
+    $taxonomy,
+    $active_filters = []
+) {
+    global $wpdb;
+
+    $category_id = (int) $category_id;
+    $taxonomy = sanitize_key($taxonomy);
+
+    if (
+        $category_id <= 0
+        || !$taxonomy
+        || !taxonomy_exists($taxonomy)
+    ) {
+        return [];
+    }
+
+    $active_filters = is_array($active_filters)
+        ? $active_filters
+        : [];
+
+    $other_filters = [];
+
+    foreach ($active_filters as $active_taxonomy => $term_ids) {
+        $active_taxonomy = sanitize_key($active_taxonomy);
+        $term_ids = array_values(array_unique(array_filter(
+            array_map('absint', (array) $term_ids)
+        )));
+
+        if (
+            !$active_taxonomy
+            || $active_taxonomy === $taxonomy
+            || empty($term_ids)
+            || !taxonomy_exists($active_taxonomy)
+        ) {
+            continue;
+        }
+
+        $other_filters[$active_taxonomy] = $term_ids;
+    }
+
+    ksort($other_filters);
+
+    $cache_version = get_product_filter_cache_version();
+    $cache_filters = $other_filters;
+
+    if (!empty($active_filters[$taxonomy])) {
+        $cache_filters[$taxonomy] = array_values(array_unique(array_filter(
+            array_map('absint', (array) $active_filters[$taxonomy])
+        )));
+    }
+
+    ksort($cache_filters);
+    $filters_hash = md5(wp_json_encode($cache_filters));
+    $cache_key = sprintf(
+        'category_filter_faceted_%d_%s_%s_v%d',
+        $category_id,
+        $taxonomy,
+        $filters_hash,
+        $cache_version
+    );
+
+    $cached = get_transient($cache_key);
+
+    if ($cached !== false) {
+        return is_array($cached) ? $cached : [];
+    }
+
+    $category_tt_ids = get_product_category_scope_tt_ids($category_id);
+
+    if (empty($category_tt_ids)) {
+        set_transient($cache_key, [], DAY_IN_SECONDS);
+
+        return [];
+    }
+
+    $category_placeholders = implode(
+        ', ',
+        array_fill(0, count($category_tt_ids), '%d')
+    );
+
+    $sql = "
+        SELECT DISTINCT attribute_taxonomy.term_id
+
+        FROM {$wpdb->term_relationships} AS category_relation
+
+        INNER JOIN {$wpdb->term_taxonomy} AS category_taxonomy
+            ON category_relation.term_taxonomy_id =
+               category_taxonomy.term_taxonomy_id
+
+        INNER JOIN {$wpdb->posts} AS products
+            ON products.ID = category_relation.object_id
+
+        INNER JOIN {$wpdb->term_relationships} AS attribute_relation
+            ON products.ID = attribute_relation.object_id
+
+        INNER JOIN {$wpdb->term_taxonomy} AS attribute_taxonomy
+            ON attribute_relation.term_taxonomy_id =
+               attribute_taxonomy.term_taxonomy_id
+
+        WHERE category_taxonomy.taxonomy = 'product_cat'
+          AND category_taxonomy.term_taxonomy_id
+              IN ({$category_placeholders})
+          AND products.post_type = 'product'
+          AND products.post_status = 'publish'
+          AND attribute_taxonomy.taxonomy = %s
+    ";
+
+    $prepare_args = array_merge($category_tt_ids, [$taxonomy]);
+
+    foreach ($other_filters as $filter_taxonomy => $term_ids) {
+        $term_placeholders = implode(
+            ', ',
+            array_fill(0, count($term_ids), '%d')
+        );
+
+        $sql .= "
+          AND EXISTS (
+              SELECT 1
+              FROM {$wpdb->term_relationships} AS filter_relation
+              INNER JOIN {$wpdb->term_taxonomy} AS filter_taxonomy
+                  ON filter_relation.term_taxonomy_id =
+                     filter_taxonomy.term_taxonomy_id
+              WHERE filter_relation.object_id = products.ID
+                AND filter_taxonomy.taxonomy = %s
+                AND filter_taxonomy.term_id
+                    IN ({$term_placeholders})
+          )
+        ";
+
+        $prepare_args[] = $filter_taxonomy;
+        $prepare_args = array_merge($prepare_args, $term_ids);
+    }
+
+    $prepared_sql = $wpdb->prepare($sql, ...$prepare_args);
+    $term_ids = $wpdb->get_col($prepared_sql);
+    $term_ids = array_values(array_unique(array_filter(
+        array_map('intval', (array) $term_ids)
+    )));
+
+    // Keep the active value visible so the user can always remove it.
+    if (!empty($active_filters[$taxonomy])) {
+        $term_ids = array_values(array_unique(array_merge(
+            $term_ids,
+            array_map('absint', (array) $active_filters[$taxonomy])
+        )));
+    }
+
+    if (empty($term_ids)) {
+        set_transient($cache_key, [], DAY_IN_SECONDS);
+
+        return [];
+    }
+
+    $terms = get_terms([
+        'taxonomy'   => $taxonomy,
+        'include'    => $term_ids,
+        'hide_empty' => false,
+        'orderby'    => 'name',
+        'order'      => 'ASC',
+    ]);
+
+    if (is_wp_error($terms)) {
+        return [];
+    }
+
+    $terms = array_values($terms);
+    set_transient($cache_key, $terms, DAY_IN_SECONDS);
+
+    return $terms;
+}
+
 function get_attribute_terms_by_category($category_id, $taxonomy)
 {
     global $wpdb;

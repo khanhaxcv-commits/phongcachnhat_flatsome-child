@@ -13,23 +13,16 @@ function render_product_filter_bar()
         return;
     }
 
+    $active_filters = get_product_filter_active_filters(
+        null,
+        wp_list_pluck($filters, 'taxonomy')
+    );
+
     /*
      * Lấy danh sách query thuộc bộ lọc custom.
      * Chỉ xóa các tham số bắt đầu bằng cs_.
      */
-    $filter_query_keys = [];
-
-    foreach (array_keys($_GET) as $query_key) {
-        if (strpos($query_key, 'cs_') === 0) {
-            $filter_query_keys[] = $query_key;
-        }
-    }
-
-    $has_active_filters = !empty($filter_query_keys);
-
-    $clear_filter_url = $has_active_filters
-        ? remove_query_arg($filter_query_keys)
-        : '';
+    $has_active_filters = !empty($active_filters);
 ?>
 
     <div class="product-filter-wrapper w-full">
@@ -84,10 +77,8 @@ function render_product_filter_bar()
                         <?php foreach ($filters as $filter) : ?>
 
                             <?php
-                            $parameter_name = 'cs_' . $filter['key'];
-
-                            $selected_value = isset($_GET[$parameter_name])
-                                ? absint(wp_unslash($_GET[$parameter_name]))
+                            $selected_value = !empty($active_filters[$filter['taxonomy']])
+                                ? reset($active_filters[$filter['taxonomy']])
                                 : '';
 
                             $is_selected = !empty($selected_value);
@@ -97,7 +88,10 @@ function render_product_filter_bar()
                                 : 'border-[var(--input-border)] bg-[var(--surface-bg-muted)] text-[var(--input-text)]';
                             ?>
 
-                            <div class="product-filter-item relative min-w-0">
+                            <div
+                                class="product-filter-item relative min-w-0 <?php echo empty($filter['terms']) ? 'hidden' : ''; ?>"
+                                data-filter-key="<?php echo esc_attr($filter['key']); ?>"
+                                <?php echo empty($filter['terms']) ? 'hidden' : ''; ?>>
 
                                 <select
                                     class="product-filter-select m-0 h-11 w-full truncate rounded-[var(--radius-input)] border px-4 text-[14px] font-medium outline-none transition duration-200 <?php echo esc_attr($select_state_classes); ?> hover:border-[var(--border-accent)] hover:bg-[var(--surface-bg-accent)] focus:border-[var(--input-focus-border)] focus:bg-[var(--surface-bg)] focus:ring-4 focus:ring-[var(--focus-ring-ui)]"
@@ -112,6 +106,7 @@ function render_product_filter_bar()
 
                                         <option
                                             value="<?php echo esc_attr($term->term_id); ?>"
+                                            data-term-slug="<?php echo esc_attr($term->slug); ?>"
                                             <?php selected($selected_value, $term->term_id); ?>>
 
                                             <?php echo esc_html($term->name); ?>
@@ -215,14 +210,15 @@ function render_product_filter_bar()
                 <?php foreach ($filters as $filter) : ?>
 
                     <?php
-                    $parameter_name = 'cs_' . $filter['key'];
-
-                    $selected_value = isset($_GET[$parameter_name])
-                        ? absint(wp_unslash($_GET[$parameter_name]))
+                    $selected_value = !empty($active_filters[$filter['taxonomy']])
+                        ? reset($active_filters[$filter['taxonomy']])
                         : '';
                     ?>
 
-                    <div class="drawer-item">
+                    <div
+                        class="drawer-item <?php echo empty($filter['terms']) ? 'hidden' : ''; ?>"
+                        data-filter-key="<?php echo esc_attr($filter['key']); ?>"
+                        <?php echo empty($filter['terms']) ? 'hidden' : ''; ?>>
 
                         <label for="mobile-filter-<?php echo esc_attr($filter['key']); ?>">
                             <?php echo esc_html($filter['label']); ?>
@@ -241,6 +237,7 @@ function render_product_filter_bar()
 
                                 <option
                                     value="<?php echo esc_attr($term->term_id); ?>"
+                                    data-term-slug="<?php echo esc_attr($term->slug); ?>"
                                     <?php selected($selected_value, $term->term_id); ?>>
 
                                     <?php echo esc_html($term->name); ?>

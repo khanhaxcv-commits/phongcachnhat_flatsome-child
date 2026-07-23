@@ -10,6 +10,41 @@ add_filter(
 
 function product_filter_query($tax_query)
 {
+    if (!is_array($tax_query)) {
+        $tax_query = [];
+    }
+
+    $category_id = is_product_category()
+        ? get_queried_object_id()
+        : 0;
+
+    $allowed_taxonomies = $category_id
+        ? get_product_filter_taxonomies_for_category($category_id)
+        : wc_get_attribute_taxonomy_names();
+
+    $active_filters = get_product_filter_active_filters(
+        $_GET,
+        $allowed_taxonomies
+    );
+
+    foreach ($active_filters as $taxonomy => $term_ids) {
+        if (empty($term_ids)) {
+            continue;
+        }
+
+        $tax_query[] = [
+            'taxonomy' => $taxonomy,
+            'field'    => 'term_id',
+            'terms'    => $term_ids,
+            'operator' => 'IN',
+        ];
+    }
+
+    return $tax_query;
+}
+
+function product_filter_query_legacy($tax_query)
+{
 
 
     if (empty($_GET)) {
