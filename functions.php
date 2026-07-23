@@ -44,7 +44,7 @@ $theme_includes = array(
     'inc/modules/blog-category-archive.php',
     'inc/modules/blog-single.php',
     // 'inc/blog.php',
-    'inc/preloader.php',
+    // 'inc/preloader.php',
     'inc/migration.php',
     // 'inc/product-filter-test.php',
     'inc/product-filter-functions.php',
