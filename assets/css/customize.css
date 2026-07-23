@@ -233,3 +233,261 @@
         min-height: 220px;
     }
 } */
+
+/* ===================================
+   AJAX PRODUCT RESULTS
+=================================== */
+
+.product-filter-results {
+    position: relative;
+}
+
+.product-filter-results__content {
+    transition:
+        opacity var(--transition-fast),
+        filter var(--transition-fast);
+}
+
+.product-filter-results.is-loading .product-filter-results__content {
+    opacity: 0.45;
+    filter: grayscale(0.12);
+    pointer-events: none;
+    user-select: none;
+}
+
+.product-filter-loading {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    min-height: 240px;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 100px;
+    background: rgba(var(--white-rgb), 0.68);
+    backdrop-filter: blur(2px);
+}
+
+.product-filter-loading[hidden] {
+    display: none;
+}
+
+.product-filter-loading__spinner {
+    width: 42px;
+    height: 42px;
+    border: 3px solid var(--primary-100);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: product-filter-spin 0.8s linear infinite;
+}
+
+@keyframes product-filter-spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ===================================
+   PRODUCT LOAD MORE
+=================================== */
+
+.product-load-more-wrap {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 28px 0;
+}
+
+.product-load-more {
+    display: inline-flex;
+    width: min(100%, 340px);
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    margin: 0;
+    padding: 10px 22px;
+    border: 1px solid var(--accent);
+    border-radius: var(--radius-input);
+    background: var(--surface-bg);
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.product-load-more:hover {
+    border-color: var(--accent-hover);
+    background: var(--surface-bg-accent);
+    color: var(--accent-hover);
+    box-shadow: var(--shadow-accent);
+    transform: translateY(-1px);
+}
+
+.product-load-more:active {
+    transform: translateY(0);
+}
+
+.product-load-more:focus-visible {
+    outline: none;
+    border-color: var(--input-focus-border);
+    box-shadow: 0 0 0 4px var(--focus-ring-ui);
+}
+
+.product-load-more:disabled {
+    cursor: wait;
+    opacity: 0.75;
+    transform: none;
+}
+
+.product-load-more__label {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.product-load-more__count {
+    color: currentColor;
+    font-weight: 700;
+}
+
+.product-load-more__icon {
+    font-size: 12px;
+    transition: transform var(--transition-fast);
+}
+
+.product-load-more:hover .product-load-more__icon {
+    transform: translateY(2px);
+}
+
+.product-load-more__spinner {
+    display: none;
+    width: 17px;
+    height: 17px;
+    border: 2px solid rgba(var(--accent-rgb), 0.22);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: product-filter-spin 0.7s linear infinite;
+}
+
+.product-load-more.is-loading .product-load-more__icon {
+    display: none;
+}
+
+.product-load-more.is-loading .product-load-more__spinner {
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .product-filter-loading {
+        min-height: 180px;
+        padding-top: 70px;
+    }
+
+    .product-filter-loading__spinner {
+        width: 36px;
+        height: 36px;
+    }
+
+    .product-load-more-wrap {
+        margin: 22px 0;
+        padding: 0 12px;
+    }
+
+    .product-load-more {
+        width: 100%;
+        min-height: 46px;
+    }
+}
+
+/* ===================================
+   NO PRODUCTS FOUND
+=================================== */
+
+.product-filter-results__content .woocommerce-no-products-found {
+    width: 100%;
+    margin: 28px 0;
+}
+
+.product-filter-results__content .woocommerce-no-products-found .woocommerce-info {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+}
+
+.product-filter-results__content .woocommerce-no-products-found .message-container {
+    position: relative;
+    display: flex;
+    min-height: 220px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 36px 24px;
+    border: 1px dashed var(--border-accent);
+    border-radius: var(--radius-xl);
+    background: var(--surface-bg-accent);
+    color: var(--text-soft-ui);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.product-filter-results__content .woocommerce-no-products-found .message-container::before {
+    content: "\f002";
+    display: flex;
+    width: 54px;
+    height: 54px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+    border: 1px solid var(--border-accent);
+    border-radius: 50%;
+    background: var(--surface-bg);
+    color: var(--accent);
+    font-family: "Font Awesome 7 Pro";
+    font-size: 22px;
+    font-weight: 300;
+    box-shadow: var(--shadow-ui-soft);
+}
+
+.product-filter-results__content .woocommerce-no-products-found .message-container::after {
+    content: "Hãy thử bỏ bớt một số tiêu chí hoặc chọn lại bộ lọc khác.";
+    display: block;
+    max-width: 460px;
+    color: var(--text-sub);
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .product-filter-results__content .woocommerce-no-products-found {
+        margin: 20px 0;
+    }
+
+    .product-filter-results__content .woocommerce-no-products-found .message-container {
+        min-height: 190px;
+        padding: 28px 18px;
+        border-radius: var(--radius-lg);
+        font-size: 14px;
+    }
+
+    .product-filter-results__content .woocommerce-no-products-found .message-container::before {
+        width: 48px;
+        height: 48px;
+        font-size: 19px;
+    }
+
+    .product-filter-results__content .woocommerce-no-products-found .message-container::after {
+        font-size: 12px;
+    }
+}

@@ -1,5 +1,4 @@
 <?php
-
 $theme_includes = array(
     'inc/cleanup/contact-form-7.php',
     // 'inc/cleanup/disable-wpautop.php',
@@ -48,9 +47,10 @@ $theme_includes = array(
     'inc/preloader.php',
     'inc/migration.php',
     // 'inc/product-filter-test.php',
-    '/inc/product-filter-functions.php',
-    '/inc/product-filter-render.php',
-    '/inc/product-filter-query.php'
+    'inc/product-filter-functions.php',
+    'inc/product-filter-render.php',
+    'inc/product-filter-query.php',
+    'inc/product-filter-ajax.php'
 );
 
 foreach ($theme_includes as $theme_include) {
@@ -62,7 +62,6 @@ foreach ($theme_includes as $theme_include) {
         require_once $theme_file;
     }
 }
-
 
 
 //add_action( 'phpmailer_init', function( $phpmailer ) {

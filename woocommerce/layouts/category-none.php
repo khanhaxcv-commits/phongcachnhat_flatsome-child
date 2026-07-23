@@ -6,15 +6,40 @@
  * @package          Flatsome/WooCommerce/Templates
  * @flatsome-version 3.18.7
  */
+
+defined('ABSPATH') || exit;
+
+$current_page = max(
+    1,
+    absint(wc_get_loop_prop('current_page'))
+);
+
+$per_page = max(
+    1,
+    absint(wc_get_loop_prop('per_page'))
+);
+
+$total_products = max(
+    0,
+    absint(wc_get_loop_prop('total'))
+);
+
+$total_pages = max(
+    1,
+    absint(wc_get_loop_prop('total_pages'))
+);
 ?>
 
 <div class="row container">
-    <div class="">
+
+    <div class="col large-12">
 
         <?php
 
+        /**
+         * Hook: flatsome_products_before.
+         */
         do_action('flatsome_products_before');
-
 
         /**
          * Hook: woocommerce_before_main_content.
@@ -25,109 +50,121 @@
          */
         do_action('woocommerce_before_main_content');
 
-
-        // if (fl_woocommerce_version_check('8.8.0')) {
-
         /**
-         * Hook: woocommerce_shop_loop_header.
-         *
-         * @hooked woocommerce_product_taxonomy_archive_header - 10
+         * Custom product filter.
          */
-        // do_action('woocommerce_shop_loop_header');
-        // } else {
-
-        // do_action('woocommerce_archive_description');
-        // }
-
         render_product_filter_bar();
 
-        if (woocommerce_product_loop()) {
+        ?>
 
+        <!-- ======================================
+             AJAX PRODUCT RESULTS
+        ======================================= -->
+        <div
+            id="product-filter-results"
+            class="product-filter-results"
+            data-category-id="<?php echo esc_attr(get_queried_object_id()); ?>"
+            data-per-page="<?php echo esc_attr($per_page); ?>"
+            aria-live="polite"
+            aria-busy="false">
 
-            /**
-             * CUSTOM TOP PRODUCT FILTER
-             *
-             * Render filter bar ở trên danh sách sản phẩm
-             */
-            get_template_part(
-                'template-parts/product-filter-bar'
-            );
+            <!-- AJAX LOADING -->
+            <div
+                class="product-filter-loading"
+                hidden
+                aria-hidden="true">
 
+                <div class="product-filter-loading__spinner"></div>
 
+            </div>
 
-            /**
-             * Hook: woocommerce_before_shop_loop.
-             *
-             * @hooked wc_print_notices - 10
-             * @hooked woocommerce_result_count - 20
-             * @hooked woocommerce_catalog_ordering - 30
-             */
-            do_action('woocommerce_before_shop_loop');
+            <!-- AJAX CONTENT -->
+            <div class="product-filter-results__content">
 
+                <?php if (woocommerce_product_loop()) : ?>
 
-
-            woocommerce_product_loop_start();
-
-
-            if (wc_get_loop_prop('total')) {
-
-                while (have_posts()) {
-
-                    the_post();
-
+                    <?php
 
                     /**
-                     * Hook: woocommerce_shop_loop.
+                     * Hook: woocommerce_before_shop_loop.
                      *
-                     * @hooked WC_Structured_Data::generate_product_data() - 10
+                     * @hooked wc_print_notices - 10
+                     * @hooked woocommerce_result_count - 20
+                     * @hooked woocommerce_catalog_ordering - 30
                      */
-                    do_action('woocommerce_shop_loop');
+                    do_action('woocommerce_before_shop_loop');
 
+                    /**
+                     * Product loop start.
+                     */
+                    woocommerce_product_loop_start();
 
-                    wc_get_template_part(
-                        'content',
-                        'product'
-                    );
-                }
-            }
+                    if (wc_get_loop_prop('total')) {
 
+                        while (have_posts()) {
 
-            woocommerce_product_loop_end();
+                            the_post();
 
+                            /**
+                             * Hook: woocommerce_shop_loop.
+                             */
+                            do_action('woocommerce_shop_loop');
 
+                            wc_get_template_part(
+                                'content',
+                                'product'
+                            );
+                        }
+                    }
 
-            /**
-             * Hook: woocommerce_after_shop_loop.
-             *
-             * @hooked woocommerce_pagination - 10
-             */
-            do_action('woocommerce_after_shop_loop');
-        } else {
+                    /**
+                     * Product loop end.
+                     */
+                    woocommerce_product_loop_end();
 
+                    /**
+                     * Thay phân trang WooCommerce bằng nút xem thêm.
+                     */
+                    if (
+                        function_exists('render_product_load_more_button')
+                        && $current_page < $total_pages
+                    ) {
+                        render_product_load_more_button(
+                            $current_page,
+                            $total_pages,
+                            $total_products,
+                            $per_page
+                        );
+                    }
 
-            /**
-             * Hook: woocommerce_no_products_found.
-             *
-             * @hooked wc_no_products_found - 10
-             */
-            do_action('woocommerce_no_products_found');
-        }
+                    ?>
 
+                <?php else : ?>
 
+                    <?php
+
+                    /**
+                     * Hook: woocommerce_no_products_found.
+                     */
+                    do_action('woocommerce_no_products_found');
+
+                    ?>
+
+                <?php endif; ?>
+
+            </div>
+
+        </div>
+
+        <?php
 
         /**
          * Hook: flatsome_products_after.
-         *
-         * @hooked flatsome_products_footer_content - 10
          */
         do_action('flatsome_products_after');
 
-
-
         /**
          * Hook: woocommerce_after_main_content.
-         *
-         * @hooked woocommerce_output_content_wrapper_end - 10
          */
         do_action('woocommerce_after_main_content');
 

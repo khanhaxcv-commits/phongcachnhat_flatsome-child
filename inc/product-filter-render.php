@@ -64,19 +64,15 @@ function render_product_filter_bar()
 
                     </div>
 
-                    <?php if ($has_active_filters) : ?>
+                    <button
+                        type="button"
+                        class="clear-desktop-filter inline-flex h-9 items-center gap-2 rounded-[var(--radius-input)] border border-[var(--border-primary)] bg-[var(--primary-50)] px-3.5 text-[13px] font-medium text-[var(--primary-700)] transition duration-200 hover:border-[var(--primary-300)] hover:bg-[var(--primary-100)] hover:text-[var(--primary-hover)] <?php echo $has_active_filters ? '' : 'hidden'; ?>">
 
-                        <a
-                            href="<?php echo esc_url($clear_filter_url); ?>"
-                            class="inline-flex h-9 items-center gap-2 rounded-[var(--radius-input)] border border-[var(--border-primary)] bg-[var(--surface-bg)] px-3.5 text-[13px] font-medium text-[var(--primary-700)] no-underline transition duration-200 hover:border-[var(--primary-300)] hover:bg-[var(--primary-50)] hover:text-[var(--primary-hover)]">
+                        <i class="fa-light fa-arrow-rotate-left text-[12px]"></i>
 
-                            <i class="fa-light fa-arrow-rotate-left text-[12px]"></i>
+                        <span>Xóa bộ lọc</span>
 
-                            <span>Xóa bộ lọc</span>
-
-                        </a>
-
-                    <?php endif; ?>
+                    </button>
 
                 </div>
 

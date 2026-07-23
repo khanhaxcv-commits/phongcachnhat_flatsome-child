@@ -13,9 +13,11 @@
  * ↓
  * 3. theme.js
  * ↓
- * 4. custom.js
+ * 4. product-filter.js
  * ↓
- * 5. product-short-description.js
+ * 5. custom.js
+ * ↓
+ * 6. product-short-description.js
  */
 
 if (!defined('ABSPATH')) {
@@ -122,6 +124,13 @@ if (!function_exists('enqueue_theme_scripts')) {
             )
         );
 
+        $theme_deps = array_unique(
+            array_merge(
+                $vendor_deps,
+                $menu_deps
+            )
+        );
+
         /**
          * 3. theme.js
          *
@@ -131,62 +140,60 @@ if (!function_exists('enqueue_theme_scripts')) {
         enqueue_script_file(
             'theme-js',
             'theme.js',
-            array_unique(
-                array_merge(
-                    $vendor_deps,
-                    $menu_deps
-                )
-            )
+            $theme_deps
         );
+
         /**
-         * 3.1 product-filter.js
+         * 4. product-filter.js
          *
          * Location:
          * /assets/js/product-filter.js
          */
-        enqueue_script_file(
+        $product_filter_loaded = enqueue_script_file(
             'product-filter-js',
             'product-filter.js',
-            array_unique(
-                array_merge(
-                    $vendor_deps,
-                    $menu_deps
-                )
-            )
+            $theme_deps
         );
+
+        if ($product_filter_loaded) {
+            wp_localize_script(
+                'product-filter-js',
+                'productFilterAjax',
+                array(
+                    'ajaxUrl' => admin_url('admin-ajax.php'),
+                    'nonce'   => wp_create_nonce('product_filter_ajax'),
+                )
+            );
+        }
+
         /**
-         * 4. custom.js
+         * 5. custom.js
          *
          * Location:
-         * assets/js/custom.js
+         * /assets/js/custom.js
          */
         enqueue_script_file(
             'custom-js',
             'custom.js',
-            array_unique(
-                array_merge(
-                    $vendor_deps,
-                    $menu_deps
-                )
-            )
+            $theme_deps
         );
+
         /**
-         * 5. product-short-description.js
+         * 6. product-short-description.js
          *
          * Location:
-         * assets/js/product-short-description.js
+         * /assets/js/product-short-description.js
          */
         enqueue_script_file(
             'product-short-description-js',
             'product-short-description.js',
-            array_unique(
-                array_merge(
-                    $vendor_deps,
-                    $menu_deps
-                )
-            )
+            $theme_deps
         );
     }
 }
 
-add_action('wp_enqueue_scripts', 'enqueue_theme_scripts', 40);
+add_action(
+    'wp_enqueue_scripts',
+    'enqueue_theme_scripts',
+    40
+);
