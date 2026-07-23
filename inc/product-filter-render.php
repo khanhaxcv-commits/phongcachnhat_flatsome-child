@@ -39,15 +39,15 @@ function render_product_filter_bar()
         ======================================= -->
         <div class="product-filter-desktop">
 
-            <div class="rounded-[var(--radius-md)] border border-[var(--border-ui)] bg-[var(--surface-bg)] p-5 shadow-[var(--shadow-ui-card)]">
+            <div class="rounded-[var(--radius-lg)] border border-[var(--border-ui)] bg-[var(--surface-bg)] p-5 shadow-[var(--shadow-ui-card)]">
 
                 <!-- HEADER -->
                 <div class="mb-4 flex items-center justify-between gap-5">
 
                     <div class="flex items-center gap-3">
 
-                        <div class="flex size-10 shrink-0 items-center justify-center rounded-[var(--radius-lg)] border border-[var(--border-accent)] bg-[var(--surface-bg-accent)] text-[var(--accent)]">
-                            <i class="fa-light fa-filter-list text-[17px]"></i>
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-input)] bg-[var(--surface-bg-accent)] text-[var(--accent)]">
+                            <i class="fa-light fa-filter-list text-[18px]"></i>
                         </div>
 
                         <div>

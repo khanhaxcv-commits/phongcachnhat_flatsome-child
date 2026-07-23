@@ -256,9 +256,10 @@ html body h6 {
     --radius-sm: 4px;
     --radius-md: 6px;
     --radius-input: 8px;
-    --radius-lg: 14px;
-    --radius-xl: 18px;
-    --radius-2xl: 28px;
+    --radius-lg: 8px;
+    --radius-xl: 12px;
+    --radius-2xl: 16px;
+    --radius-3xl: 24px;
     --radius-pill: 999px;
 
     /* ==================================================
@@ -1249,15 +1250,6 @@ i.icon-user {
     border-bottom: 1px solid #e7e7e7;
 }
 
-#header .header-bottom .nav-left {
-    gap: 16px;
-}
-
-#header .header-bottom .header-nav li i {
-    margin-left: 12px;
-    color: #ec1d24;
-    font-size: 95% !important;
-}
 
 /* --------------------------------css nút search */
 #header .header-main .searchform-wrapper {
