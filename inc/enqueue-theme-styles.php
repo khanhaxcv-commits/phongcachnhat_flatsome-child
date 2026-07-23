@@ -3,11 +3,15 @@
 /**
  * Enqueue Theme Styles
  *
- * Load all theme CSS files with proper dependency management
- * 
- * 1. flatsome-main
+ * Load child theme CSS files with proper dependency management.
+ *
+ * Flatsome parent stylesheet is loaded automatically by the parent theme.
+ *
+ * Child theme load order:
+ *
+ * 1. reset.css
  * ↓
- * 2. reset.css
+ * 2. tailwind.css
  * ↓
  * 3. style.css
  * ↓
@@ -21,7 +25,7 @@
  * ↓
  * 8. footer.css
  * ↓
- * 9. page-specific css
+ * 9. page-specific CSS
  * ↓
  * 10. customize.css
  */
@@ -31,13 +35,14 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Helper: Enqueue CSS file with automatic versioning
+ * Helper: Enqueue CSS file with automatic versioning.
  *
  * Uses file modification time as version for cache busting.
  *
  * @param string $handle CSS handle.
  * @param string $file   Relative path to file in /assets/css/ folder.
  * @param array  $deps   CSS dependencies.
+ * @param string $media  CSS media condition.
  *
  * @return bool True if file exists and was enqueued, false otherwise.
  */
@@ -62,10 +67,10 @@ function enqueue_css_file($handle, $file, $deps = array(), $media = 'all')
 }
 
 /**
- * Enqueue all theme styles
+ * Enqueue all child theme styles.
  *
- * Load reset, main stylesheet, global styles, menu styles, page-specific styles,
- * and final custom override stylesheet.
+ * Load reset, Tailwind, main child theme stylesheet, global styles,
+ * menu styles, page-specific styles and final custom overrides.
  */
 function enqueue_styles()
 {
@@ -74,7 +79,7 @@ function enqueue_styles()
     /*
      * 1. Reset CSS
      *
-     * Reset chạy trước style.css.
+     * Chạy sau CSS chính của Flatsome.
      */
     $has_reset = enqueue_css_file(
         'reset-css',
@@ -82,22 +87,42 @@ function enqueue_styles()
         array('flatsome-main')
     );
 
+    $reset_deps = $has_reset
+        ? array('reset-css')
+        : array('flatsome-main');
+
     /*
-     * 2. Main child theme stylesheet
+     * 2. Tailwind CSS
      *
-     * style.css là nền tảng toàn site, chứa :root, token, biến màu.
+     * Chạy ngay sau reset.css và trước style.css.
+     */
+    $has_tailwind = enqueue_css_file(
+        'tailwind-css',
+        'tailwind.css',
+        $reset_deps
+    );
+
+    $tailwind_deps = $has_tailwind
+        ? array('tailwind-css')
+        : $reset_deps;
+
+    /*
+     * 3. Main child theme stylesheet
+     *
+     * style.css là nền tảng toàn site, chứa :root, token và biến màu.
+     * Chạy sau Tailwind để có thể ghi đè khi cần.
      */
     wp_enqueue_style(
         'flatsome-child-style',
         get_stylesheet_uri(),
-        $has_reset ? array('reset-css') : array('flatsome-main'),
+        $tailwind_deps,
         file_exists($style_path) ? filemtime($style_path) : null
     );
 
     /*
-     * 3. Global CSS
+     * 4. Global CSS
      *
-     * global.css chứa class chung, dùng biến từ style.css.
+     * global.css chứa class chung và sử dụng biến từ style.css.
      */
     $has_global = enqueue_css_file(
         'global-css',
@@ -105,10 +130,12 @@ function enqueue_styles()
         array('flatsome-child-style')
     );
 
-    $global_deps = $has_global ? array('global-css') : array('flatsome-child-style');
+    $global_deps = $has_global
+        ? array('global-css')
+        : array('flatsome-child-style');
 
     /*
-     * 4. Header CSS
+     * 5. Header CSS
      */
     $has_header = enqueue_css_file(
         'header-css',
@@ -116,12 +143,15 @@ function enqueue_styles()
         $global_deps
     );
 
-    $header_deps = $has_header ? array('header-css') : $global_deps;
+    $header_deps = $has_header
+        ? array('header-css')
+        : $global_deps;
 
     /*
-     * 5. Flatsome menu CSS
+     * 6. Flatsome menu CSS
      *
-     * Tách riêng để dễ tái sử dụng cho nhiều dự án Flatsome.
+     * Tách riêng menu mobile và desktop để dễ quản lý
+     * và tái sử dụng cho các dự án Flatsome.
      */
     $layout_handles = array();
 
@@ -152,7 +182,7 @@ function enqueue_styles()
     }
 
     /*
-     * 6. Footer CSS
+     * 7. Footer CSS
      */
     // if (
     //     enqueue_css_file(
@@ -165,7 +195,7 @@ function enqueue_styles()
     // }
 
     /*
-     * 7. Archive / blog styles
+     * 8. Archive and blog styles
      */
     // if (
     //     enqueue_css_file(
@@ -188,7 +218,7 @@ function enqueue_styles()
     // }
 
     /*
-     * 8. Page-specific styles
+     * 9. Page-specific styles
      */
     $page_handles = array();
 
@@ -215,7 +245,8 @@ function enqueue_styles()
             $page_handles[] = 'lien-he-1-css';
         }
     }
-    if (is_product_category()) {
+
+    if (function_exists('is_product_category') && is_product_category()) {
         if (
             enqueue_css_file(
                 'product-category-css',
@@ -225,6 +256,7 @@ function enqueue_styles()
         ) {
             $page_handles[] = 'product-category-css';
         }
+
         if (
             enqueue_css_file(
                 'product-filter-css',
@@ -235,6 +267,7 @@ function enqueue_styles()
             $page_handles[] = 'product-filter-css';
         }
     }
+
     if (function_exists('is_product') && is_product()) {
         if (
             enqueue_css_file(
@@ -247,20 +280,11 @@ function enqueue_styles()
         }
     }
 
-    if (
-        enqueue_css_file(
-            'tailwind-css',
-            'tailwind.css',
-            $global_deps
-        )
-    ) {
-        $page_handles[] = 'tailwind-css';
-    }
     /*
-     * 9. Customize CSS
+     * 10. Customize CSS
      *
-     * customize.css dùng làm file override cuối cùng.
-     * Nếu file này đang chứa :root/token thì nên chuyển phần đó về style.css.
+     * customize.css là file override cuối cùng.
+     * File này chạy sau CSS layout và CSS theo từng trang.
      */
     $customize_deps = array_unique(
         array_merge(

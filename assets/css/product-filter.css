@@ -11,14 +11,7 @@
 =================================== */
 
 .product-filter-desktop {
-    /* display: flex; */
-    /* align-items: center;
-    gap: 20px;
-    padding: 18px 20px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06); */
-    margin-bottom: 30px;
+    margin: 30px 0;
 }
 
 .product-filter-title {
@@ -200,7 +193,7 @@
         line-height: 42px;
         cursor: pointer;
         transition: var(--transition-fast);
-        margin-bottom: 20px;
+        margin: 20px 0;
     }
 
     .open-filter-drawer:hover {

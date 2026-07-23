@@ -30,7 +30,7 @@ $total_pages = max(
 );
 ?>
 
-<div class="row container">
+<div class="row">
 
     <div class="col large-12">
 

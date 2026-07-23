@@ -39,7 +39,7 @@ function render_product_filter_bar()
         ======================================= -->
         <div class="product-filter-desktop">
 
-            <div class="rounded-[var(--radius-xl)] border border-[var(--border-ui)] bg-[var(--surface-bg)] p-5 shadow-[var(--shadow-ui-card)]">
+            <div class="rounded-[var(--radius-md)] border border-[var(--border-ui)] bg-[var(--surface-bg)] p-5 shadow-[var(--shadow-ui-card)]">
 
                 <!-- HEADER -->
                 <div class="mb-4 flex items-center justify-between gap-5">
