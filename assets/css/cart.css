@@ -1,0 +1,277 @@
+/*
+ * Chỉ giữ CSS cho phần markup do WooCommerce/Flatsome sinh ra.
+ * Toàn bộ layout, spacing, màu sắc và responsive chính dùng Tailwind v3
+ * trực tiếp trong woocommerce/cart/cart.php.
+ */
+.woocommerce-cart {
+  background: #f1f2f4;
+}
+
+.woocommerce-cart .page-wrapper,
+.woocommerce-cart .page-checkout {
+  padding-top: 12px;
+  padding-bottom: 32px;
+}
+
+.custom-cart-shell .fa-solid {
+  --fa-family: "Font Awesome 7 Pro";
+  --fa-style-family: "Font Awesome 7 Pro";
+  font-family: "Font Awesome 7 Pro" !important;
+  font-weight: 900;
+}
+
+/* Hủy style giỏ hàng cũ trong style.css. */
+.woocommerce-cart form.woocommerce-cart-form.custom-cart-layout {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.custom-cart-shell input[type="checkbox"] {
+  appearance: none;
+  display: block !important;
+  box-sizing: border-box !important;
+  flex: 0 0 20px;
+  inline-size: 20px !important;
+  min-inline-size: 20px !important;
+  max-inline-size: 20px !important;
+  block-size: 20px !important;
+  min-block-size: 20px !important;
+  max-block-size: 20px !important;
+  margin: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.custom-cart-buy-outline {
+  border: 1px solid #2563eb !important;
+}
+
+.custom-cart-shell input[type="checkbox"]:checked {
+  border-color: #066bff;
+  background: #066bff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round' d='m3 8 3 3 7-7'/%3E%3C/svg%3E") center/14px no-repeat;
+}
+
+.custom-cart-item.is-unselected {
+  opacity: .5;
+}
+
+.woocommerce-cart .custom-cart-remove.remove {
+  position: static;
+  display: grid;
+  width: 26px;
+  height: 26px;
+  place-items: center;
+  border: 0;
+  border-radius: 5px;
+  background: #f3f4f6;
+  color: #6b7280 !important;
+  font-size: 13px;
+}
+
+.woocommerce-cart .custom-cart-remove.remove:hover {
+  background: #fee2e2;
+  color: #dc2626 !important;
+}
+
+.custom-cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 28px;
+  margin: 0;
+}
+
+.custom-cart-quantity-value {
+  display: grid;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  min-height: 28px;
+  place-items: center;
+  background: #fff;
+  color: #111827;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
+}
+
+.woocommerce-cart .custom-cart-quantity-button {
+  display: grid;
+  width: 28px;
+  min-width: 28px;
+  height: 28px;
+  min-height: 28px;
+  margin: 0;
+  padding: 0;
+  place-items: center;
+  border: 0 !important;
+  border-radius: 4px;
+  background: #f3f4f6;
+  box-shadow: none !important;
+  color: #374151;
+  font-size: 0 !important;
+}
+
+.woocommerce-cart .custom-cart-quantity-button::before,
+.woocommerce-cart .custom-cart-quantity-button::after {
+  content: none !important;
+}
+
+.woocommerce-cart .custom-cart-quantity-button:disabled {
+  opacity: .42;
+  cursor: not-allowed;
+}
+
+.woocommerce-cart .custom-cart-quantity-button i {
+  font-size: 10px;
+  pointer-events: none;
+}
+
+.custom-cart-item-price strong .amount {
+  color: #dc2626 !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.custom-cart-item-price del,
+.custom-cart-item-price del .amount {
+  color: #9ca3af !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+.woocommerce-cart .custom-cart-update {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+}
+
+.custom-cart-coupon-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.custom-cart-coupon-form[hidden] {
+  display: none;
+}
+
+.woocommerce-cart .custom-cart-coupon-form input.input-text,
+.woocommerce-cart .custom-cart-coupon-form .button {
+  height: 38px;
+  min-height: 38px;
+  margin: 0;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.woocommerce-cart .custom-cart-coupon-form .button {
+  padding: 0 12px;
+  border-color: #dc2626;
+  background: #dc2626;
+  color: #fff;
+}
+
+.woocommerce-cart .custom-cart-coupon-form .button:disabled {
+  border-color: #e5e7eb;
+  background: #e5e7eb;
+  color: #9ca3af;
+  opacity: 1;
+  cursor: not-allowed;
+}
+
+/* Khung totals dùng template riêng; chỉ reset các rule toàn cục còn lại. */
+.woocommerce-cart .custom-cart-summary-card .cart_totals {
+  width: 100%;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.custom-cart-total-lines {
+  display: grid;
+}
+
+.custom-cart-total-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 29px;
+  padding: 4px 8px;
+}
+
+.custom-cart-total-line > strong {
+  text-align: right;
+  white-space: nowrap;
+}
+
+.custom-cart-total-line .amount {
+  color: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+}
+
+.custom-cart-total-discount {
+  margin-top: 8px;
+  padding-top: 12px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.custom-cart-total-discount > strong,
+.custom-cart-saved-line > strong {
+  color: #00a63e;
+}
+
+.custom-cart-order-total {
+  min-height: 52px;
+  margin-top: 8px;
+  padding-top: 10px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.custom-cart-order-total > span {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.custom-cart-order-total small {
+  display: block;
+  color: #9ca3af;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.custom-cart-order-total > strong,
+.custom-cart-order-total > strong .amount {
+  color: #dc2626 !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+}
+
+.custom-cart-total-line.is-hidden {
+  display: none;
+}
+
+.custom-cart-checkout-button:disabled,
+.custom-cart-buy-outline:disabled {
+  opacity: .45;
+  cursor: not-allowed;
+}
+
+@media (max-width: 639px) {
+  .custom-cart-item .custom-cart-item-actions {
+    grid-row: auto;
+  }
+}

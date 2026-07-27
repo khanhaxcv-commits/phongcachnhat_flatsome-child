@@ -358,8 +358,8 @@ html body h6 {
 #wrapper,
 #main,
 #main.dark {
-    /* background-color: #f2f4f7 !important; */
-    background-color: var(--white) !important;
+    background-color: #f2f4f7 !important;
+    /* background-color: var(--white) !important; */
 
 }
 
@@ -2570,10 +2570,10 @@ a.quick-view svg {
     color: #ff6f0e;
 }
 
-span.amount {
+/* span.amount {
     color: #1988ec;
     font-size: 24px;
-}
+} */
 
 .hinhanh-video i {
     color: #ff00008c;
@@ -3034,10 +3034,10 @@ del span.amount {
     margin-right: 3px;
 }
 
-span.amount {
+/* span.amount {
     color: #0a804a;
     font-size: 17px;
-}
+} */
 
 
 

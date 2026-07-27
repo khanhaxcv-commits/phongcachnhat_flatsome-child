@@ -280,6 +280,12 @@ function enqueue_styles()
         }
     }
 
+    if (function_exists('is_cart') && is_cart()) {
+        if (enqueue_css_file('custom-cart-css', 'cart.css', $global_deps)) {
+            $page_handles[] = 'custom-cart-css';
+        }
+    }
+
     /*
      * 10. Customize CSS
      *

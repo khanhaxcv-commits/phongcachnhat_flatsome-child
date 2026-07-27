@@ -189,6 +189,10 @@ if (!function_exists('enqueue_theme_scripts')) {
             'product-short-description.js',
             $theme_deps
         );
+
+        if (function_exists('is_cart') && is_cart()) {
+            enqueue_script_file('custom-cart-js', 'cart.js', array('jquery'));
+        }
     }
 }
 

@@ -33,6 +33,7 @@ $theme_includes = array(
     'inc/woocommerce/brand-description-editor.php',
     'inc/woocommerce/product-subcategory-shortcode.php',
     'inc/woocommerce/product-affiliate-links.php',
+    'inc/woocommerce/cart.php',
 
     'inc/enqueue-theme-styles.php',
     'inc/enqueue-external-assets.php',
