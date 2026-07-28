@@ -26,12 +26,25 @@
 
     $('[data-cart-subtotal], [data-cart-total]').text(formatMoney(subtotal));
     $('[data-cart-saving]').text('- ' + formatMoney(saving));
+    $('[data-cart-mobile-saving]').text('Tiết kiệm ' + formatMoney(saving));
     $('[data-direct-saving-row], [data-saved-line]').toggleClass('is-hidden', saving <= 0);
+  }
+
+  function toggleMobileDetails(forceOpen) {
+    var $summary = $('.custom-cart-summary');
+    var isOpen = typeof forceOpen === 'boolean' ? forceOpen : !$summary.hasClass('is-mobile-open');
+
+    $summary.toggleClass('is-mobile-open', isOpen);
+    $('.custom-cart-mobile-backdrop').toggleClass('is-visible', isOpen);
+    $('.custom-cart-mobile-total-toggle').attr('aria-expanded', isOpen ? 'true' : 'false');
+    $('.custom-cart-mobile-total-toggle i').toggleClass('fa-chevron-up', !isOpen).toggleClass('fa-chevron-down', isOpen);
+    $('body').toggleClass('custom-cart-details-open', isOpen);
   }
 
   function syncQuantityControls() {
     $('.custom-cart-quantity').each(function () {
       var $control = $(this);
+      var $item = $control.closest('.custom-cart-item');
       var quantity = parseInt($control.find('.custom-cart-quantity-input').val(), 10) || 1;
       var min = parseInt($control.attr('data-min'), 10) || 1;
       var max = parseInt($control.attr('data-max'), 10) || 0;
@@ -39,7 +52,18 @@
       $control.find('.custom-cart-quantity-value').text(quantity);
       $control.find('.custom-cart-quantity-minus').prop('disabled', quantity <= min);
       $control.find('.custom-cart-quantity-plus').prop('disabled', max > 0 && quantity >= max);
+      $item.toggleClass('is-min-quantity', quantity <= min);
     });
+  }
+
+  function syncHeaderCartCount() {
+    var quantity = 0;
+
+    $('.custom-cart-quantity-input').each(function () {
+      quantity += parseInt($(this).val(), 10) || 0;
+    });
+
+    $('.header-cart-link [data-icon-label]').attr('data-icon-label', quantity);
   }
 
   function submitCartUpdate() {
@@ -74,10 +98,11 @@
 
     $('.custom-cart-select-all').prop('checked', $items.length > 0 && $checked.length === $items.length);
     $('[data-selected-count]').text(quantity);
-    $('.custom-cart-checkout-button, .custom-cart-buy-outline').prop('disabled', !$checked.length);
+    $('.custom-cart-checkout-button, .custom-cart-mobile-checkout, .custom-cart-buy-outline').prop('disabled', !$checked.length);
     $('.custom-cart-item').removeClass('is-unselected');
     $items.not(':checked').closest('.custom-cart-item').addClass('is-unselected');
     syncQuantityControls();
+    syncHeaderCartCount();
     updateDisplayedTotals();
   }
 
@@ -119,6 +144,20 @@
     var value = $.trim($(this).closest('.custom-cart-coupon-form').find('input[name="coupon_code"]').val());
     if (!value) event.preventDefault();
   });
+
+  $(document).on('click', '.custom-cart-mobile-total-toggle', function () {
+    toggleMobileDetails();
+  });
+
+  $(document).on('click', '.custom-cart-mobile-sheet-close, .custom-cart-mobile-backdrop', function () {
+    toggleMobileDetails(false);
+  });
+
+  $(document).on('keydown', function (event) {
+    if (event.key === 'Escape') toggleMobileDetails(false);
+  });
+
+  $(document.body).on('wc_fragments_loaded wc_fragments_refreshed added_to_cart removed_from_cart', syncHeaderCartCount);
 
   updateSelection();
 })(jQuery);

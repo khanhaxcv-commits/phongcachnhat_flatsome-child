@@ -24,12 +24,12 @@ $direct_saving = max(0, $regular_total - $current_items_total);
 ?>
 <div class="cart_totals">
     <div class="custom-cart-total-lines">
-        <div class="custom-cart-total-line">
+        <div class="custom-cart-total-line custom-cart-line-subtotal">
             <span>Tổng tiền hàng</span>
             <strong data-cart-subtotal><?php wc_cart_totals_subtotal_html(); ?></strong>
         </div>
 
-        <div class="custom-cart-total-line">
+        <div class="custom-cart-total-line custom-cart-line-shipping">
             <span>Phí vận chuyển</span>
             <strong>
                 <?php echo WC()->cart->needs_shipping() && (float) WC()->cart->get_shipping_total() > 0

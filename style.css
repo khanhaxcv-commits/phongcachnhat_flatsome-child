@@ -358,8 +358,8 @@ html body h6 {
 #wrapper,
 #main,
 #main.dark {
-    background-color: #f2f4f7 !important;
-    /* background-color: var(--white) !important; */
+    /* background-color: #f2f4f7 !important; */
+    background-color: var(--white) !important;
 
 }
 
