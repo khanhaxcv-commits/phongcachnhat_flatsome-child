@@ -30,7 +30,7 @@ $theme_includes = array(
     'inc/woocommerce/product-video.php',
     'inc/woocommerce/product-price-meta.php',
     'inc/woocommerce/category-description-readmore.php',
-    'inc/woocommerce/brand-description-editor.php',
+    // 'inc/woocommerce/brand-description-editor.php',
     'inc/woocommerce/product-subcategory-shortcode.php',
     'inc/woocommerce/product-affiliate-links.php',
     'inc/woocommerce/cart.php',
