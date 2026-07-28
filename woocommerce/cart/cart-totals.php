@@ -8,19 +8,6 @@
 
 defined('ABSPATH') || exit;
 
-$regular_total = 0.0;
-foreach (WC()->cart->get_cart() as $cart_item) {
-    $product = $cart_item['data'];
-    if (!($product instanceof WC_Product)) {
-        continue;
-    }
-    $regular = (float) $product->get_regular_price();
-    $current = (float) $product->get_price();
-    $regular_total += max($regular, $current) * (float) $cart_item['quantity'];
-}
-
-$current_items_total = (float) WC()->cart->get_cart_contents_total();
-$direct_saving = max(0, $regular_total - $current_items_total);
 ?>
 <div class="cart_totals">
     <div class="custom-cart-total-lines">
@@ -45,11 +32,6 @@ $direct_saving = max(0, $regular_total - $current_items_total);
             </div>
         <?php endforeach; ?>
 
-        <div class="custom-cart-total-line custom-cart-total-discount<?php echo $direct_saving > 0 ? '' : ' is-hidden'; ?>" data-direct-saving-row>
-            <span>Giảm giá trực tiếp</span>
-            <strong data-cart-saving>- <?php echo wp_kses_post(wc_price($direct_saving)); ?></strong>
-        </div>
-
         <?php foreach (WC()->cart->get_fees() as $fee) : ?>
             <div class="custom-cart-total-line">
                 <span><?php echo esc_html($fee->name); ?></span>
@@ -62,10 +44,6 @@ $direct_saving = max(0, $regular_total - $current_items_total);
             <strong data-cart-total><?php wc_cart_totals_order_total_html(); ?></strong>
         </div>
 
-        <div class="custom-cart-total-line custom-cart-saved-line<?php echo $direct_saving > 0 ? '' : ' is-hidden'; ?>" data-saved-line>
-            <span>Bạn đã tiết kiệm được</span>
-            <strong data-cart-saving>- <?php echo wp_kses_post(wc_price($direct_saving)); ?></strong>
-        </div>
     </div>
 
     <?php do_action('woocommerce_after_cart_totals'); ?>

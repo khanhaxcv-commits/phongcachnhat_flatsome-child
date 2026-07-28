@@ -12,22 +12,16 @@
 
   function updateDisplayedTotals() {
     var subtotal = 0;
-    var saving = 0;
 
     $('.custom-cart-item-check input:checked').each(function () {
       var $item = $(this).closest('.custom-cart-item');
       var quantity = parseInt($item.find('.custom-cart-quantity-input').val(), 10) || 1;
       var currentPrice = parseFloat($item.attr('data-current-price')) || 0;
-      var regularPrice = parseFloat($item.attr('data-regular-price')) || currentPrice;
 
       subtotal += currentPrice * quantity;
-      saving += Math.max(0, regularPrice - currentPrice) * quantity;
     });
 
     $('[data-cart-subtotal], [data-cart-total]').text(formatMoney(subtotal));
-    $('[data-cart-saving]').text('- ' + formatMoney(saving));
-    $('[data-cart-mobile-saving]').text('Tiết kiệm ' + formatMoney(saving));
-    $('[data-direct-saving-row], [data-saved-line]').toggleClass('is-hidden', saving <= 0);
   }
 
   function toggleMobileDetails(forceOpen) {
@@ -129,12 +123,6 @@
     updateSelection();
     submitCartUpdate();
   });
-  $(document).on('click', '.custom-cart-coupon-toggle', function () {
-    var $form = $('.custom-cart-coupon-form');
-    $form.prop('hidden', !$form.prop('hidden'));
-    if (!$form.prop('hidden')) $form.find('input').trigger('focus');
-  });
-
   $(document).on('input', '.custom-cart-coupon-form input[name="coupon_code"]', function () {
     var hasCode = $.trim($(this).val()).length > 0;
     $(this).closest('.custom-cart-coupon-form').find('button[name="apply_coupon"]').prop('disabled', !hasCode);

@@ -12,17 +12,6 @@ defined('ABSPATH') || exit;
 do_action('woocommerce_before_cart');
 wc_print_notices();
 
-$mobile_regular_total = 0.0;
-foreach (WC()->cart->get_cart() as $mobile_cart_item) {
-    $mobile_product = $mobile_cart_item['data'];
-    if (!($mobile_product instanceof WC_Product)) {
-        continue;
-    }
-    $mobile_regular_price = (float) $mobile_product->get_regular_price();
-    $mobile_current_price = (float) $mobile_product->get_price();
-    $mobile_regular_total += max($mobile_regular_price, $mobile_current_price) * (float) $mobile_cart_item['quantity'];
-}
-$mobile_saving = max(0, $mobile_regular_total - (float) WC()->cart->get_cart_contents_total());
 ?>
 <div class="custom-cart-shell mx-auto w-full max-w-none pb-0 text-sm text-gray-900">
     <div class="custom-cart-topbar mb-3 flex min-h-11 flex-wrap items-center rounded-[14px] bg-white px-4 py-2">
@@ -34,7 +23,6 @@ $mobile_saving = max(0, $mobile_regular_total - (float) WC()->cart->get_cart_con
         </a>
         <span class="custom-cart-divider mx-3 text-gray-300 max-[849px]:hidden">/</span>
         <span class="custom-cart-current text-gray-400 max-[849px]:text-base max-[849px]:font-bold max-[849px]:text-gray-900">Giỏ hàng của bạn</span>
-        <div class="custom-cart-shipping-note mt-2 w-full rounded-md bg-blue-100 px-3 py-1.5 text-center max-[849px]:hidden sm:ml-auto sm:mt-0 sm:w-[390px]"><strong class="text-blue-600">Miễn phí vận chuyển</strong> với đơn hàng từ 300.000đ</div>
     </div>
 
     <form class="woocommerce-cart-form custom-cart-layout !m-0 !rounded-none !border-0 !bg-transparent !p-0 !shadow-none lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(330px,1fr)] lg:gap-3" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
@@ -118,11 +106,7 @@ $mobile_saving = max(0, $mobile_regular_total - (float) WC()->cart->get_cart_con
                 </div>
                 <h2 class="!mb-3.5 text-[15px] font-bold normal-case">Thông tin đơn hàng</h2>
                 <?php if (wc_coupons_enabled()) : ?>
-                    <div class="custom-cart-coupon-row mb-1.5 flex min-h-[42px] items-center justify-between rounded-lg bg-gray-50 px-2 py-1.5 max-[849px]:mb-0 max-[849px]:min-h-9 max-[849px]:py-1">
-                        <span class="flex items-center gap-2"><i class="fa-solid fa-ticket text-red-600" aria-hidden="true"></i> Áp dụng mã giảm giá</span>
-                        <button type="button" class="custom-cart-coupon-toggle !m-0 rounded-full border-0 bg-red-50 px-2.5 py-1 text-xs normal-case text-red-600">Chọn</button>
-                    </div>
-                    <div class="custom-cart-coupon-form" hidden>
+                    <div class="custom-cart-coupon-form">
                         <input type="text" name="coupon_code" class="input-text" placeholder="Nhập mã giảm giá">
                         <button type="submit" class="button" name="apply_coupon" value="Áp dụng" disabled>Áp dụng</button>
                         <?php do_action('woocommerce_cart_coupon'); ?>
@@ -139,7 +123,6 @@ $mobile_saving = max(0, $mobile_regular_total - (float) WC()->cart->get_cart_con
             <label class="custom-cart-mobile-select !m-0 flex items-center gap-1 whitespace-nowrap text-xs"><input type="checkbox" class="custom-cart-select-all" checked><span>Tất cả (<?php echo esc_html(count(WC()->cart->get_cart())); ?>)</span></label>
             <button type="button" class="custom-cart-mobile-total-toggle !m-0 flex min-w-0 flex-col items-end !border-0 bg-transparent p-0 text-gray-900 normal-case leading-[1.2] !shadow-none" aria-expanded="false">
                 <span class="custom-cart-mobile-total-row flex items-center gap-[5px] text-base text-red-600"><strong data-cart-total><?php echo wp_kses_post(WC()->cart->get_total()); ?></strong><i class="fa-solid fa-chevron-up" aria-hidden="true"></i></span>
-                <small class="text-[11px] font-normal text-green-600" data-cart-mobile-saving>Tiết kiệm <?php echo wp_kses_post(wc_price($mobile_saving)); ?></small>
             </button>
             <button type="submit" class="custom-cart-mobile-checkout !m-0 min-h-[42px] w-full rounded-lg !border-0 bg-[#dc0020] px-2 text-sm font-bold normal-case text-white !shadow-none" name="custom_cart_checkout_selected" value="1">Mua ngay (<span data-selected-count><?php echo esc_html(WC()->cart->get_cart_contents_count()); ?></span>)</button>
         </div>
