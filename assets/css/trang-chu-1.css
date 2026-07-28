@@ -267,160 +267,208 @@
 }
 
 
-/* ------------------------------section-03 */
-/* Card danh mục */
+/* Product Categories - icon grid matching the reference UI. */
+
+.section.trang-chu-1781947520563 {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+.row-1781947520563>.col>.col-inner>.row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 10px 4px;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.row-1781947520563 .product-category {
+    width: auto;
+    max-width: none;
+    padding: 0;
+}
+
+.row-1781947520563 .product-category .col-inner,
+.row-1781947520563 .product-category .col-inner>a {
+    display: block;
+    height: 100%;
+}
+
 .row-1781947520563 .product-category .box-category {
     position: relative;
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
     align-items: center;
-    height: 130px;
-
-    /* Background của card */
-    background-image: url("http://phongcachnhat.local/wp-content/uploads/2026/06/ChatGPT-Image-Jun-22-2026-04_44_32-PM.png");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-
-    padding: 6px;
-    border-radius: 8px;
-    box-shadow: 0 3px 14px rgba(67, 44, 25, 0.07);
+    justify-content: flex-start;
+    width: 100%;
+    height: 124px;
+    padding: 12px 8px 10px;
     overflow: hidden;
-
+    background-color: transparent;
+    background-image: none !important;
+    border-radius: 20px;
+    box-shadow: none;
     transition:
-        transform 0.25s ease,
-        box-shadow 0.25s ease;
+        background-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
 }
 
-
-
-.row-1781947520563 .product-category:nth-child(1) .box-category {
-    background-image: url("https://img.lightshot.app/-F6McTtKQg2FgOPa7uIRIA.png");
+.row-1781947520563 .product-category .box-image {
+    display: flex;
+    flex: 0 0 70px;
+    align-items: center;
+    justify-content: center;
+    width: 70px !important;
+    height: 70px;
+    overflow: hidden !important;
+    background: #fff;
+    border: 1px solid #edf0f3;
+    border-radius: 19px;
+    box-shadow: 0 2px 5px rgba(15, 23, 42, 0.08);
 }
 
-.row-1781947520563 .product-category:nth-child(2) .box-category {
-    background-image: url("https://img.lightshot.app/nyBcDC6TS3WGOKMzDAfS3Q.png");
-}
-
-.row-1781947520563 .product-category:nth-child(3) .box-category {
-    background-image: url("https://img.lightshot.app/4Lk3viMGQDKv0N_sDuLlDw.png");
-}
-
-.row-1781947520563 .product-category:nth-child(4) .box-category {
-    background-image: url("https://img.lightshot.app/SBhBZU2nRJeHyYGQik4cag.png");
-}
-
-.row-1781947520563 .product-category:nth-child(5) .box-category {
-    background-image: url("https://img.lightshot.app/SBhBZU2nRJeHyYGQik4cag.png");
-}
-
-.row-1781947520563 .product-category:nth-child(6) .box-category {
-    background-image: url("https://img.lightshot.app/-F6McTtKQg2FgOPa7uIRIA.png");
-}
-
-
-.row-1781947520563 .product-category:nth-child(7) .box-category {
-    background-image: url("https://img.lightshot.app/nyBcDC6TS3WGOKMzDAfS3Q.png");
-}
-
-
-.row-1781947520563 .product-category:nth-child(8) .box-category {
-    background-image: url("https://img.lightshot.app/4Lk3viMGQDKv0N_sDuLlDw.png");
-}
-
-
-/* Ảnh sản phẩm */
-
-.row-1781947520563 .product-category .box-image,
 .row-1781947520563 .product-category .box-image>div {
-    overflow: visible !important;
+    width: 100%;
+    height: 100%;
+    overflow: hidden !important;
 }
 
 .row-1781947520563 .product-category .box-image img {
-    transform: translateX(-22px) scale(1.1);
+    width: 100%;
+    height: 100%;
+    padding: 7px;
+    object-fit: contain;
+    transform: none;
     transform-origin: center;
+    transition: transform 0.25s ease;
+}
+
+.row-1781947520563 .product-category .box-text {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+    padding: 8px 4px 0 !important;
+}
+
+.row-1781947520563 .product-category .box-text-inner {
+    width: 100%;
+}
+
+.row-1781947520563 .product-category .box-text h5 {
+    margin: 0;
+    color: #16213a;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    text-align: center;
+    text-transform: none;
+    transition: color 0.25s ease;
+}
+
+.row-1781947520563 .product-category .box-category:hover {
+    background-color: #f7f8fa;
+    box-shadow: 0 5px 10px rgba(15, 23, 42, 0.16);
+    transform: translateY(-1px);
 }
 
 .row-1781947520563 .product-category .box-category:hover .box-image img {
     animation: none !important;
-    transform: translateX(-22px) scale(1.23);
+    transform: scale(1.06);
 }
 
-/* Nội dung bên trái */
-.row-1781947520563 .product-category .box-text {
-    width: 42%;
-    flex: 0 0 42%;
-    padding: 0 !important;
+.row-1781947520563 .product-category .box-category:hover .box-text h5 {
+    color: #e3342f !important;
 }
 
-/* Tên danh mục */
-.row-1781947520563 .product-category .box-text h5 {
-    color: #30271f;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: 1.35;
-    text-align: center;
-    text-transform: none;
-}
-
-
-/* Hover card */
-.row-1781947520563 .product-category .box-category:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 22px rgba(67, 44, 25, 0.14);
-}
-
-
-/* Mobile - Card danh mục: ảnh ở trên, chữ ở dưới */
-@media (max-width: 549px) {
+@media (min-width: 1200px) {
     .row-1781947520563 .product-category .box-category {
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        height: 130px;
-        padding: 8px 6px 10px;
+        height: 148px;
+        padding-top: 12px;
+        padding-bottom: 10px;
     }
 
     .row-1781947520563 .product-category .box-image {
-        width: 56%;
-        max-width: 86px;
-        height: 82px;
-        flex: 0 0 82px;
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-    }
-
-    .row-1781947520563 .product-category .box-image img {
-        width: auto;
-        height: auto;
-        max-width: 100%;
-        max-height: 78px;
-        object-fit: contain;
-        transform: translateY(-4px) scale(1);
-        transform-origin: top center;
-    }
-
-    .row-1781947520563 .product-category .box-category:hover .box-image img {
-        transform: translateY(-4px) scale(1.06);
+        flex-basis: 90px;
+        width: 90px !important;
+        height: 90px;
+        border-radius: 22px;
     }
 
     .row-1781947520563 .product-category .box-text {
-        width: 100%;
-        max-width: none;
+        padding-top: 10px !important;
+    }
+}
+
+@media (max-width: 1199px) {
+    .row-1781947520563>.col>.col-inner>.row {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 849px) {
+    .row-1781947520563>.col>.col-inner>.row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 549px) {
+    .section.trang-chu-1781947520563 {
+        padding-top: 10px !important;
+        padding-bottom: 10px !important;
+    }
+
+    .section.trang-chu-1781947520563 .row-1781947520563 {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .row-1781947520563>.col {
+        padding-bottom: 0 !important;
+    }
+
+    .row-1781947520563>.col>.col-inner>.row {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        column-gap: 8px;
+        row-gap: 12px;
+    }
+
+    .row-1781947520563>.col>.col-inner>.row::before,
+    .row-1781947520563>.col>.col-inner>.row::after {
+        display: none !important;
+        content: none !important;
+    }
+
+    .row-1781947520563 .product-category .box-category {
+        height: 110px;
+        padding: 8px 1px 4px;
+        border-radius: 16px;
+    }
+
+    .row-1781947520563 .product-category .box-image {
+        flex-basis: 56px;
+        width: 56px !important;
+        height: 56px;
+        border-radius: 16px;
+    }
+
+    .row-1781947520563 .product-category .box-image img {
+        padding: 5px;
+    }
+
+    .row-1781947520563 .product-category .box-text {
         flex: 0 0 auto;
-        padding: 0 !important;
+        align-items: flex-start;
+        padding: 8px 0 0 !important;
     }
 
     .row-1781947520563 .product-category .box-text h5 {
-        width: 100%;
-        max-width: none;
-        margin: 0;
-        white-space: normal;
+        font-size: 12px;
+        line-height: 1.3;
     }
-
 }
-
 
 /* ------------------------------section-04 */
 /* .row-1781948790525 {
