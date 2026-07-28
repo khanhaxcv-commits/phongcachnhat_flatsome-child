@@ -3753,6 +3753,15 @@ th:first-child {
 .woocommerce-cart .return-to-shop a.wc-backward {
     background: #d71920 !important;
     border-radius: 12px !important;
+    padding: 12px 15px;
+    font-size: 14px;
+    color: white;
+    min-height: 40px;
+    display: flex;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    margin: 12px auto !important;
 }
 
 .woocommerce-cart .actions button[name="update_cart"] {
