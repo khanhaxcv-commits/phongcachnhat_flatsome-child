@@ -1503,6 +1503,9 @@ i.icon-user {
     border: 1px solid #e11d27 !important;
     border-radius: 16px;
     box-shadow: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .cart-item .woocommerce-mini-cart__buttons .button:hover {
@@ -1567,6 +1570,9 @@ i.icon-user {
         border: 1px solid #e11d27 !important;
         border-radius: 16px;
         box-shadow: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .off-canvas-cart #cart-popup .woocommerce-mini-cart__buttons .button:hover {
