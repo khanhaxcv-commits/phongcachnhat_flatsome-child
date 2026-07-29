@@ -162,13 +162,36 @@ function get_product_filter_taxonomies_for_category($category_id)
         array_map('sanitize_key', (array) $taxonomies)
     )));
 
-    $request_cache[$category_id] = array_values(array_filter(
+    $taxonomies = array_values(array_filter(
         $taxonomies,
         function ($taxonomy) use ($exclude) {
             return taxonomy_exists($taxonomy)
                 && !in_array($taxonomy, $exclude, true);
         }
     ));
+
+    $priority = array_values(array_unique(array_filter(
+        array_map(
+            'sanitize_key',
+            (array) ($config['priority'] ?? [])
+        )
+    )));
+
+    $ordered_taxonomies = [];
+
+    foreach ($priority as $taxonomy) {
+        if (in_array($taxonomy, $taxonomies, true)) {
+            $ordered_taxonomies[] = $taxonomy;
+        }
+    }
+
+    foreach ($taxonomies as $taxonomy) {
+        if (!in_array($taxonomy, $ordered_taxonomies, true)) {
+            $ordered_taxonomies[] = $taxonomy;
+        }
+    }
+
+    $request_cache[$category_id] = $ordered_taxonomies;
 
     return $request_cache[$category_id];
 }
@@ -358,12 +381,19 @@ function get_dynamic_product_filters($category_id = 0, $raw_active_filters = nul
     }
 
     $filters = [];
+    $config = get_filter_config();
+    $custom_labels = !empty($config['labels'])
+        && is_array($config['labels'])
+        ? $config['labels']
+        : [];
 
     foreach ($taxonomies as $taxonomy) {
         $filters[] = [
             'key'      => str_replace('pa_', '', $taxonomy),
             'taxonomy' => $taxonomy,
-            'label'    => wc_attribute_label($taxonomy),
+            'label'    => !empty($custom_labels[$taxonomy])
+                ? (string) $custom_labels[$taxonomy]
+                : wc_attribute_label($taxonomy),
             'terms'    => $terms_by_taxonomy[$taxonomy],
         ];
     }
@@ -797,14 +827,14 @@ function render_custom_catalog_ordering()
 
     <div class="custom-product-ordering flex items-center gap-3">
 
-        <label class="ordering-label m-0 shrink-0 text-[14px] font-medium text-[var(--text-soft-ui)]">
+        <label class="ordering-label m-0 shrink-0 text-[14px] font-medium !text-soft">
             Sắp xếp theo:
         </label>
 
         <div class="ordering-select-wrap relative w-[240px]">
 
             <select
-                class="ordering-select m-0 h-11 w-full rounded-[var(--radius-input)] border border-[var(--input-border)] bg-[var(--surface-bg-muted)] px-4 text-[14px] font-medium text-[var(--input-text)] outline-none transition duration-200 hover:border-[var(--border-accent)] hover:bg-[var(--surface-bg-accent)] focus:border-[var(--input-focus-border)] focus:bg-[var(--surface-bg)] focus:ring-4 focus:ring-[var(--focus-ring-ui)]"
+                class="ordering-select !m-0 !h-11 !w-full !rounded-lg !border !border-input !bg-surface-muted !px-4 !text-[14px] font-medium !text-input !shadow-none outline-none !transition !duration-200 hover:!border-accent-soft hover:!bg-surface-accent focus:!border-input-focus focus:!bg-surface focus:!ring-4 focus:!ring-ui"
                 onchange="if(this.value){window.location.href=this.value;}"
                 aria-label="Sắp xếp sản phẩm">
 

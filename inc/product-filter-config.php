@@ -4,6 +4,44 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Thứ tự ưu tiên của bộ lọc
+    |--------------------------------------------------------------------------
+    |
+    | Taxonomy đứng trước sẽ được hiển thị trước. Các taxonomy không có trong
+    | mảng này vẫn giữ nguyên thứ tự tự động hoặc thứ tự trong override.
+    |
+    */
+
+    'priority' => [
+        'pa_thuong-hieu',
+        'pa_chung-loai-san-pham',
+        'pa_chieu-cao-toi-da',
+        'pa_mau-sac',
+        'pa_kich-thuoc',
+        'pa_vat-lieu-canh-tu',
+        'pa_dung-tich',
+        'pa_trong-luong-giat',
+        'pa_cong-suat-hut-am',
+        'pa_kieu-dang',
+    ],
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tên hiển thị tùy chỉnh của bộ lọc
+    |--------------------------------------------------------------------------
+    |
+    | Dùng khi muốn đổi tên ngoài giao diện mà không thay đổi tên attribute
+    | trong WooCommerce. Có thể thêm các cặp taxonomy => tên hiển thị tại đây.
+    |
+    */
+
+    'labels' => [
+        'pa_chung-loai-san-pham' => 'Chủng loại sản phẩm',
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
     | Attribute không muốn hiển thị trong filter
     |--------------------------------------------------------------------------
     */

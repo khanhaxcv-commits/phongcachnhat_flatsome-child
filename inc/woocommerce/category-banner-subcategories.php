@@ -58,19 +58,19 @@ function render_category_subcategories()
 ?>
 
     <div class="category-subcategories mt-5" aria-labelledby="category-subcategories-title">
-        <div class="rounded-[var(--radius-lg)] border border-[var(--border-ui)] bg-[var(--surface-bg)] px-4 py-5 sm:px-5">
+        <div class="rounded-lg border border-ui bg-surface px-4 py-5 sm:px-5">
 
             <div class="mb-5 flex items-start gap-3">
-                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-input)] bg-[var(--surface-bg-accent)] text-[var(--accent)]">
+                <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-accent !text-accent">
                     <i class="fa-light fa-grid-2 text-[18px]" aria-hidden="true"></i>
                 </div>
 
                 <div class="min-w-0">
-                    <h2 id="category-subcategories-title" class="m-0 text-[16px] font-semibold leading-tight text-[var(--text-heading)]">
+                    <h2 id="category-subcategories-title" class="m-0 text-[16px] font-semibold leading-tight !text-heading">
                         Danh mục sản phẩm
                     </h2>
 
-                    <p class="mb-0 mt-1 text-[13px] leading-tight text-[var(--text-soft-ui)]">
+                    <p class="mb-0 mt-1 text-[13px] leading-tight !text-soft">
                         Khám phá thiết bị theo từng nhu cầu sử dụng
                     </p>
                 </div>
@@ -117,9 +117,9 @@ function render_category_subcategories()
                     ?>
 
                     <a href="<?php echo esc_url($subcategory_link); ?>" class="group w-[280px] shrink-0 snap-start no-underline sm:w-[300px] lg:w-auto" aria-label="<?php echo esc_attr(sprintf('Xem danh mục %s', $category_name)); ?>">
-                        <div class="relative flex h-full min-h-[116px] items-center overflow-hidden rounded-[var(--radius-sm)] bg-[var(--surface-bg-muted)] p-3 transition duration-200 hover:bg-[var(--primary-50)] hover:shadow-[var(--shadow-ui-card)] sm:min-h-[126px]">
+                        <div class="relative flex h-full min-h-[116px] items-center overflow-hidden rounded-sm bg-surface-muted p-3 transition duration-200 hover:bg-primary-50 hover:shadow-ui-card sm:min-h-[126px]">
 
-                            <div class="flex h-[86px] w-[86px] shrink-0 items-center justify-center overflow-hidden rounded-[var(--radius-pill] bg-[var(--surface-bg)] sm:h-[96px] sm:w-[96px]">
+                            <div class="flex h-[86px] w-[86px] shrink-0 items-center justify-center overflow-hidden rounded-full bg-surface sm:h-[96px] sm:w-[96px]">
                                 <?php if ($thumbnail_id) : ?>
                                     <?php
                                     echo wp_get_attachment_image(
@@ -135,21 +135,21 @@ function render_category_subcategories()
                                     );
                                     ?>
                                 <?php else : ?>
-                                    <i class="fa-light fa-image text-[30px] text-[var(--text-light)]" aria-hidden="true"></i>
+                                    <i class="fa-light fa-image text-[30px] !text-light" aria-hidden="true"></i>
                                 <?php endif; ?>
                             </div>
 
                             <div class="min-w-0 flex-1 px-3 pr-10">
-                                <h3 class="m-0 line-clamp-2 text-[15px] font-semibold leading-[22px] text-[var(--text-heading)] transition-colors duration-200 group-hover:text-[var(--primary-hover)]">
+                                <h3 class="m-0 line-clamp-2 text-[15px] font-semibold leading-[22px] !text-heading transition-colors duration-200 group-hover:!text-primary-hover">
                                     <?php echo esc_html($category_name); ?>
                                 </h3>
 
-                                <p class="m-0 mt-1 line-clamp-2 text-[12px] leading-[18px] text-[var(--text-sub)]">
+                                <p class="m-0 mt-1 line-clamp-2 text-[12px] leading-[18px] !text-sub">
                                     <?php echo esc_html($category_description); ?>
                                 </p>
                             </div>
 
-                            <span class="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-[var(--surface-bg)] text-[var(--primary)] shadow-sm transition duration-200 group-hover:bg-[var(--primary)] group-hover:text-[var(--primary-on)]">
+                            <span class="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-surface !text-primary shadow-sm transition duration-200 group-hover:bg-primary group-hover:!text-primary-on">
                                 <i class="fa-light fa-chevron-right text-[12px]" aria-hidden="true"></i>
                             </span>
 
