@@ -32,24 +32,24 @@ function render_product_filter_bar()
         ======================================= -->
         <div class="product-filter-desktop">
 
-            <div class="rounded-[var(--radius-lg)] border border-[var(--border-ui)] bg-[var(--surface-bg)] p-5 shadow-[var(--shadow-ui-card)]">
+            <div class="rounded-lg border border-ui bg-surface p-5 shadow-ui-card">
 
                 <!-- HEADER -->
                 <div class="mb-4 flex items-center justify-between gap-5">
 
                     <div class="flex items-center gap-3">
 
-                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-input)] bg-[var(--surface-bg-accent)] text-[var(--accent)]">
+                        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-accent !text-accent">
                             <i class="fa-light fa-filter-list text-[18px]"></i>
                         </div>
 
                         <div>
 
-                            <h2 class="m-0 text-[16px] font-semibold leading-tight text-[var(--text-heading)]">
+                            <h2 class="m-0 text-[16px] font-semibold leading-tight !text-heading">
                                 Bộ lọc sản phẩm
                             </h2>
 
-                            <p class="mt-1 mb-0 text-[13px] leading-tight text-[var(--text-soft-ui)]">
+                            <p class="mt-1 mb-0 text-[13px] leading-tight !text-soft">
                                 Chọn tiêu chí phù hợp để thu hẹp sản phẩm
                             </p>
 
@@ -59,7 +59,7 @@ function render_product_filter_bar()
 
                     <button
                         type="button"
-                        class="clear-desktop-filter inline-flex h-9 items-center gap-2 rounded-[var(--radius-input)] border border-[var(--border-primary)] bg-[var(--primary-50)] px-3.5 text-[13px] font-medium text-[var(--primary-700)] transition duration-200 hover:border-[var(--primary-300)] hover:bg-[var(--primary-100)] hover:text-[var(--primary-hover)] <?php echo $has_active_filters ? '' : 'hidden'; ?>">
+                        class="clear-desktop-filter inline-flex h-9 items-center gap-2 rounded-lg border border-brand bg-primary-50 px-3.5 text-[13px] font-medium !text-primary-700 transition duration-200 hover:border-primary-300 hover:bg-primary-100 hover:!text-primary-hover <?php echo $has_active_filters ? '' : 'hidden'; ?>">
 
                         <i class="fa-light fa-arrow-rotate-left text-[12px]"></i>
 
@@ -84,8 +84,8 @@ function render_product_filter_bar()
                             $is_selected = !empty($selected_value);
 
                             $select_state_classes = $is_selected
-                                ? 'border-[var(--border-accent)] bg-[var(--surface-bg-accent)] text-[var(--accent-800)]'
-                                : 'border-[var(--input-border)] bg-[var(--surface-bg-muted)] text-[var(--input-text)]';
+                                ? '!border-accent-soft !bg-surface-accent !text-accent-800'
+                                : '!border-input !bg-surface-muted !text-input';
                             ?>
 
                             <div
@@ -94,7 +94,7 @@ function render_product_filter_bar()
                                 <?php echo empty($filter['terms']) ? 'hidden' : ''; ?>>
 
                                 <select
-                                    class="product-filter-select m-0 h-11 w-full truncate rounded-[var(--radius-input)] border px-4 text-[14px] font-medium outline-none transition duration-200 <?php echo esc_attr($select_state_classes); ?> hover:border-[var(--border-accent)] hover:bg-[var(--surface-bg-accent)] focus:border-[var(--input-focus-border)] focus:bg-[var(--surface-bg)] focus:ring-4 focus:ring-[var(--focus-ring-ui)]"
+                                    class="product-filter-select !m-0 !h-11 !w-full truncate !rounded-lg !border !px-4 !text-[14px] font-medium !shadow-none outline-none !transition !duration-200 <?php echo esc_attr($select_state_classes); ?> hover:!border-accent-soft hover:!bg-surface-accent focus:!border-input-focus focus:!bg-surface focus:!ring-4 focus:!ring-ui"
                                     data-filter="<?php echo esc_attr($filter['key']); ?>"
                                     aria-label="<?php echo esc_attr($filter['label']); ?>">
 
@@ -126,7 +126,7 @@ function render_product_filter_bar()
                 </div>
 
                 <!-- SORTING -->
-                <div class="product-filter-sort mt-4 flex items-center justify-end border-t border-[var(--border-ui)] pt-4">
+                <div class="product-filter-sort mt-4 flex items-center justify-end border-t border-ui pt-4">
                     <?php render_custom_catalog_ordering(); ?>
                 </div>
 

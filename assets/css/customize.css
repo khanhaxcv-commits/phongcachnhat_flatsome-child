@@ -139,7 +139,7 @@
     bottom: 0;
     width: 38px;
     height: 4px;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius-full);
     background: var(--primary);
 }
 
@@ -308,7 +308,7 @@
     margin: 0;
     padding: 10px 22px;
     border: 1px solid var(--accent);
-    border-radius: var(--radius-input);
+    border-radius: var(--radius-lg);
     background: var(--surface-bg);
     color: var(--accent);
     font-size: 14px;

@@ -170,8 +170,8 @@ html body h6 {
     --bg-light: #fff8f8;
     --bg-light-rgb: 255, 248, 248;
 
-    --bg-soft: #f6f6f9;
-    --bg-soft-rgb: 246, 246, 249;
+    --bg-soft: #f1f2f4;
+    --bg-soft-rgb: 241, 242, 244;
 
     --bg-accent-soft: #f3f4ff;
     --bg-accent-soft-rgb: 243, 244, 255;
@@ -253,14 +253,15 @@ html body h6 {
     /* ==================================================
      RADIUS
   ================================================== */
-    --radius-sm: 4px;
+    --radius-none: 0;
+    --radius-sm: 2px;
+    --radius-default: 4px;
     --radius-md: 6px;
-    --radius-input: 8px;
     --radius-lg: 8px;
     --radius-xl: 12px;
     --radius-2xl: 16px;
     --radius-3xl: 24px;
-    --radius-pill: 999px;
+    --radius-full: 9999px;
 
     /* ==================================================
      TRANSITION

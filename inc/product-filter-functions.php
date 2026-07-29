@@ -797,14 +797,14 @@ function render_custom_catalog_ordering()
 
     <div class="custom-product-ordering flex items-center gap-3">
 
-        <label class="ordering-label m-0 shrink-0 text-[14px] font-medium text-[var(--text-soft-ui)]">
+        <label class="ordering-label m-0 shrink-0 text-[14px] font-medium !text-soft">
             Sắp xếp theo:
         </label>
 
         <div class="ordering-select-wrap relative w-[240px]">
 
             <select
-                class="ordering-select m-0 h-11 w-full rounded-[var(--radius-input)] border border-[var(--input-border)] bg-[var(--surface-bg-muted)] px-4 text-[14px] font-medium text-[var(--input-text)] outline-none transition duration-200 hover:border-[var(--border-accent)] hover:bg-[var(--surface-bg-accent)] focus:border-[var(--input-focus-border)] focus:bg-[var(--surface-bg)] focus:ring-4 focus:ring-[var(--focus-ring-ui)]"
+                class="ordering-select !m-0 !h-11 !w-full !rounded-lg !border !border-input !bg-surface-muted !px-4 !text-[14px] font-medium !text-input !shadow-none outline-none !transition !duration-200 hover:!border-accent-soft hover:!bg-surface-accent focus:!border-input-focus focus:!bg-surface focus:!ring-4 focus:!ring-ui"
                 onchange="if(this.value){window.location.href=this.value;}"
                 aria-label="Sắp xếp sản phẩm">
 
