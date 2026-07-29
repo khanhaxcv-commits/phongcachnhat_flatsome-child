@@ -162,13 +162,36 @@ function get_product_filter_taxonomies_for_category($category_id)
         array_map('sanitize_key', (array) $taxonomies)
     )));
 
-    $request_cache[$category_id] = array_values(array_filter(
+    $taxonomies = array_values(array_filter(
         $taxonomies,
         function ($taxonomy) use ($exclude) {
             return taxonomy_exists($taxonomy)
                 && !in_array($taxonomy, $exclude, true);
         }
     ));
+
+    $priority = array_values(array_unique(array_filter(
+        array_map(
+            'sanitize_key',
+            (array) ($config['priority'] ?? [])
+        )
+    )));
+
+    $ordered_taxonomies = [];
+
+    foreach ($priority as $taxonomy) {
+        if (in_array($taxonomy, $taxonomies, true)) {
+            $ordered_taxonomies[] = $taxonomy;
+        }
+    }
+
+    foreach ($taxonomies as $taxonomy) {
+        if (!in_array($taxonomy, $ordered_taxonomies, true)) {
+            $ordered_taxonomies[] = $taxonomy;
+        }
+    }
+
+    $request_cache[$category_id] = $ordered_taxonomies;
 
     return $request_cache[$category_id];
 }
@@ -358,12 +381,19 @@ function get_dynamic_product_filters($category_id = 0, $raw_active_filters = nul
     }
 
     $filters = [];
+    $config = get_filter_config();
+    $custom_labels = !empty($config['labels'])
+        && is_array($config['labels'])
+        ? $config['labels']
+        : [];
 
     foreach ($taxonomies as $taxonomy) {
         $filters[] = [
             'key'      => str_replace('pa_', '', $taxonomy),
             'taxonomy' => $taxonomy,
-            'label'    => wc_attribute_label($taxonomy),
+            'label'    => !empty($custom_labels[$taxonomy])
+                ? (string) $custom_labels[$taxonomy]
+                : wc_attribute_label($taxonomy),
             'terms'    => $terms_by_taxonomy[$taxonomy],
         ];
     }
