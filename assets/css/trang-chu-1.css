@@ -430,7 +430,7 @@
     }
 
     .row-1781947520563>.col>.col-inner>.row {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         column-gap: 8px;
         row-gap: 12px;
     }
