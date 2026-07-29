@@ -301,7 +301,7 @@
     align-items: center;
     justify-content: flex-start;
     width: 100%;
-    height: 124px;
+    height: 138px;
     padding: 12px 8px 10px;
     overflow: hidden;
     background-color: transparent;
@@ -316,11 +316,11 @@
 
 .row-1781947520563 .product-category .box-image {
     display: flex;
-    flex: 0 0 70px;
+    flex: 0 0 84px;
     align-items: center;
     justify-content: center;
-    width: 70px !important;
-    height: 70px;
+    width: 84px !important;
+    height: 84px;
     overflow: hidden !important;
     background: #fff;
     border: 1px solid #edf0f3;
@@ -337,7 +337,7 @@
 .row-1781947520563 .product-category .box-image img {
     width: 100%;
     height: 100%;
-    padding: 7px;
+    padding: 5px;
     object-fit: contain;
     transform: none;
     transform-origin: center;
@@ -368,12 +368,6 @@
     transition: color 0.25s ease;
 }
 
-.row-1781947520563 .product-category .box-category:hover {
-    background-color: #f7f8fa;
-    box-shadow: 0 5px 10px rgba(15, 23, 42, 0.16);
-    transform: translateY(-1px);
-}
-
 .row-1781947520563 .product-category .box-category:hover .box-image img {
     animation: none !important;
     transform: scale(1.06);
@@ -385,16 +379,16 @@
 
 @media (min-width: 1200px) {
     .row-1781947520563 .product-category .box-category {
-        height: 148px;
+        height: 168px;
         padding-top: 12px;
         padding-bottom: 10px;
     }
 
     .row-1781947520563 .product-category .box-image {
-        flex-basis: 90px;
-        width: 90px !important;
-        height: 90px;
-        border-radius: 22px;
+        flex-basis: 110px;
+        width: 110px !important;
+        height: 110px;
+        border-radius: 24px;
     }
 
     .row-1781947520563 .product-category .box-text {
@@ -442,20 +436,20 @@
     }
 
     .row-1781947520563 .product-category .box-category {
-        height: 110px;
+        height: 120px;
         padding: 8px 1px 4px;
         border-radius: 16px;
     }
 
     .row-1781947520563 .product-category .box-image {
-        flex-basis: 56px;
-        width: 56px !important;
-        height: 56px;
+        flex-basis: 64px;
+        width: 64px !important;
+        height: 64px;
         border-radius: 16px;
     }
 
     .row-1781947520563 .product-category .box-image img {
-        padding: 5px;
+        padding: 4px;
     }
 
     .row-1781947520563 .product-category .box-text {
