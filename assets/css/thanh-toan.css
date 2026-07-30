@@ -82,6 +82,106 @@ body.woocommerce-checkout .absolute-footer {
     font-weight: 700;
 }
 
+/* --------------css checkout customer login */
+
+.woocommerce-checkout .woocommerce-form-login-toggle {
+    margin-bottom: 12px;
+}
+
+.woocommerce-checkout .woocommerce-form-login-toggle .woocommerce-info {
+    margin: 0;
+    padding: 14px 16px;
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius-lg);
+    background: var(--primary-50);
+    color: var(--text-main);
+}
+
+.woocommerce-checkout .woocommerce-form-login-toggle .message-container {
+    max-width: none;
+    padding: 0;
+}
+
+.woocommerce-checkout .woocommerce-form-login-toggle .showlogin {
+    margin: 0;
+    color: var(--accent) !important;
+    font-weight: 700;
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login {
+    margin: 0 0 18px;
+    padding: 18px;
+    border: 1px solid var(--border-ui);
+    border-top: 3px solid var(--primary);
+    border-radius: var(--radius-xl);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-ui-card);
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login>p:first-child {
+    margin: 0 0 16px;
+    color: var(--text-soft-ui);
+    line-height: 1.65;
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login>.form-row-first,
+.woocommerce-checkout form.woocommerce-form-login.login>.form-row-last {
+    float: none;
+    width: 100%;
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login>.clear {
+    display: block;
+    clear: both;
+    width: 100%;
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login>.form-row:not(.form-row-first, .form-row-last) {
+    display: flex;
+    clear: both;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    margin: 4px 0 0;
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login .woocommerce-form-login__rememberme {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login .woocommerce-form-login__rememberme input {
+    margin: 0;
+    accent-color: var(--primary);
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login .woocommerce-form-login__submit {
+    width: 100%;
+    min-height: 42px;
+    margin: 0;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login .woocommerce-form-login__submit:hover {
+    background: var(--button-primary-hover-bg);
+    color: var(--button-primary-text);
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login .lost_password {
+    margin: 10px 0 0;
+}
+
+.woocommerce-checkout form.woocommerce-form-login.login .lost_password a {
+    color: var(--link-color);
+    font-weight: 500;
+}
+
 .woocommerce-checkout form.checkout_coupon {
     margin-bottom: 8px;
     padding: 14px;
@@ -156,6 +256,12 @@ body.woocommerce-checkout .absolute-footer {
     font-weight: 600;
 }
 
+.woocommerce-checkout form .form-row label.checkbox {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+}
+
 .woocommerce-checkout form.checkout_coupon .flex-row input[type=text],
 .woocommerce-checkout form .form-row input.input-text,
 .woocommerce-checkout form .form-row textarea,
@@ -200,12 +306,15 @@ body.woocommerce-checkout .absolute-footer {
     padding: 0;
 }
 
-.woocommerce-checkout #billing_address_1_field{
+.woocommerce-checkout #billing_address_1_field,
+.woocommerce-checkout #shipping_address_1_field {
     width: 100%;
     max-width: none;
     clear: both;
     float: none;
 }
+
+
 
 .woocommerce-checkout form .form-row:last-child {
     margin-bottom: 0;
@@ -310,6 +419,10 @@ body.woocommerce-checkout .absolute-footer {
     color: var(--button-primary-text) !important;
 }
 
+.woocommerce-checkout #payment li.wc_payment_method.payment_method_bacs {
+    padding-bottom: 10px;
+}
+
 .woocommerce-checkout .woocommerce-privacy-policy-text {
     margin-top: 12px;
 }
@@ -332,6 +445,22 @@ body.woocommerce-checkout .absolute-footer {
 }
 
 @media (min-width: 850px) {
+    .woocommerce-checkout form.woocommerce-form-login.login>.form-row-first,
+    .woocommerce-checkout form.woocommerce-form-login.login>.form-row-last {
+        float: left;
+        width: calc(50% - 8px);
+    }
+
+    .woocommerce-checkout form.woocommerce-form-login.login>.form-row-first {
+        margin-right: 16px;
+    }
+
+    .woocommerce-checkout form.woocommerce-form-login.login .woocommerce-form-login__submit {
+        width: auto;
+        margin-left: auto;
+        padding: 0 22px;
+    }
+
     .woocommerce-checkout .checkout-breadcrumbs {
         min-height: 52px;
         padding: 8px 18px;
@@ -350,7 +479,7 @@ body.woocommerce-checkout .absolute-footer {
         align-items: start;
         gap: 12px;
     }
-   
+
     .woocommerce-checkout .woocommerce-billing-fields,
     .woocommerce-checkout .woocommerce-shipping-fields,
     .woocommerce-checkout .woocommerce-additional-fields,

@@ -280,6 +280,15 @@ function enqueue_styles()
         }
     }
 
+    $is_account_page = (function_exists('is_account_page') && is_account_page())
+        || is_page('tai-khoan');
+
+    if ($is_account_page) {
+        if (enqueue_css_file('custom-account-css', 'tai-khoan.css', $global_deps)) {
+            $page_handles[] = 'custom-account-css';
+        }
+    }
+
     if (function_exists('is_cart') && is_cart()) {
         if (enqueue_css_file('custom-cart-css', 'cart.css', $global_deps)) {
             $page_handles[] = 'custom-cart-css';

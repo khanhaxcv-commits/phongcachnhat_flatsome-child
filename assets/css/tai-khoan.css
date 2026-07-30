@@ -1,408 +1,835 @@
-/* =========================
-   My Account Dashboard
-========================= */
+/* My Account: login, register and customer dashboard */
+
+.woocommerce-account {
+    overflow-x: clip;
+}
 
 .woocommerce-account .woocommerce {
+    min-width: 0;
     max-width: 1320px;
     margin: 0 auto;
-    padding: 34px 15px 54px;
+    padding: 24px 16px 44px;
 }
 
-.woocommerce-account .woocommerce-MyAccount-content {
+/* Logged out */
+.woocommerce-account .account-container.lightbox-inner {
+    overflow: hidden;
+    padding: 0;
+    border: 1px solid var(--border-ui);
+    border-top: 4px solid var(--primary);
+    border-radius: var(--radius-2xl);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-ui-card);
+}
+
+.woocommerce-account .account-container:not(:has(.account-register-inner)) {
+    max-width: 520px;
+    margin: 0 auto;
+}
+
+.woocommerce-account #customer_login {
     width: 100%;
-    float: none;
+    margin: 0;
 }
 
-.woocommerce-account .woocommerce-MyAccount-navigation {
+.woocommerce-account .account-container>.account-login-inner,
+.woocommerce-account #customer_login>.col {
+    padding: 24px;
+}
+
+.woocommerce-account #customer_login>.col+.col {
+    border-top: 1px solid var(--border-ui);
+}
+
+.woocommerce-account #customer_login h3 {
+    margin: 0 0 20px;
+    color: var(--text-heading);
+    font-size: 22px;
+    letter-spacing: 0;
+}
+
+.woocommerce-account #customer_login .form-row {
+    margin-bottom: 16px;
+}
+
+.woocommerce-account #customer_login label {
+    color: var(--text-soft-ui);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.woocommerce-account #customer_login input.input-text {
+    height: 46px;
+    margin-top: 6px;
+    padding: 0 14px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-lg);
+    background: var(--input-bg);
+    color: var(--input-text);
+    box-shadow: none;
+}
+
+.woocommerce-account #customer_login input.input-text:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+.woocommerce-account #customer_login .woocommerce-form-login__rememberme {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.woocommerce-account #customer_login input[type="checkbox"] {
+    margin: 0;
+    accent-color: var(--primary);
+}
+
+.woocommerce-account #customer_login :is(.woocommerce-form-login__submit, .woocommerce-form-register__submit) {
+    width: 100%;
+    min-height: 46px;
+    margin: 10px 0 0;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+}
+
+.woocommerce-account #customer_login :is(.woocommerce-form-login__submit, .woocommerce-form-register__submit):hover {
+    background: var(--button-primary-hover-bg);
+    color: var(--button-primary-text);
+}
+
+.woocommerce-account #customer_login :is(.lost_password, .woocommerce-privacy-policy-text) a {
+    color: var(--link-color);
+}
+
+.woocommerce-account .account-register-inner>p,
+.woocommerce-account .woocommerce-privacy-policy-text {
+    color: var(--text-sub);
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+/* Logged in dashboard */
+.woocommerce-account .woocommerce:has(.pcn-account-dashboard) .woocommerce-MyAccount-navigation {
     display: none;
 }
 
-.pcn-account-dashboard {
-    --pcn-red: #e11d27;
-    --pcn-red-dark: #bd111a;
-    --pcn-ink: #111827;
-    --pcn-text: #374151;
-    --pcn-muted: #6b7280;
-    --pcn-border: rgba(225, 29, 39, 0.14);
-    --pcn-soft: #fff7f2;
-    --pcn-cream: #fffaf3;
-
-    position: relative;
+.woocommerce-account .woocommerce:has(.pcn-account-dashboard) .woocommerce-MyAccount-content {
+    float: none;
+    width: 100%;
 }
 
-/* Hero */
 .pcn-account-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 360px;
-    gap: 26px;
-    align-items: stretch;
-    padding: 34px;
-    margin-bottom: 26px;
-    border: 1px solid var(--pcn-border);
-    border-radius: 24px;
-    background:
-        radial-gradient(circle at 8% 15%, rgba(225, 29, 39, 0.10) 0%, transparent 30%),
-        radial-gradient(circle at 90% 70%, rgba(189, 17, 26, 0.08) 0%, transparent 34%),
-        linear-gradient(135deg, #fffaf3 0%, #ffffff 54%, #fff4ec 100%);
-    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.06);
-    overflow: hidden;
+    gap: 24px;
+    margin-bottom: 20px;
+    padding: 24px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-2xl);
+    background: linear-gradient(135deg, var(--surface-bg-soft), var(--surface-bg));
+    box-shadow: var(--shadow-ui-card);
 }
 
 .pcn-account-eyebrow {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 12px;
-    color: var(--pcn-red);
+    margin-bottom: 10px;
+    color: var(--primary);
     font-size: 13px;
     font-weight: 700;
-    letter-spacing: 0.03em;
     text-transform: uppercase;
 }
 
 .pcn-account-eyebrow::before {
-    content: "";
-    width: 34px;
+    width: 28px;
     height: 2px;
-    border-radius: 999px;
-    background: var(--pcn-red);
+    border-radius: var(--radius-full);
+    background: var(--primary);
+    content: "";
 }
 
 .pcn-account-hero h1 {
     margin: 0 0 12px;
-    color: var(--pcn-ink);
-    font-size: clamp(26px, 3vw, 38px);
-    font-weight: 800;
-    line-height: 1.22;
+    color: var(--text-heading);
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.25;
 }
 
 .pcn-account-hero p {
-    max-width: 680px;
+    max-width: 720px;
     margin: 0;
-    color: var(--pcn-text);
-    font-size: 16px;
-    line-height: 1.75;
+    color: var(--text-soft-ui);
+    line-height: 1.7;
 }
 
 .pcn-account-actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-top: 24px;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 22px;
 }
 
-.pcn-account-btn {
+.pcn-account-btn,
+.pcn-account-support__btn {
     display: inline-flex;
+    min-height: 44px;
     align-items: center;
     justify-content: center;
-    gap: 9px;
-    min-height: 46px;
-    padding: 0 20px;
-    border-radius: 999px;
+    gap: 8px;
+    padding: 0 18px;
+    border-radius: var(--radius-full);
     font-size: 14px;
     font-weight: 700;
-    text-decoration: none;
-    transition: all 0.25s ease;
 }
 
-.pcn-account-btn--primary {
-    color: #fff;
-    background: linear-gradient(135deg, var(--pcn-red), var(--pcn-red-dark));
-    box-shadow: 0 12px 28px rgba(225, 29, 39, 0.24);
+.woocommerce-account :is(.pcn-account-btn--primary, .pcn-account-support__btn) {
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
 }
 
-.pcn-account-btn--primary:hover {
-    color: #fff;
-    transform: translateY(-2px);
-    box-shadow: 0 16px 34px rgba(225, 29, 39, 0.28);
+.woocommerce-account :is(.pcn-account-btn--primary, .pcn-account-support__btn):hover {
+    background: var(--button-primary-hover-bg);
+    color: var(--button-primary-text);
 }
 
-.pcn-account-btn--outline {
-    color: var(--pcn-red);
-    border: 1px solid rgba(225, 29, 39, 0.24);
-    background: rgba(255, 255, 255, 0.68);
+.woocommerce-account .pcn-account-btn--outline {
+    border: 1px solid var(--primary);
+    background: var(--surface-bg);
+    color: var(--primary);
 }
 
-.pcn-account-btn--outline:hover {
-    color: var(--pcn-red-dark);
-    background: #fff;
-    transform: translateY(-2px);
-}
-
-/* User box */
 .pcn-account-hero__box {
     display: flex;
     align-items: center;
     gap: 16px;
-    align-self: center;
-    padding: 22px;
-    border: 1px solid rgba(225, 29, 39, 0.12);
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.76);
-    box-shadow: 0 18px 38px rgba(15, 23, 42, 0.06);
-    backdrop-filter: blur(10px);
+    padding: 20px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    background: var(--surface-bg);
+}
+
+.pcn-account-avatar,
+.pcn-account-card__icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    background: var(--primary-50);
 }
 
 .pcn-account-avatar {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 58px;
-    width: 58px;
-    height: 58px;
-    border-radius: 50%;
-    color: var(--pcn-red);
-    background: rgba(225, 29, 39, 0.08);
-    border: 1px solid rgba(225, 29, 39, 0.16);
-    font-size: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    font-size: 22px;
+}
+
+.pcn-account-hero__box strong,
+.pcn-account-hero__box span {
+    display: block;
 }
 
 .pcn-account-hero__box strong {
-    display: block;
-    color: var(--pcn-ink);
+    color: var(--text-heading);
     font-size: 17px;
-    font-weight: 800;
-    line-height: 1.35;
 }
 
 .pcn-account-hero__box span {
-    display: block;
     margin-top: 4px;
-    color: var(--pcn-muted);
+    color: var(--text-sub);
     font-size: 13px;
-    line-height: 1.4;
-    word-break: break-word;
+    overflow-wrap: anywhere;
 }
 
-/* Cards */
 .pcn-account-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-    margin-bottom: 22px;
+    gap: 14px;
+    margin-bottom: 20px;
 }
 
 .pcn-account-card {
     position: relative;
     display: flex;
-    align-items: flex-start;
-    gap: 15px;
-    min-height: 148px;
-    padding: 22px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 20px;
-    background: #fff;
-    text-decoration: none;
-    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.045);
-    transition: all 0.25s ease;
-    overflow: hidden;
-}
-
-.pcn-account-card::before {
-    content: "";
-    position: absolute;
-    inset: auto 18px 0 18px;
-    height: 3px;
-    border-radius: 999px 999px 0 0;
-    background: linear-gradient(90deg, var(--pcn-red), rgba(225, 29, 39, 0.18));
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.25s ease;
+    gap: 14px;
+    min-height: 132px;
+    padding: 20px;
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-xl);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-ui-card);
+    transition: var(--transition-fast);
 }
 
 .pcn-account-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(225, 29, 39, 0.20);
-    box-shadow: 0 22px 48px rgba(15, 23, 42, 0.08);
-}
-
-.pcn-account-card:hover::before {
-    transform: scaleX(1);
+    border-color: var(--border-primary);
+    box-shadow: var(--shadow-ui-soft);
+    transform: translateY(-2px);
 }
 
 .pcn-account-card__icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 46px;
-    width: 46px;
-    height: 46px;
-    border-radius: 15px;
-    color: var(--pcn-red);
-    background: rgba(225, 29, 39, 0.08);
-    font-size: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-lg);
+    font-size: 19px;
 }
 
 .pcn-account-card__body {
-    display: block;
     min-width: 0;
-    padding-right: 20px;
+    padding-right: 18px;
+}
+
+.pcn-account-card__body strong,
+.pcn-account-card__body small {
+    display: block;
 }
 
 .pcn-account-card__body strong {
-    display: block;
-    margin-bottom: 7px;
-    color: var(--pcn-ink);
-    font-size: 17px;
-    font-weight: 800;
-    line-height: 1.35;
+    margin-bottom: 6px;
+    color: var(--text-heading);
+    font-size: 16px;
 }
 
 .pcn-account-card__body small {
-    display: block;
-    color: var(--pcn-muted);
-    font-size: 14px;
-    font-weight: 400;
+    color: var(--text-sub);
+    font-size: 13px;
     line-height: 1.55;
 }
 
 .pcn-account-card__arrow {
     position: absolute;
-    right: 18px;
     top: 22px;
-    color: rgba(225, 29, 39, 0.42);
-    font-size: 15px;
-    transition: all 0.25s ease;
+    right: 18px;
+    color: var(--primary);
 }
 
-.pcn-account-card:hover .pcn-account-card__arrow {
-    right: 15px;
-    color: var(--pcn-red);
-}
-
-/* Support */
 .pcn-account-support {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
     gap: 18px;
-    padding: 22px 24px;
-    border-radius: 20px;
-    border: 1px solid rgba(225, 29, 39, 0.13);
-    background:
-        linear-gradient(135deg, rgba(225, 29, 39, 0.07), rgba(255, 255, 255, 0.92)),
-        #fff;
+    padding: 22px;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-xl);
+    background: var(--primary-50);
+}
+
+.pcn-account-support span,
+.pcn-account-support strong {
+    display: block;
 }
 
 .pcn-account-support span {
-    display: block;
     margin-bottom: 4px;
-    color: var(--pcn-red);
+    color: var(--primary);
     font-size: 13px;
     font-weight: 700;
 }
 
 .pcn-account-support strong {
-    display: block;
-    color: var(--pcn-ink);
-    font-size: 18px;
-    font-weight: 800;
-    line-height: 1.4;
+    color: var(--text-heading);
+    font-size: 17px;
 }
 
-.pcn-account-support__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9px;
-    min-height: 44px;
-    padding: 0 18px;
-    border-radius: 999px;
-    color: #fff;
-    background: var(--pcn-red);
-    font-size: 14px;
-    font-weight: 700;
-    text-decoration: none;
-    white-space: nowrap;
-    transition: all 0.25s ease;
+@media (min-width: 640px) {
+    .pcn-account-actions {
+        flex-direction: row;
+    }
+
+    .pcn-account-support {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
 }
 
-.pcn-account-support__btn:hover {
-    color: #fff;
-    background: var(--pcn-red-dark);
-    transform: translateY(-2px);
-}
+@media (min-width: 850px) {
+    .woocommerce-account .woocommerce {
+        padding-top: 36px;
+        padding-bottom: 56px;
+    }
 
-/* Form / table pages inside My Account */
-.woocommerce-account .woocommerce-MyAccount-content form,
-.woocommerce-account .woocommerce-MyAccount-content table,
-.woocommerce-account .woocommerce-MyAccount-content .woocommerce-Addresses {
-    border-radius: 18px;
-}
+    .woocommerce-account #customer_login>.col {
+        padding: 32px;
+    }
 
-.woocommerce-account .woocommerce-MyAccount-content input.input-text,
-.woocommerce-account .woocommerce-MyAccount-content select,
-.woocommerce-account .woocommerce-MyAccount-content textarea {
-    min-height: 44px;
-    border-radius: 10px;
-    border: 1px solid rgba(17, 24, 39, 0.14);
-    box-shadow: none;
-}
-
-.woocommerce-account .woocommerce-MyAccount-content input.input-text:focus,
-.woocommerce-account .woocommerce-MyAccount-content select:focus,
-.woocommerce-account .woocommerce-MyAccount-content textarea:focus {
-    border-color: rgba(225, 29, 39, 0.45);
-    box-shadow: 0 0 0 3px rgba(225, 29, 39, 0.08);
-}
-
-.woocommerce-account .woocommerce-Button,
-.woocommerce-account button.button,
-.woocommerce-account input.button {
-    border-radius: 999px !important;
-    background: var(--pcn-red, #e11d27) !important;
-    color: #fff !important;
-    font-weight: 700 !important;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .pcn-account-hero {
-        grid-template-columns: 1fr;
+    .woocommerce-account #customer_login>.col+.col {
+        border-top: 0;
+        border-left: 1px solid var(--border-ui);
     }
 
     .pcn-account-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
-    .pcn-account-hero__box {
-        max-width: 100%;
-    }
 }
 
-@media (max-width: 640px) {
-    .woocommerce-account .woocommerce {
-        padding: 20px 12px 42px;
-    }
-
+@media (min-width: 1024px) {
     .pcn-account-hero {
-        padding: 24px 18px;
-        border-radius: 18px;
-    }
-
-    .pcn-account-actions {
-        flex-direction: column;
-    }
-
-    .pcn-account-btn {
-        width: 100%;
+        grid-template-columns: minmax(0, 1fr) 320px;
+        align-items: center;
+        padding: 32px;
     }
 
     .pcn-account-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+}
+
+
+/* --------------css page con lost-password */
+
+.woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 24px;
+    border: 1px solid var(--border-ui);
+    border-top: 4px solid var(--primary);
+    border-radius: var(--radius-2xl);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-ui-card);
+}
+
+.woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword>p:first-child {
+    margin: 0 0 22px;
+    color: var(--text-soft-ui);
+    line-height: 1.7;
+}
+
+.woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword .form-row {
+    float: none;
+    width: 100%;
+    margin: 0 0 16px;
+}
+
+.woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword label {
+    margin-bottom: 6px;
+    color: var(--text-soft-ui);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword input.input-text {
+    width: 100%;
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-lg);
+    background: var(--input-bg);
+    color: var(--input-text);
+    box-shadow: none;
+}
+
+.woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword input.input-text:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+.woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword .button {
+    width: 100%;
+    min-height: 46px;
+    margin: 0;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+}
+
+.woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword .button:hover {
+    background: var(--button-primary-hover-bg);
+    color: var(--button-primary-text);
+}
+
+@media (min-width: 640px) {
+    .woocommerce-account.woocommerce-lost-password .woocommerce-ResetPassword {
+        padding: 32px;
+    }
+}
+
+
+
+/* --------------layout chung cho page con tai-khoan */
+
+.woocommerce-account:is(.woocommerce-orders, .woocommerce-edit-address, .woocommerce-edit-account, .woocommerce-view-order) .woocommerce-MyAccount-navigation {
+    display: none;
+}
+
+.woocommerce-account:is(.woocommerce-orders, .woocommerce-edit-address, .woocommerce-edit-account, .woocommerce-view-order) .woocommerce-MyAccount-content {
+    float: none;
+    width: 100%;
+}
+
+/* --------------css page con orders */
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table {
+    overflow: hidden;
+    border: 1px solid var(--border-ui) !important;
+    border-radius: var(--radius-xl);
+    background: var(--surface-bg);
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table :is(th, td) {
+    padding: 14px 16px;
+    border-right: 0 !important;
+    border-left: 0 !important;
+    border-color: var(--border-ui);
+    color: var(--text-main);
+}
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table thead th {
+    border-bottom: 1px solid var(--border-ui);
+    background: var(--surface-bg-soft);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table tbody :is(th, td) {
+    border-bottom: 1px solid var(--border-ui);
+    background: var(--surface-bg);
+}
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table tbody tr:last-child>* {
+    border-bottom: 0;
+}
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table :is(a, .amount) {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table__header-order-actions,
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table__cell-order-actions {
+    text-align: right;
+}
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table .button {
+    min-height: 38px;
+    margin: 0;
+    padding: 0 18px;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    line-height: 38px;
+}
+
+.woocommerce-account.woocommerce-orders .woocommerce-orders-table .button:hover {
+    background: var(--button-primary-hover-bg);
+    color: var(--button-primary-text);
+}
+
+/* --------------css page con edit-address */
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-MyAccount-content>p:first-child {
+    margin: 0 0 18px;
+    padding: 14px 16px;
+    border-left: 3px solid var(--primary);
+    border-radius: var(--radius-lg);
+    background: var(--primary-50);
+    color: var(--text-soft-ui);
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-Addresses {
+    display: grid;
+    gap: 16px;
+    margin: 0;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-Address {
+    float: none;
+    width: 100%;
+    padding: 22px;
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-xl);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-ui-card);
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-Address-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-Address-title h2 {
+    margin: 0;
+    color: var(--text-heading);
+    font-size: 22px;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-Address-title .edit {
+    position: static;
+    float: none;
+    padding: 7px 12px;
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-full);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-Address address {
+    margin: 0;
+    color: var(--text-soft-ui);
+    font-style: normal;
+    line-height: 1.7;
+}
+
+/* --------------css page con edit-address form */
+
+.woocommerce-account.woocommerce-edit-address form:has(.woocommerce-address-fields) {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 24px;
+    border: 1px solid var(--border-ui);
+    border-top: 4px solid var(--primary);
+    border-radius: var(--radius-2xl);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-ui-card);
+}
+
+.woocommerce-account.woocommerce-edit-address form:has(.woocommerce-address-fields)>h2 {
+    margin: 0 0 22px;
+    color: var(--text-heading);
+    font-size: 26px;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields__field-wrapper {
+    display: grid;
+    gap: 0 16px;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields .form-row {
+    float: none;
+    width: 100%;
+    margin: 0 0 14px;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields .form-row-wide {
+    grid-column: 1 / -1;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields label {
+    margin-bottom: 6px;
+    color: var(--text-soft-ui);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields :is(input.input-text, select) {
+    width: 100%;
+    height: 46px;
+    margin: 0;
+    padding: 0 14px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-lg);
+    background: var(--input-bg);
+    color: var(--input-text);
+    box-shadow: none;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields :is(input.input-text, select):focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields>.form-row,
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields>p:last-child {
+    margin: 4px 0 0;
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields .button {
+    min-height: 46px;
+    margin: 0;
+    padding: 0 22px;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+}
+
+.woocommerce-account.woocommerce-edit-address .woocommerce-address-fields .button:hover {
+    background: var(--button-primary-hover-bg);
+    color: var(--button-primary-text);
+}
+
+/* --------------css page con view-order */
+
+.woocommerce-account.woocommerce-view-order .woocommerce-MyAccount-content>p:first-child {
+    margin: 0 0 16px;
+    color: var(--text-soft-ui);
+}
+
+.woocommerce-account.woocommerce-view-order .woocommerce-MyAccount-content mark {
+    padding: 2px 6px;
+    border-radius: var(--radius-default);
+    background: var(--primary-50);
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.woocommerce-account.woocommerce-view-order :is(.woocommerce-order-details, .woocommerce-customer-details) {
+    margin: 0 0 18px;
+    padding: 22px;
+    border: 1px solid var(--border-ui);
+    border-radius: var(--radius-xl);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-ui-card);
+}
+
+.woocommerce-account.woocommerce-view-order :is(.woocommerce-order-details__title, .woocommerce-column__title) {
+    margin: 0 0 14px;
+    color: var(--text-heading);
+}
+
+.woocommerce-account.woocommerce-view-order .woocommerce-table--order-details :is(th, td) {
+    padding: 12px 8px;
+    border-color: var(--border-ui);
+}
+
+.woocommerce-account.woocommerce-view-order .woocommerce-table--order-details :is(.product-total, tfoot td) {
+    text-align: right;
+}
+
+.woocommerce-account.woocommerce-view-order .woocommerce-table--order-details .amount {
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.woocommerce-account.woocommerce-view-order .woocommerce-table--order-details .product-name a {
+    color: var(--text-main);
+    font-weight: 600;
+}
+
+.woocommerce-account.woocommerce-view-order .woocommerce-columns--addresses {
+    display: grid;
+    gap: 20px;
+}
+
+.woocommerce-account.woocommerce-view-order .woocommerce-column {
+    float: none;
+    width: 100%;
+    padding: 0;
+}
+
+.woocommerce-account.woocommerce-view-order .woocommerce-customer-details address {
+    padding: 0;
+    border: 0;
+    color: var(--text-soft-ui);
+    font-style: normal;
+    line-height: 1.7;
+}
+
+@media (min-width: 850px) {
+
+    .woocommerce-account.woocommerce-edit-address .woocommerce-Addresses,
+    .woocommerce-account.woocommerce-view-order .woocommerce-columns--addresses {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .pcn-account-card {
-        min-height: auto;
-        padding: 20px;
+    .woocommerce-account.woocommerce-edit-address form:has(.woocommerce-address-fields) {
+        padding: 32px;
     }
 
-    .pcn-account-support {
-        flex-direction: column;
-        align-items: flex-start;
+    .woocommerce-account.woocommerce-edit-address .woocommerce-address-fields__field-wrapper {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+}
 
-    .pcn-account-support__btn {
-        width: 100%;
+
+/* ---------------------------css page edit-account  */
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm {
+    padding: 24px;
+    border: 1px solid var(--border-ui);
+    border-top: 4px solid var(--primary);
+    border-radius: var(--radius-2xl);
+    background: var(--surface-bg);
+    box-shadow: var(--shadow-ui-card);
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm .form-row {
+    margin-bottom: 16px;
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm label {
+    margin-bottom: 6px;
+    color: var(--text-soft-ui);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm input.input-text {
+    height: 46px;
+    padding: 0 14px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--radius-lg);
+    background: var(--input-bg);
+    color: var(--input-text);
+    box-shadow: none;
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm input.input-text:focus {
+    border-color: var(--primary);
+    outline: none;
+    box-shadow: 0 0 0 4px var(--focus-ring);
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm .woocommerce-invalid input.input-text {
+    border-color: var(--danger);
+}
+
+.woocommerce-account.woocommerce-edit-account #account_display_name_description {
+    display: block;
+    margin-top: 6px;
+    color: var(--text-sub);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm fieldset {
+    margin: 8px 0 20px;
+    padding: 20px 0 0;
+    border: 0;
+    border-top: 1px solid var(--border-ui);
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm legend {
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 0;
+    border: 0;
+    color: var(--text-heading);
+    font-size: 16px;
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm button.button {
+    min-height: 46px;
+    margin: 0;
+    padding: 0 22px;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background: var(--button-primary-bg);
+    color: var(--button-primary-text);
+    font-weight: 700;
+    text-transform: none;
+}
+
+.woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm button.button:hover {
+    background: var(--button-primary-hover-bg);
+    color: var(--button-primary-text);
+}
+
+@media (min-width: 850px) {
+    .woocommerce-account.woocommerce-edit-account form.woocommerce-EditAccountForm {
+        padding: 32px;
     }
 }
