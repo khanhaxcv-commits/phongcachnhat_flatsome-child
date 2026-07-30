@@ -3691,7 +3691,7 @@ th:first-child {
 /* ------------------------------------------------------------------- */
 
 /* -------------------------- css giỏ hàng */
-
+/* 
 .woocommerce-cart .woocommerce-cart-form,
 .woocommerce-cart .cart-collaterals .cart_totals,
 .woocommerce-cart .coupon {
@@ -3877,166 +3877,11 @@ th:first-child {
         font-size: 18px;
         font-weight: 700;
     }
-}
+} */
 
-/* -------------------css thanh toán */
-
-.woocommerce-checkout .woocommerce-form-coupon-toggle,
-.woocommerce-checkout form.checkout_coupon,
-.woocommerce-checkout .woocommerce-billing-fields,
-.woocommerce-checkout .woocommerce-additional-fields,
-.woocommerce-checkout .checkout-sidebar {
-    background: #fff;
-    border: 1px solid #f0e5da !important;
-    border-radius: 10px;
-    box-shadow: 0 10px 28px rgba(35, 24, 21, 0.08);
-}
-
-.woocommerce-checkout .woocommerce-form-coupon-toggle {
-    margin-bottom: 14px;
-    padding: 14px 18px;
-    color: #231815;
-}
-
-.woocommerce-checkout .woocommerce-form-coupon-toggle .showcoupon {
-    color: #003f7d;
-    font-weight: 600;
-}
-
-.woocommerce-checkout form.checkout_coupon {
-    margin-bottom: 24px;
-    padding: 18px;
-}
-
-.woocommerce-checkout form.checkout_coupon .flex-row {
-    gap: 12px;
-}
-
-.woocommerce-checkout .woocommerce-billing-fields,
-.woocommerce-checkout .woocommerce-additional-fields,
-.woocommerce-checkout .checkout-sidebar {
-    padding: 22px;
-}
-
-.woocommerce-checkout .has-border {
-    border: none;
-    padding: 0;
-}
-
-.woocommerce-checkout #order_review {
-    padding: 0;
-    border: 0;
-}
-
-.woocommerce-checkout h3 {
-    margin-bottom: 16px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid #f0e5da;
-    color: #231815;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 0;
-    text-transform: none;
-}
-
-.woocommerce-checkout form .form-row label {
-    color: #231815;
-    font-weight: 700;
-}
-
-.woocommerce-checkout form.checkout_coupon .flex-row input[type=text],
-.woocommerce-checkout form .form-row input.input-text,
-.woocommerce-checkout form .form-row textarea,
-.woocommerce-checkout form .form-row select {
-    min-height: 42px;
-    border: 1px solid #eadbd0;
-    border-radius: 5px;
-    background: #fff;
-    box-shadow: none;
-}
-
-.woocommerce-checkout form .form-row input.input-text:focus,
-.woocommerce-checkout form .form-row textarea:focus {
-    border-color: #d71920;
-    box-shadow: 0 0 0 2px rgba(215, 25, 32, 0.08);
-}
-
-.woocommerce-checkout .woocommerce-checkout-review-order-table th,
-.woocommerce-checkout .woocommerce-checkout-review-order-table td {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    border-color: #f0e5da;
-}
-
-.woocommerce-checkout .woocommerce-checkout-review-order-table .amount,
-.woocommerce-checkout .order-total .amount {
-    color: #d71920;
-    font-weight: 700;
-}
-
-.woocommerce-checkout .order-total .amount {
-    font-size: 22px;
-}
-
-.woocommerce-checkout #payment {
-    background: transparent;
-}
-
-.woocommerce-checkout #payment ul.payment_methods {
-    border-bottom: 1px solid #f0e5da;
-}
-
-.woocommerce-checkout #payment div.payment_box {
-    background: #fff4f1;
-    color: #231815;
-}
-
-.woocommerce-checkout #payment div.payment_box::before {
-    border-bottom-color: #fff4f1;
-}
-
-.woocommerce-checkout #place_order,
-.woocommerce-checkout form.checkout_coupon .button {
-    border: 1px solid #d71920 !important;
-    border-radius: 7px;
-    background: #d71920 !important;
-    color: #fff !important;
-    font-weight: 700;
-    text-transform: capitalize;
-}
-
-.woocommerce-checkout #place_order {
-    width: 100%;
-    min-height: 48px;
-    box-shadow: 0 8px 16px rgba(215, 25, 32, 0.22);
-}
-
-.woocommerce-checkout #place_order:hover,
-.woocommerce-checkout form.checkout_coupon .button:hover {
-    border-color: #b91218 !important;
-    background: #b91218 !important;
-    color: #fff !important;
-}
-
-@media (max-width: 849px) {
-    .woocommerce-checkout form.checkout_coupon {
-        display: block;
-    }
-
-    .woocommerce-checkout form.checkout_coupon .form-row {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    .woocommerce-checkout .woocommerce-billing-fields,
-    .woocommerce-checkout .woocommerce-additional-fields,
-    .woocommerce-checkout .checkout-sidebar {
-        padding: 14px;
-    }
-}
 
 /* ---------------------------css page order  */
-
+/* 
 .woocommerce-order-received .woocommerce-order-details,
 .woocommerce-order-received .woocommerce-customer-details,
 .woocommerce-order-received .woocommerce-order-overview {
@@ -4155,7 +4000,7 @@ th:first-child {
     .woocommerce-order-received .woocommerce-order>.large-5>.is-well {
         margin-top: 40.8px;
     }
-}
+} */
 
 /* ---------------------------css page tai khoan  */
 

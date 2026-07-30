@@ -286,6 +286,23 @@ function enqueue_styles()
         }
     }
 
+    $is_order_received = function_exists('is_wc_endpoint_url')
+        && is_wc_endpoint_url('order-received');
+    $is_checkout_page = (function_exists('is_checkout') && is_checkout())
+        || is_page('thanh-toan');
+
+    if ($is_checkout_page && !$is_order_received) {
+        if (enqueue_css_file('custom-checkout-css', 'thanh-toan.css', $global_deps)) {
+            $page_handles[] = 'custom-checkout-css';
+        }
+    }
+
+    if ($is_order_received) {
+        if (enqueue_css_file('custom-order-received-css', 'order-received.css', $global_deps)) {
+            $page_handles[] = 'custom-order-received-css';
+        }
+    }
+
     /*
      * 10. Customize CSS
      *
