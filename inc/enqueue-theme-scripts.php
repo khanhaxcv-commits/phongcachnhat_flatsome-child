@@ -95,13 +95,11 @@ if (!function_exists('enqueue_theme_scripts')) {
          * Location:
          * /assets/js/flatsome-mobile-menu.js
          */
-        if (wp_is_mobile()) {
-            enqueue_script_file(
-                'flatsome-mobile-menu-js',
-                'flatsome-mobile-menu.js',
-                array('jquery')
-            );
-        }
+        enqueue_script_file(
+            'flatsome-mobile-menu-js',
+            'flatsome-mobile-menu.js',
+            array('jquery')
+        );
 
         /**
          * 2. flatsome-desktop-menu.js

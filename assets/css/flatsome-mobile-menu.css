@@ -192,9 +192,32 @@
     background: transparent;
 }
 
-#main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) :is(.sub-menu, .children) {
-    margin: 2px 0 0;
-    /* padding-left: 12px; */
+#main-menu.mobile-sidebar .nav-sidebar>li>:is(.sub-menu, .children) {
+    padding: 4px 8px 8px 14px;
+}
+
+#main-menu.mobile-sidebar .nav-sidebar>li>:is(.sub-menu, .children)>li>a {
+    min-height: 38px;
+    padding-left: 12px;
+    font-size: 14px;
+}
+
+#main-menu.mobile-sidebar .nav-sidebar>li>:is(.sub-menu, .children)>li>:is(.sub-menu, .children) {
+    margin: 0 0 4px 12px;
+    padding: 2px 0 4px 10px;
+}
+
+#main-menu.mobile-sidebar .nav-sidebar>li>:is(.sub-menu, .children)>li>:is(.sub-menu, .children) li>a {
+    min-height: 34px;
+    width: calc(100% - 12px);
+    padding-left: 10px;
+    font-size: 13px;
+    color: var(--mb-text-muted);
+}
+
+#main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) :is(.sub-menu, .children) :is(.sub-menu, .children) {
+    margin-left: 10px;
+    padding-left: 8px;
 }
 
 #main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) li {
@@ -225,6 +248,18 @@
     transition:
         color var(--transition-ui),
         background-color var(--transition-ui);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    #main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) li:has(>a:hover, >button:hover)>a {
+        color: var(--mb-active);
+        background: var(--mb-active-bg) !important;
+    }
+
+    #main-menu.mobile-sidebar .nav-sidebar :is(.sub-menu, .children) li:has(>a:hover, >button:hover)> :is(button.toggle, button.mobile-submenu-toggle) {
+        color: var(--mb-active) !important;
+        background: transparent !important;
+    }
 }
 
 /* Submenu item đang mở */
@@ -288,14 +323,21 @@
 }
 
 /* Ẩn icon mặc định của Flatsome */
-#main-menu.mobile-sidebar .nav-sidebar li>button.toggle :is(i, .icon-angle-down),
-#main-menu.mobile-sidebar .nav-sidebar li>button.toggle :is(i, .icon-angle-down)::before {
+#main-menu.mobile-sidebar .nav-sidebar li>button.toggle>i,
+#main-menu.mobile-sidebar .nav-sidebar li>button.toggle>i::before,
+#main-menu.mobile-sidebar .nav-sidebar li>button.toggle>i::after,
+#main-menu.mobile-sidebar .nav-sidebar li>button.toggle::after,
+#main-menu.mobile-sidebar .nav-sidebar li>button.mobile-submenu-toggle::after {
     content: none !important;
     display: none !important;
 }
 
-/* Nếu có cả toggle mặc định và custom thì ẩn custom dư */
+/* Nếu có cả toggle mặc định và custom thì chỉ giữ toggle mặc định */
 #main-menu.mobile-sidebar .nav-sidebar li>button.toggle~button.mobile-submenu-toggle {
+    display: none !important;
+}
+
+#main-menu.mobile-sidebar .nav-sidebar li:has(>button.toggle)>button.mobile-submenu-toggle {
     display: none !important;
 }
 

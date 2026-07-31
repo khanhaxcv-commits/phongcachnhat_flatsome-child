@@ -105,6 +105,57 @@
   }
 
   /**
+   * Theo dõi toggle do Flatsome chèn muộn khi mở submenu.
+   */
+  function observeMobileMenuToggles($nav) {
+    var navElement = $nav.get(0);
+
+    if (
+      !navElement ||
+      !window.MutationObserver ||
+      $.data(navElement, "mobileMenuToggleObserver")
+    ) {
+      return;
+    }
+
+    var observer = new MutationObserver(function (mutations) {
+      var hasNewToggle = mutations.some(function (mutation) {
+        return Array.prototype.some.call(mutation.addedNodes, function (node) {
+          if (node.nodeType !== 1) {
+            return false;
+          }
+
+          var $node = $(node);
+
+          return (
+            $node.is("button.toggle, button.mobile-submenu-toggle") ||
+            $node.find("button.toggle, button.mobile-submenu-toggle").length > 0
+          );
+        });
+      });
+
+      if (!hasNewToggle) {
+        return;
+      }
+
+      clearTimeout($.data(navElement, "mobileMenuToggleTimer"));
+
+      $.data(
+        navElement,
+        "mobileMenuToggleTimer",
+        setTimeout(initMobileSidebarMenu, 0),
+      );
+    });
+
+    observer.observe(navElement, {
+      childList: true,
+      subtree: true,
+    });
+
+    $.data(navElement, "mobileMenuToggleObserver", observer);
+  }
+
+  /**
    * Khởi tạo menu mobile Flatsome.
    */
   function initMobileSidebarMenu() {
@@ -119,6 +170,8 @@
     if (!$nav.length) {
       return;
     }
+
+    observeMobileMenuToggles($nav);
 
     /*
      * Thêm icon cho menu cấp 1.
@@ -149,23 +202,24 @@
       /*
        * Nút toggle mặc định của Flatsome.
        */
-      var $defaultToggle = $item.children("button.toggle").first();
+      var $defaultToggles = $item.children("button.toggle");
+      var $defaultToggle = $defaultToggles.first();
 
       /*
        * Nút toggle custom dành cho các cấp không có toggle mặc định,
        * bao gồm account-item WooCommerce.
        */
-      var $customToggle = $item
-        .children("button.mobile-submenu-toggle")
-        .first();
+      var $customToggles = $item.children("button.mobile-submenu-toggle");
+      var $customToggle = $customToggles.first();
 
       var $toggle;
 
       if ($defaultToggle.length) {
         /*
-         * Flatsome đã có toggle thì xóa nút custom dư.
+         * Chỉ giữ một toggle mặc định và xóa toàn bộ nút custom dư.
          */
-        $customToggle.remove();
+        $defaultToggles.not($defaultToggle).remove();
+        $customToggles.remove();
         $toggle = $defaultToggle;
       } else {
         /*
@@ -182,10 +236,15 @@
           );
 
           $customToggle.insertBefore($submenu);
+        } else {
+          $customToggles.not($customToggle).remove();
         }
 
         $toggle = $customToggle;
       }
+
+      /* CSS vẽ một mũi tên duy nhất trên chính button. */
+      $toggle.children("i, .icon-angle-down").remove();
 
       /*
        * Đồng bộ trạng thái ban đầu.
