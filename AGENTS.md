@@ -45,6 +45,10 @@ Thứ tự ưu tiên:
 - Không sao chép cùng một logic vào nhiều file.
 - Khi có nhiều cách làm, ưu tiên cách ít ảnh hưởng nhất đến code hiện tại.
 - Giữ khả năng bảo trì và tương thích với WordPress, Flatsome và WooCommerce.
+- Comment và chú thích giải thích mới trong code ưu tiên viết bằng tiếng Việt rõ ràng, ngắn gọn và đúng ngữ cảnh.
+- Không dịch tên biến, function, class, constant, hook, filter, API, CSS class, JavaScript selector, handle, key cấu hình hoặc thuật ngữ kỹ thuật cần giữ nguyên.
+- Giữ nguyên cú pháp và ngôn ngữ cần thiết của comment đặc biệt hoặc comment để công cụ đọc, như PHPDoc tag (`@param`, `@return`), `translators:`, PHPCS, ESLint, Stylelint, Tailwind/build directive, comment bản quyền, license, version và compatibility note.
+- Không dịch hoặc viết lại hàng loạt comment cũ ngoài phạm vi task; chỉ chuẩn hóa comment liên quan trực tiếp đến phần code đang sửa.
 
 ## 4. Cấu trúc dự án
 
@@ -55,7 +59,18 @@ theme/
 ├── AGENTS.md
 ├── assets/
 ├── inc/
+│   ├── admin/
+│   ├── assets/
+│   ├── blog/
+│   ├── cleanup/
+│   ├── integrations/
+│   ├── modules/
+│   ├── product-filter/
+│   ├── rewrite/
+│   └── woocommerce/
 ├── template-parts/
+├── tests/
+│   └── manual/
 ├── woocommerce/
 ├── functions.php
 ├── style.css
@@ -65,9 +80,11 @@ theme/
 
 Quy ước:
 
-- `functions.php` chủ yếu dùng để require, include hoặc khởi tạo module.
+- `functions.php` chỉ nạp các `bootstrap.php` cấp nhóm trong `inc/` và thực hiện khởi tạo cấp theme khi thật sự cần thiết.
 - `inc/` chứa logic PHP, hook, filter, module và chức năng tích hợp.
+- Quy tắc tổ chức module PHP chi tiết nằm trong `inc/AGENTS.md`.
 - `template-parts/` chứa các phần giao diện có thể tái sử dụng.
+- `tests/manual/` chứa công cụ kiểm thử thủ công và không được nạp trong production.
 - `woocommerce/` chứa template WooCommerce override.
 - `assets/` chứa CSS, JavaScript, font, hình ảnh và source Tailwind.
 - Không đưa một khối logic lớn vào `functions.php` nếu có thể tách thành module phù hợp.
@@ -113,6 +130,12 @@ Quy ước:
 
 - Dùng `div` cho wrapper chỉ phục vụ layout hoặc style; dùng `section`, `article`, `nav`, `main`, `aside` và phần tử semantic khác khi nội dung có ý nghĩa tương ứng.
 - Giữ markup dễ đọc và không lồng cấp không cần thiết.
+- Không để nhiều dòng trống liên tiếp trong HTML hoặc đoạn PHP/HTML hỗn hợp.
+- Không đặt dòng trống ngay sau thẻ mở hoặc ngay trước thẻ đóng nếu không dùng để phân tách một khối logic rõ ràng.
+- Các phần tử con đơn giản nằm liền nhau không cần xen dòng trống; chỉ dùng tối đa một dòng trống để phân tách các khối giao diện lớn hoặc các nhánh PHP khác nhau.
+- Không minify hoặc dồn toàn bộ markup thành một dòng; vẫn giữ indentation nhất quán để dễ đọc và review.
+- Không tự động xóa whitespace trong nội dung mà khoảng trắng có ý nghĩa, như `pre`, `textarea`, văn bản inline hoặc chuỗi được render cho người dùng.
+- Khi task chỉ sửa một component, chỉ dọn khoảng trắng trong phạm vi component hoặc đoạn code liên quan; không format hàng loạt file ngoài phạm vi.
 - Không thêm wrapper nếu không phục vụ layout, style, JavaScript hoặc accessibility.
 - Không đổi tên class, ID hoặc data attribute hiện có khi chưa kiểm tra nơi sử dụng.
 - Không dùng inline style nếu Tailwind hoặc CSS hiện có xử lý được.
@@ -227,7 +250,7 @@ Quy ước:
 - Không chỉnh sửa `node_modules/`.
 - Không commit `node_modules/`.
 - Không sửa trực tiếp file build nếu file đó phải được tạo lại từ source.
-- `assets/css/tailwind.css` là build artifact dùng trực tiếp trên website: không sửa tay, nhưng phải build lại và đưa file đã sinh vào thay đổi khi class Tailwind, cấu hình Tailwind hoặc source Tailwind thay đổi.
+- `assets/css/generated/tailwind.css` là build artifact dùng trực tiếp trên website: không sửa tay, nhưng phải build lại và đưa file đã sinh vào thay đổi khi class Tailwind, cấu hình Tailwind hoặc source Tailwind thay đổi.
 - Không sửa file thư viện bên thứ ba.
 - Không sửa WordPress core.
 - Không sửa parent theme.
@@ -281,7 +304,7 @@ Khi hoàn thành, báo ngắn gọn và chính xác:
 
 - File này áp dụng cho toàn bộ dự án.
 - `assets/AGENTS.md` bổ sung quy tắc cho Tailwind, CSS, JavaScript, font và tài nguyên frontend.
-- `inc/AGENTS.md` có thể bổ sung quy tắc cho module PHP.
+- `inc/AGENTS.md` bổ sung quy tắc cho module PHP, bootstrap, dependency và đường dẫn nội bộ.
 - `template-parts/AGENTS.md` có thể bổ sung quy tắc cho template giao diện.
 - `woocommerce/AGENTS.md` có thể bổ sung quy tắc cho WooCommerce override.
 - Không cần lặp lại quy tắc cấp cao trong file con.

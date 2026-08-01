@@ -51,12 +51,12 @@ if (!class_exists('Blog_Category_Archive')) {
             $theme_dir = get_stylesheet_directory();
             $theme_uri = get_stylesheet_directory_uri();
 
-            $css_path = $theme_dir . '/assets/css/blog-category.css';
+            $css_path = $theme_dir . '/assets/css/pages/blog-category.css';
 
             if (file_exists($css_path)) {
                 wp_enqueue_style(
                     'blog-category-css',
-                    $theme_uri . '/assets/css/blog-category.css',
+                    $theme_uri . '/assets/css/pages/blog-category.css',
                     array(),
                     filemtime($css_path)
                 );

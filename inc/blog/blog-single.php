@@ -33,7 +33,7 @@ if (!class_exists('Blog_Single')) {
                 return;
             }
 
-            $style_path = get_stylesheet_directory() . '/assets/css/blog-single.css';
+            $style_path = get_stylesheet_directory() . '/assets/css/pages/blog-single.css';
 
             if (!file_exists($style_path)) {
                 return;
@@ -45,7 +45,7 @@ if (!class_exists('Blog_Single')) {
 
             wp_enqueue_style(
                 'blog-single-css',
-                get_stylesheet_directory_uri() . '/assets/css/blog-single.css',
+                get_stylesheet_directory_uri() . '/assets/css/pages/blog-single.css',
                 $deps,
                 filemtime($style_path)
             );

@@ -9,25 +9,25 @@
  *
  * Child theme load order:
  *
- * 1. reset.css
+ * 1. base/reset.css
  * ↓
- * 2. tailwind.css
+ * 2. generated/tailwind.css
  * ↓
  * 3. style.css
  * ↓
- * 4. global.css
+ * 4. base/global.css
  * ↓
- * 5. header.css
+ * 5. layout/header.css
  * ↓
- * 6. flatsome-mobile-menu.css
+ * 6. components/flatsome-mobile-menu.css
  * ↓
- * 7. flatsome-desktop-menu.css
+ * 7. components/flatsome-desktop-menu.css
  * ↓
  * 8. footer.css
  * ↓
  * 9. page-specific CSS
  * ↓
- * 10. customize.css
+ * 10. overrides/customize.css
  */
 
 if (!defined('ABSPATH')) {
@@ -83,7 +83,7 @@ function enqueue_styles()
      */
     $has_reset = enqueue_css_file(
         'reset-css',
-        'reset.css',
+        'base/reset.css',
         array('flatsome-main')
     );
 
@@ -98,7 +98,7 @@ function enqueue_styles()
      */
     $has_tailwind = enqueue_css_file(
         'tailwind-css',
-        'tailwind.css',
+        'generated/tailwind.css',
         $reset_deps
     );
 
@@ -126,7 +126,7 @@ function enqueue_styles()
      */
     $has_global = enqueue_css_file(
         'global-css',
-        'global.css',
+        'base/global.css',
         array('flatsome-child-style')
     );
 
@@ -139,7 +139,7 @@ function enqueue_styles()
      */
     $has_header = enqueue_css_file(
         'header-css',
-        'header.css',
+        'layout/header.css',
         $global_deps
     );
 
@@ -162,7 +162,7 @@ function enqueue_styles()
     if (
         enqueue_css_file(
             'flatsome-mobile-menu-css',
-            'flatsome-mobile-menu.css',
+            'components/flatsome-mobile-menu.css',
             $header_deps,
             '(max-width: 849px)'
         )
@@ -173,7 +173,7 @@ function enqueue_styles()
     if (
         enqueue_css_file(
             'flatsome-desktop-menu-css',
-            'flatsome-desktop-menu.css',
+            'components/flatsome-desktop-menu.css',
             $header_deps,
             '(min-width: 850px)'
         )
@@ -226,7 +226,7 @@ function enqueue_styles()
         if (
             enqueue_css_file(
                 'trang-chu-1-css',
-                'trang-chu-1.css',
+                'pages/trang-chu-1.css',
                 $global_deps
             )
         ) {
@@ -238,7 +238,7 @@ function enqueue_styles()
         if (
             enqueue_css_file(
                 'lien-he-1-css',
-                'lien-he-1.css',
+                'pages/lien-he-1.css',
                 $global_deps
             )
         ) {
@@ -250,7 +250,7 @@ function enqueue_styles()
         if (
             enqueue_css_file(
                 'product-category-css',
-                'product-category.css',
+                'pages/product-category.css',
                 $global_deps
             )
         ) {
@@ -260,7 +260,7 @@ function enqueue_styles()
         if (
             enqueue_css_file(
                 'product-filter-css',
-                'product-filter.css',
+                'components/product-filter.css',
                 $global_deps
             )
         ) {
@@ -272,7 +272,7 @@ function enqueue_styles()
         if (
             enqueue_css_file(
                 'product-single-css',
-                'product-single.css',
+                'pages/product-single.css',
                 $global_deps
             )
         ) {
@@ -284,13 +284,13 @@ function enqueue_styles()
         || is_page('tai-khoan');
 
     if ($is_account_page) {
-        if (enqueue_css_file('custom-account-css', 'tai-khoan.css', $global_deps)) {
+        if (enqueue_css_file('custom-account-css', 'pages/account.css', $global_deps)) {
             $page_handles[] = 'custom-account-css';
         }
     }
 
     if (function_exists('is_cart') && is_cart()) {
-        if (enqueue_css_file('custom-cart-css', 'cart.css', $global_deps)) {
+        if (enqueue_css_file('custom-cart-css', 'pages/cart.css', $global_deps)) {
             $page_handles[] = 'custom-cart-css';
         }
     }
@@ -301,13 +301,13 @@ function enqueue_styles()
         || is_page('thanh-toan');
 
     if ($is_checkout_page && !$is_order_received) {
-        if (enqueue_css_file('custom-checkout-css', 'thanh-toan.css', $global_deps)) {
+        if (enqueue_css_file('custom-checkout-css', 'pages/checkout.css', $global_deps)) {
             $page_handles[] = 'custom-checkout-css';
         }
     }
 
     if ($is_order_received) {
-        if (enqueue_css_file('custom-order-received-css', 'order-received.css', $global_deps)) {
+        if (enqueue_css_file('custom-order-received-css', 'pages/order-received.css', $global_deps)) {
             $page_handles[] = 'custom-order-received-css';
         }
     }
@@ -329,7 +329,7 @@ function enqueue_styles()
 
     enqueue_css_file(
         'customize-css',
-        'customize.css',
+        'overrides/customize.css',
         $customize_deps
     );
 }

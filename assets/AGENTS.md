@@ -9,6 +9,12 @@ File này quy định cách làm việc với toàn bộ tài nguyên frontend t
 ```text
 assets/
 ├── css/
+│   ├── base/
+│   ├── components/
+│   ├── generated/
+│   ├── layout/
+│   ├── overrides/
+│   └── pages/
 ├── fontawesome-pro-v7/
 ├── js/
 └── src/
@@ -17,9 +23,17 @@ assets/
 Quy ước:
 
 - `assets/src/` chứa mã nguồn Tailwind hoặc CSS nguồn.
-- `assets/css/` chứa CSS được build hoặc CSS dùng trực tiếp trên website.
+- `assets/css/base/` chứa CSS nền tảng như reset và quy tắc toàn cục.
+- `assets/css/generated/` chỉ chứa CSS được sinh từ công cụ build; `tailwind.css` trong thư mục này không được sửa tay.
+- `assets/css/layout/` chứa CSS định hình các khu vực lớn và khung dùng chung của website như header, footer hoặc sidebar.
+- `assets/css/components/` chứa CSS cho thành phần giao diện độc lập, có phạm vi và chức năng rõ ràng như menu hoặc bộ lọc sản phẩm.
+- `assets/css/pages/` chứa CSS gắn chặt với một trang, body class hoặc template cụ thể và không có mục đích tái sử dụng độc lập.
+- `assets/css/overrides/` chứa lớp ghi đè cuối cùng có chủ đích; không dùng thư mục này làm nơi gom CSS chưa phân loại.
 - `assets/js/` chứa JavaScript của theme.
 - `assets/fontawesome-pro-v7/` chứa Font Awesome Pro và webfont.
+- Không đặt file CSS mới trực tiếp tại thư mục gốc `assets/css/`; phải chọn đúng nhóm trách nhiệm.
+- Nếu bỏ một khối giao diện mà khung trang vẫn giữ nguyên, CSS của khối đó ưu tiên thuộc `components/`; nếu CSS quyết định cấu trúc khu vực lớn của trang, ưu tiên thuộc `layout/`.
+- Tên file CSS dùng kebab-case và ưu tiên tiếng Anh nhất quán. Hai file `pages/trang-chu-1.css` và `pages/lien-he-1.css` phải giữ nguyên tên hiện có, trừ khi task yêu cầu đổi rõ ràng.
 - Không chỉnh sửa `node_modules/`.
 - Không di chuyển hoặc đổi tên file nếu chưa kiểm tra nơi file đang được enqueue.
 - Không tạo file mới nếu đã có file phù hợp với chức năng đang sửa.
