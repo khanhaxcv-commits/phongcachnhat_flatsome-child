@@ -9,6 +9,7 @@ defined('ABSPATH') || exit;
 $blog_modules = array(
     'video-icon.php',
     'single-post-header.php',
+    'category-pagination.php',
     'blog-category-archive.php',
     'blog-single.php',
 );

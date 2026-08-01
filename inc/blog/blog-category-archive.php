@@ -4,7 +4,7 @@
  * Blog Category Archive
  *
  * Handles blog category archive hero, category image field, breadcrumbs,
- * Flatsome default title removal, category layout and category assets.
+ * Flatsome default title removal and category administration.
  */
 
 if (!defined('ABSPATH')) {
@@ -24,10 +24,6 @@ if (!class_exists('Blog_Category_Archive')) {
 
             add_action('wp', array(__CLASS__, 'hide_default_archive_title'));
 
-            add_action('flatsome_after_header', array(__CLASS__, 'render_hero'), 6);
-
-            add_filter('theme_mod_blog_layout', array(__CLASS__, 'use_full_width_layout'));
-
             add_action('category_add_form_fields', array(__CLASS__, 'add_admin_field'));
             add_action('category_edit_form_fields', array(__CLASS__, 'edit_admin_field'));
 
@@ -40,7 +36,7 @@ if (!class_exists('Blog_Category_Archive')) {
         }
 
         /**
-         * Enqueue frontend CSS/JS for blog category archive.
+         * Enqueue optional frontend assets for blog category archives.
          */
         public static function enqueue_assets()
         {
@@ -50,21 +46,23 @@ if (!class_exists('Blog_Category_Archive')) {
 
             $theme_dir = get_stylesheet_directory();
             $theme_uri = get_stylesheet_directory_uri();
-
             $css_path = $theme_dir . '/assets/css/pages/blog-category.css';
+            $js_path = $theme_dir . '/assets/js/blog-category.js';
 
-            if (file_exists($css_path)) {
+            if (file_exists($css_path) && filesize($css_path) > 0) {
+                $css_dependencies = wp_style_is('tailwind-css', 'registered')
+                    ? array('tailwind-css')
+                    : array();
+
                 wp_enqueue_style(
                     'blog-category-css',
                     $theme_uri . '/assets/css/pages/blog-category.css',
-                    array(),
+                    $css_dependencies,
                     filemtime($css_path)
                 );
             }
 
-            $js_path = $theme_dir . '/assets/js/blog-category.js';
-
-            if (file_exists($js_path)) {
+            if (file_exists($js_path) && filesize($js_path) > 0) {
                 wp_enqueue_script(
                     'blog-category-js',
                     $theme_uri . '/assets/js/blog-category.js',
@@ -73,18 +71,6 @@ if (!class_exists('Blog_Category_Archive')) {
                     true
                 );
             }
-        }
-
-        /**
-         * Use full-width layout for post category archive.
-         */
-        public static function use_full_width_layout($value)
-        {
-            if (is_category()) {
-                return '';
-            }
-
-            return $value;
         }
 
         /**
@@ -291,11 +277,49 @@ if (!class_exists('Blog_Category_Archive')) {
                 return $image_url;
             }
 
-            return get_stylesheet_directory_uri() . '/assets/images/blog-category-default.jpg';
+            $fallback_path = get_stylesheet_directory() . '/assets/images/blog-category-default.jpg';
+
+            if (file_exists($fallback_path)) {
+                return get_stylesheet_directory_uri() . '/assets/images/blog-category-default.jpg';
+            }
+
+            return '';
         }
 
         /**
-         * Render category hero after Flatsome header.
+         * Get the preferred category for a post.
+         */
+        public static function get_preferred_post_category($post_id)
+        {
+            $categories = get_the_category($post_id);
+
+            if (empty($categories) || is_wp_error($categories)) {
+                return null;
+            }
+
+            $category_ids = wp_list_pluck($categories, 'term_id');
+            $primary_ids = array(
+                (int) get_post_meta($post_id, 'rank_math_primary_category', true),
+                (int) get_post_meta($post_id, '_yoast_wpseo_primary_category', true),
+            );
+
+            foreach ($primary_ids as $primary_id) {
+                if ($primary_id <= 0 || !in_array($primary_id, $category_ids, true)) {
+                    continue;
+                }
+
+                $primary_category = get_category($primary_id);
+
+                if ($primary_category && !is_wp_error($primary_category)) {
+                    return $primary_category;
+                }
+            }
+
+            return $categories[0];
+        }
+
+        /**
+         * Render category hero in the custom category template.
          */
         public static function render_hero()
         {
@@ -310,28 +334,27 @@ if (!class_exists('Blog_Category_Archive')) {
             }
 
             $hero_image_url = self::get_hero_image_url((int) $term->term_id);
+            $hero_background = $hero_image_url
+                ? "url('" . esc_url($hero_image_url) . "')"
+                : 'none';
             $description = term_description((int) $term->term_id, 'category');
         ?>
             <section
-                class="blog-category-hero"
-                style="--blog-category-hero-image: url('<?php echo esc_url($hero_image_url); ?>');">
-                <div class="blog-category-hero__overlay"></div>
+                class="relative min-h-[132px] w-auto bg-cover bg-center sm:min-h-[230px] [background-image:linear-gradient(90deg,rgba(var(--white-rgb),0.9)_0%,rgba(var(--white-rgb),0.72)_48%,rgba(var(--white-rgb),0.2)_100%),var(--blog-category-banner-image)]"
+                style="--blog-category-banner-image: <?php echo esc_attr($hero_background); ?>;">
+                <div class="container !flex min-h-[132px] flex-col justify-center px-[15px] pb-6 pt-[22px] sm:min-h-[230px]">
+                    <?php echo self::get_breadcrumb_html($term); ?>
 
-                <!-- <div class="blog-category-hero__inner container">
-                    <div class="blog-category-hero__content">
-                        <?php echo self::get_breadcrumb_html($term); ?>
+                    <h1 class="m-0 !text-heading-primary text-[clamp(32px,4vw,46px)] font-extrabold leading-[1.05] tracking-normal [text-shadow:0_1px_2px_rgba(var(--white-rgb),0.55)]">
+                        <?php echo esc_html(single_cat_title('', false)); ?>
+                    </h1>
 
-                        <h1 class="blog-category-hero__title">
-                            <?php echo esc_html(single_cat_title('', false)); ?>
-                        </h1>
-
-                        <?php if ($description) : ?>
-                            <div class="blog-category-hero__description">
-                                <?php echo wp_kses_post($description); ?>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div> -->
+                    <?php if ($description) : ?>
+                        <div class="mt-2.5 max-w-[680px] !text-soft text-[15px] leading-relaxed [&>*:last-child]:!mb-0">
+                            <?php echo wp_kses_post($description); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
             </section>
         <?php
         }
@@ -343,7 +366,7 @@ if (!class_exists('Blog_Category_Archive')) {
         {
             if (function_exists('rank_math_get_breadcrumbs')) {
                 $breadcrumb = trim(rank_math_get_breadcrumbs(array(
-                    'wrap_before' => '<nav class="breadcrumbs blog-category-hero__breadcrumbs" aria-label="Breadcrumb">',
+                    'wrap_before' => '<nav class="breadcrumbs !mb-1 !flex flex-wrap items-center gap-1.5 !text-sub leading-[1.4] [&_.divider]:!text-inherit [&_a]:!text-link [&_a:hover]:!text-link-hover [&_span]:!text-inherit" aria-label="Breadcrumb">',
                     'wrap_after'  => '</nav>',
                 )));
 
@@ -370,7 +393,7 @@ if (!class_exists('Blog_Category_Archive')) {
 
             $items[] = '<span>' . esc_html($term->name) . '</span>';
 
-            return '<nav class="breadcrumbs blog-category-hero__breadcrumbs" aria-label="Breadcrumb">' . implode('<span class="divider">/</span>', $items) . '</nav>';
+            return '<nav class="breadcrumbs !mb-1 !flex flex-wrap items-center gap-1.5 !text-sub leading-[1.4] [&_.divider]:!text-inherit [&_a]:!text-link [&_a:hover]:!text-link-hover [&_span]:!text-inherit" aria-label="Breadcrumb">' . implode('<span class="divider">/</span>', $items) . '</nav>';
         }
 
         /**
@@ -405,17 +428,17 @@ if (!class_exists('Blog_Category_Archive')) {
 
             ob_start();
         ?>
-            <div class="blog-category-hero-content">
+            <div>
                 <?php if ($atts['show_breadcrumb'] === 'yes') : ?>
                     <?php echo self::get_breadcrumb_html($term); ?>
                 <?php endif; ?>
 
-                <h1 class="blog-category-hero-content__title">
+                <h1 class="m-0 !text-heading text-[clamp(32px,4vw,46px)] font-extrabold leading-tight tracking-normal">
                     <?php echo esc_html(single_cat_title('', false)); ?>
                 </h1>
 
                 <?php if ($atts['show_description'] === 'yes' && $description !== '') : ?>
-                    <p class="blog-category-hero-content__description">
+                    <p class="mt-2.5 !text-soft text-[15px] leading-relaxed">
                         <?php echo esc_html($description); ?>
                     </p>
                 <?php endif; ?>

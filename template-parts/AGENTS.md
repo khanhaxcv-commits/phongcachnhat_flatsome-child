@@ -36,6 +36,7 @@ Mọi quy tắc tại `../AGENTS.md` và quy tắc frontend liên quan tại `..
 - UI dùng chung ưu tiên cấu trúc `components/<ten-component>.php`; component có nhiều phần mới dùng `components/<ten-component>/<ten-phan>.php`.
 - Trong thư mục component, không lặp lại tên component trong từng file khi ngữ cảnh đã rõ, ví dụ `components/product-filter/filter-bar.php`.
 - Không dùng tên chung chung hoặc theo trạng thái làm việc như `custom.php`, `new.php`, `test.php`, `final.php` hoặc `backup.php`.
+- Template custom không được dùng tên và đường dẫn trùng với template parent nếu không có chủ đích override. Khi chuyển một override thành template custom, phải đổi sang tên mô tả trách nhiệm cụ thể và cập nhật mọi nơi gọi; chỉ giữ tên và đường dẫn của parent cho override thực sự.
 - Các asset riêng của template nên dùng cùng tên gốc và đặt đúng nhóm trong `../assets/`.
 
 ## 4. Template override
