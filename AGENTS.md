@@ -4,6 +4,15 @@ File này là quy tắc cấp cao nhất của toàn bộ dự án WordPress chi
 
 Mọi file `AGENTS.md` nằm trong thư mục con phải kế thừa các quy tắc tại đây. Quy tắc ở thư mục con chỉ được bổ sung hoặc làm rõ cho phạm vi riêng, không được lặp lại toàn bộ nội dung của file này.
 
+## 0. Trước khi bắt đầu task
+
+- Trước khi phân tích, sửa file hoặc chạy lệnh làm thay đổi source, phải xác định các thư mục nằm trong phạm vi task.
+- Phải đọc đầy đủ file `AGENTS.md` này và mọi file `AGENTS.md` gần nhất áp dụng cho từng thư mục sẽ đọc hoặc sửa.
+- Nếu task đồng thời liên quan nhiều khu vực như `inc/`, `assets/`, `template-parts/` hoặc `woocommerce/`, phải đọc quy tắc của tất cả khu vực liên quan trước khi thực hiện phần việc tương ứng.
+- Không cần đọc `AGENTS.md` của thư mục hoàn toàn không liên quan đến task.
+- Khi phát hiện thêm file liên quan ở một khu vực chưa được xác định ban đầu, phải đọc `AGENTS.md` áp dụng cho khu vực đó trước khi tiếp tục.
+- Không được bắt đầu sửa rồi mới đọc quy tắc để hợp thức hóa thay đổi đã thực hiện.
+
 ## 1. Tổng quan dự án
 
 - Đây là WordPress child theme sử dụng Flatsome.
@@ -69,6 +78,8 @@ theme/
 │   ├── rewrite/
 │   └── woocommerce/
 ├── template-parts/
+│   ├── components/
+│   └── posts/
 ├── tests/
 │   └── manual/
 ├── woocommerce/
@@ -83,7 +94,8 @@ Quy ước:
 - `functions.php` chỉ nạp các `bootstrap.php` cấp nhóm trong `inc/` và thực hiện khởi tạo cấp theme khi thật sự cần thiết.
 - `inc/` chứa logic PHP, hook, filter, module và chức năng tích hợp.
 - Quy tắc tổ chức module PHP chi tiết nằm trong `inc/AGENTS.md`.
-- `template-parts/` chứa các phần giao diện có thể tái sử dụng.
+- `template-parts/` chứa template giao diện custom có thể tái sử dụng và template override của Flatsome theo đúng đường dẫn tương đối.
+- Quy tắc tổ chức template giao diện chi tiết nằm trong `template-parts/AGENTS.md`.
 - `tests/manual/` chứa công cụ kiểm thử thủ công và không được nạp trong production.
 - `woocommerce/` chứa template WooCommerce override.
 - `assets/` chứa CSS, JavaScript, font, hình ảnh và source Tailwind.
@@ -91,6 +103,42 @@ Quy ước:
 - Không đặt logic nghiệp vụ phức tạp trực tiếp trong template.
 - Không đặt JavaScript dài trực tiếp trong file PHP nếu đã có nơi phù hợp trong `assets/js/`.
 - Không đặt CSS dài trực tiếp trong template nếu đã có nơi phù hợp trong `assets/`.
+
+### 4.1. Tổ chức khi thêm hoặc custom UI
+
+Trước khi tạo file, phải xác định thay đổi thuộc một trong các loại: chỉnh component hiện có, UI dùng chung, UI riêng của một trang, UI riêng của blog, tích hợp WooCommerce hoặc template override. Ưu tiên sửa đúng component hiện có trước khi tạo cấu trúc mới.
+
+| Trách nhiệm | Vị trí ưu tiên |
+| --- | --- |
+| Markup UI custom có thể tái sử dụng | `template-parts/components/` |
+| Markup archive hoặc bài viết của blog | `template-parts/posts/` |
+| Logic PHP dùng chung, độc lập với blog và WooCommerce | `inc/modules/` |
+| Logic PHP chỉ dành cho blog | `inc/blog/` |
+| Hook, filter hoặc integration chỉ dành cho WooCommerce | `inc/woocommerce/` |
+| Template override WooCommerce | `woocommerce/` và giữ đúng đường dẫn tương đối của template gốc |
+| CSS của component dùng lại được | `assets/css/components/` |
+| CSS của khu vực layout lớn | `assets/css/layout/` |
+| CSS chỉ dùng cho một trang hoặc template cụ thể | `assets/css/pages/` |
+| JavaScript do theme tự viết | `assets/js/`, đặt tên theo component hoặc trang chịu trách nhiệm |
+
+Quy tắc tạo cấu trúc:
+
+- Không mặc định tạo đủ PHP, template, CSS và JavaScript cho mọi UI; chỉ tạo lớp thực sự cần thiết.
+- Nếu chỉ thay đổi màu sắc, khoảng cách, kích thước hoặc trạng thái trình bày trên markup hiện có, chỉ sửa CSS hoặc Tailwind phù hợp; không tạo module PHP hay template mới.
+- Nếu chỉ cần tách một khối markup dùng lại được, tạo template part; không tạo module PHP rỗng chỉ để gọi template.
+- Chỉ tạo JavaScript khi UI có hành vi tương tác mà HTML, CSS hoặc API hiện có không đáp ứng được.
+- Chỉ tạo module PHP khi component có xử lý dữ liệu, hook, filter, query, shortcode, endpoint hoặc logic render cần tái sử dụng.
+- Component dùng chung nhưng có adapter riêng cho blog hoặc WooCommerce phải giữ phần dùng chung trong `inc/modules/` hoặc `template-parts/components/`; phần kết nối theo ngữ cảnh đặt trong `inc/blog/` hoặc `inc/woocommerce/`.
+- Không đưa logic WooCommerce vào module dùng chung nếu module đó có thể hoạt động khi WooCommerce không được kích hoạt.
+- Không dùng template override khi hook, filter hoặc template part custom đã đáp ứng đầy đủ và ổn định hơn.
+
+Quy tắc đặt tên:
+
+- Tên thư mục và file mới dùng tiếng Anh, dạng kebab-case, mô tả đúng trách nhiệm, ví dụ `pagination.php`, `product-card.php`, `pagination.css` và `pagination.js`.
+- Các file thuộc cùng một component nên dùng cùng tên gốc để dễ tìm kiếm, trừ khi nằm trong thư mục component và cần tên cụ thể hơn.
+- Không dùng tên mơ hồ như `custom.php`, `new.php`, `functions.php` bên trong component, `style-new.css` hoặc `script-final.js`; không áp dụng hạn chế này cho file `functions.php` bắt buộc ở gốc theme.
+- Không gắn tên dự án hiện tại vào component có mục đích tái sử dụng cho nhiều dự án.
+- Không lặp lại tên thư mục trong tên file khi ngữ cảnh đã rõ, ví dụ dùng `product-filter/filter-bar.php` thay vì `product-filter/product-filter-filter-bar.php`.
 
 ## 5. WordPress và PHP
 
@@ -305,7 +353,7 @@ Khi hoàn thành, báo ngắn gọn và chính xác:
 - File này áp dụng cho toàn bộ dự án.
 - `assets/AGENTS.md` bổ sung quy tắc cho Tailwind, CSS, JavaScript, font và tài nguyên frontend.
 - `inc/AGENTS.md` bổ sung quy tắc cho module PHP, bootstrap, dependency và đường dẫn nội bộ.
-- `template-parts/AGENTS.md` có thể bổ sung quy tắc cho template giao diện.
+- `template-parts/AGENTS.md` bổ sung quy tắc phân loại, đặt tên và tổ chức template giao diện.
 - `woocommerce/AGENTS.md` có thể bổ sung quy tắc cho WooCommerce override.
 - Không cần lặp lại quy tắc cấp cao trong file con.
 - Khi quy tắc file con chi tiết hơn và chỉ áp dụng trong thư mục đó, dùng quy tắc file con.

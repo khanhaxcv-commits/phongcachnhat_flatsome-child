@@ -17,7 +17,8 @@ assets/
 │   └── pages/
 ├── fontawesome-pro-v7/
 ├── js/
-└── src/
+├── src/
+└── vendor/                 # Tùy chọn: thư viện frontend bên thứ ba lưu local
 ```
 
 Quy ước:
@@ -31,12 +32,40 @@ Quy ước:
 - `assets/css/overrides/` chứa lớp ghi đè cuối cùng có chủ đích; không dùng thư mục này làm nơi gom CSS chưa phân loại.
 - `assets/js/` chứa JavaScript của theme.
 - `assets/fontawesome-pro-v7/` chứa Font Awesome Pro và webfont.
+- `assets/vendor/` chứa thư viện frontend bên thứ ba được tải về và phục vụ trực tiếp từ child theme; chỉ tạo thư mục này khi dự án có thư viện local thật sự.
 - Không đặt file CSS mới trực tiếp tại thư mục gốc `assets/css/`; phải chọn đúng nhóm trách nhiệm.
 - Nếu bỏ một khối giao diện mà khung trang vẫn giữ nguyên, CSS của khối đó ưu tiên thuộc `components/`; nếu CSS quyết định cấu trúc khu vực lớn của trang, ưu tiên thuộc `layout/`.
 - Tên file CSS dùng kebab-case và ưu tiên tiếng Anh nhất quán. Hai file `pages/trang-chu-1.css` và `pages/lien-he-1.css` phải giữ nguyên tên hiện có, trừ khi task yêu cầu đổi rõ ràng.
+- Tên file JavaScript mới dùng kebab-case và ưu tiên tiếng Anh nhất quán.
+- Asset của cùng một UI nên dùng cùng tên gốc với template, ví dụ `pagination.php`, `pagination.css` và `pagination.js`; chỉ tạo những file component thực sự cần.
+- JavaScript chỉ dành cho một trang phải mang tên trang hoặc chức năng cụ thể; JavaScript dùng lại cho component phải mang tên component, không dùng tên chung như `custom-new.js` hoặc `script-final.js`.
 - Không chỉnh sửa `node_modules/`.
 - Không di chuyển hoặc đổi tên file nếu chưa kiểm tra nơi file đang được enqueue.
 - Không tạo file mới nếu đã có file phù hợp với chức năng đang sửa.
+
+### 1.1. Thư viện frontend bên thứ ba
+
+Phải phân biệt rõ nguồn tài nguyên:
+
+- CSS và JavaScript do dự án tự viết đặt trong `assets/css/` và `assets/js/`.
+- Thư viện bên thứ ba lưu local đặt trong `assets/vendor/<ten-thu-vien>/`.
+- Thư viện tải từ CDN hoặc domain bên ngoài được khai báo trong `inc/assets/external.php`.
+- Thư viện local được đăng ký hoặc enqueue trong `inc/assets/vendor.php`; chỉ tạo loader này khi có ít nhất một thư viện local cần sử dụng.
+- Font Awesome Pro tiếp tục dùng `assets/fontawesome-pro-v7/` và `inc/assets/fontawesome.php` vì có loader, webfont và quy tắc license riêng.
+
+Quy ước cho thư viện local:
+
+- Mỗi thư viện nằm trong thư mục riêng và giữ cấu trúc cần thiết của bản phân phối.
+- Giữ file license, thông tin version hoặc notice đi kèm thư viện.
+- Không chỉnh sửa trực tiếp file `.min.js`, `.min.css`, source map hoặc mã nguồn phân phối của vendor.
+- Dùng handle WordPress ổn định, không phụ thuộc nguồn local hay CDN, ví dụ `swiper-js` hoặc `swiper-css`.
+- Dùng version thật của thư viện khi enqueue; chỉ dùng `filemtime()` làm fallback khi không có version rõ ràng.
+- Khai báo danh sách file rõ ràng trong loader; không dùng `glob()` để tự động load toàn bộ `assets/vendor/`.
+- Chỉ enqueue thư viện trên trang hoặc component cần dùng khi có thể xác định điều kiện hợp lý.
+- Không tải đồng thời cùng một thư viện từ `vendor.php` và `external.php`.
+- Trước khi thêm thư viện, kiểm tra Flatsome, WordPress và plugin đang hoạt động để tránh đăng ký hoặc tải trùng.
+- Không đưa code tự viết của dự án vào `assets/vendor/`.
+- Không dùng `package.json` để quản lý thư viện JavaScript frontend; quy trình npm hiện tại chỉ phục vụ build Tailwind CSS.
 
 ## 2. Tailwind CSS
 
@@ -299,6 +328,17 @@ Quy tắc:
 - Không sửa CSS toàn cục nếu task chỉ liên quan một component.
 - Không ghi đè class hệ thống của Flatsome nếu chưa kiểm tra phạm vi ảnh hưởng.
 - Với component hiện hữu đang dùng CSS thuần, ưu tiên bản sửa tối thiểu theo kiến trúc hiện tại; không tự ý chuyển toàn bộ sang Tailwind nếu task không yêu cầu refactor.
+
+### 10.1. Tránh trùng tên class với Flatsome
+
+- Trước khi tạo class CSS custom mới, phải tìm tên dự kiến trong `wp-content/themes/flatsome/assets/css/flatsome.css` và CSS hiện có của child theme; nếu class liên quan hành vi, kiểm tra thêm JavaScript của Flatsome, WordPress, WooCommerce và child theme.
+- Class custom mới không được trùng với class hệ thống đã tồn tại nếu không có chủ đích tích hợp hoặc override rõ ràng.
+- Ưu tiên namespace theo component với tiền tố `custom-`, ví dụ `custom-pagination`, `custom-pagination__item` và `custom-pagination--compact`.
+- Không tạo class custom đơn lẻ quá chung như `.title`, `.content`, `.item`, `.button`, `.active`, `.row`, `.col`, `.box`, `.nav` hoặc `.pagination`; các tên này dễ trùng và gây ảnh hưởng ngoài phạm vi.
+- Nếu phát hiện tên class dự kiến đã có trong Flatsome, phải đổi tên class custom trước khi viết CSS; không dùng specificity hoặc `!important` để che xung đột do đặt tên.
+- Khi cần style class do Flatsome, WordPress hoặc WooCommerce sinh ra, giữ nguyên class hệ thống và giới hạn selector dưới class gốc của component, body class hoặc template cụ thể; không ghi đè selector hệ thống ở phạm vi toàn site nếu task chỉ liên quan một khu vực.
+- Không gắn class hệ thống của Flatsome vào markup custom chỉ để thừa hưởng giao diện, trừ khi class đó là API giao diện được dùng đúng mục đích và đã kiểm tra hành vi đi kèm.
+- Quy tắc tránh trùng tên không áp dụng cho utility Tailwind hoặc class bắt buộc do WordPress, WooCommerce và Flatsome cung cấp; các class này phải được dùng đúng API và không được đổi tên tùy ý.
 
 ## 11. JavaScript
 

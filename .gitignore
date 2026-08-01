@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Tailwind generated database content
+.tailwind/
+
 # Package manager logs
 npm-debug.log*
 yarn-debug.log*

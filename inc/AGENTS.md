@@ -22,6 +22,7 @@ Mọi quy tắc tại `../AGENTS.md` vẫn được áp dụng.
 - Giữ nguyên thứ tự load khi module có dependency hoặc đăng ký hook cùng priority.
 - Module đang tắt phải tiếp tục được comment trong bootstrap tương ứng.
 - Khi thêm file chức năng mới, phải khai báo file đó trong bootstrap của đúng nhóm.
+- Nhóm phụ thuộc plugin tùy chọn chỉ được nạp khi plugin, class hoặc API cần thiết đang tồn tại; dự án không dùng tính năng đó không được require toàn bộ module trên mỗi request.
 
 Mẫu bootstrap:
 
@@ -63,6 +64,14 @@ foreach ($group_modules as $group_module) {
 - Không lặp lại tên thư mục trong tên file nếu ngữ cảnh thư mục đã đủ rõ.
 - Mỗi file nên có một trách nhiệm chính và không trở thành nơi gom logic không liên quan.
 - Function, class, constant và hook helper mới phải dùng prefix riêng của theme.
+
+### 4.1. Module hỗ trợ UI
+
+- Không tạo module PHP chỉ vì thêm CSS, Tailwind hoặc thay đổi markup trình bày.
+- Logic dùng chung cho một UI độc lập đặt trong `modules/`; adapter chỉ dành cho blog hoặc WooCommerce lần lượt đặt trong `blog/` hoặc `woocommerce/`.
+- Một hook hoặc callback nhỏ thuộc nhóm hiện có có thể đặt trong file có tên trách nhiệm rõ ràng của nhóm đó; chỉ tạo thư mục chức năng riêng khi chức năng có nhiều file hoặc nhiều trách nhiệm cần tổ chức độc lập.
+- Khi module render markup có thể tái sử dụng, ưu tiên truyền dữ liệu sang template trong `../template-parts/` thay vì ghép một khối HTML lớn trong file logic.
+- File logic, template, CSS và JavaScript của cùng component nên dùng cùng tên gốc khi hợp lý để có thể tìm thấy bằng một lần tìm kiếm.
 
 ## 5. Config và template
 

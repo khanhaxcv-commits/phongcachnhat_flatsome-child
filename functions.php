@@ -4,12 +4,21 @@ $theme_includes = array(
     'inc/blog/bootstrap.php',
     'inc/rewrite/bootstrap.php',
     'inc/admin/bootstrap.php',
-    'inc/woocommerce/bootstrap.php',
-    'inc/assets/bootstrap.php',
-    'inc/modules/bootstrap.php',
-    'inc/integrations/bootstrap.php',
-    'inc/product-filter/bootstrap.php'
 );
+
+$woocommerce_is_active = class_exists('WooCommerce');
+
+if ($woocommerce_is_active) {
+    $theme_includes[] = 'inc/woocommerce/bootstrap.php';
+}
+
+$theme_includes[] = 'inc/assets/bootstrap.php';
+$theme_includes[] = 'inc/modules/bootstrap.php';
+$theme_includes[] = 'inc/integrations/bootstrap.php';
+
+if ($woocommerce_is_active) {
+    $theme_includes[] = 'inc/product-filter/bootstrap.php';
+}
 
 foreach ($theme_includes as $theme_include) {
 
