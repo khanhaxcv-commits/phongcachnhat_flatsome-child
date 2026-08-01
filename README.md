@@ -143,6 +143,21 @@ CSS và JavaScript chỉ dùng cho một trang hoặc component nên được en
 
 Quy tắc frontend chi tiết nằm trong `assets/AGENTS.md`.
 
+## Quy ước UX Builder và Gutenberg
+
+Profile mặc định ưu tiên Flatsome UX Builder. Source chủ động tắt Block Editor, Widget Block Editor và `wpautop` để WordPress không tự sinh thêm `<p>` hoặc `<br>` làm thay đổi markup do UX Builder kiểm soát.
+
+Nếu dự án dùng Gutenberg cho bài viết blog:
+
+- Cho phép Block Editor đối với post type `post`; có renderer riêng không tự động bật Gutenberg trong trang quản trị.
+- Có thể tiếp tục tắt Block Editor đối với Page dùng UX Builder.
+- Không cần bật lại `wpautop` toàn site.
+- Render nội dung bằng `the_content()` hoặc `apply_filters('the_content', $content)` để block, shortcode và filter WordPress hoạt động đúng.
+- Nội dung Classic cũ không có block có thể được áp dụng `wpautop()` có điều kiện trong renderer blog.
+- Không áp dụng `wpautop()` lần nữa lên nội dung Gutenberg đã render.
+
+Các thay đổi editor phải được giới hạn theo post type hoặc profile dự án; không bật hoặc tắt đồng loạt nếu dự án dùng kết hợp UX Builder và Gutenberg.
+
 ## Profile dự án và module tùy chọn
 
 Source được phép giữ các module tùy chọn trong repository để tái sử dụng. File chỉ nằm trên ổ đĩa gần như không tạo chi phí runtime; chi phí phát sinh khi module bị require hoặc plugin được kích hoạt.

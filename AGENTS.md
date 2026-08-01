@@ -245,6 +245,16 @@ Quy tắc đặt tên:
 - Không ghi đè CSS Flatsome ở phạm vi toàn site nếu chỉ cần xử lý một component.
 - Ưu tiên thêm class riêng cho component để giới hạn phạm vi.
 
+### 11.1. UX Builder, Gutenberg và `wpautop`
+
+- Profile mặc định của source ưu tiên Flatsome UX Builder và chủ động tắt Block Editor, Widget Block Editor cùng `wpautop` để tránh WordPress tự sinh thẻ `<p>` hoặc `<br>` làm thay đổi markup do UX Builder kiểm soát.
+- Không tự ý bật lại Block Editor, Widget Block Editor hoặc `wpautop` trên toàn site nếu task không yêu cầu thay đổi profile biên tập nội dung.
+- Nếu dự án dùng Gutenberg để soạn bài blog, phải cho phép Block Editor riêng cho post type `post`; chỉ viết renderer riêng không làm Gutenberg xuất hiện trong trang quản trị.
+- Gutenberg cho blog không đồng nghĩa phải bật lại `wpautop` toàn site. Template bài viết phải render nội dung qua `the_content()` hoặc `apply_filters('the_content', $content)` để WordPress xử lý block, shortcode và các filter liên quan.
+- Không xuất trực tiếp `get_the_content()` hoặc `post_content` chưa qua `the_content` filter trong template blog.
+- Vì `wpautop` bị tắt toàn cục trong profile UX Builder, nội dung Classic không có block chỉ được áp dụng `wpautop()` có điều kiện trong renderer blog khi thật sự cần; không áp dụng `wpautop()` lần nữa lên nội dung Gutenberg đã render.
+- Khi dự án cần UX Builder cho Page nhưng Gutenberg cho Post, phải giới hạn filter editor theo post type thay vì tắt hoặc bật Block Editor đồng loạt.
+
 ## 12. WooCommerce
 
 - Không sửa trực tiếp plugin WooCommerce.

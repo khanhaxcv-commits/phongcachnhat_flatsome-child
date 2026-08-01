@@ -21,6 +21,15 @@ Mọi quy tắc tại `../AGENTS.md` và quy tắc frontend liên quan tại `..
 - Query, xử lý dữ liệu, phân quyền, cache và logic nghiệp vụ phải được chuẩn bị trong module phù hợp trước khi render.
 - Template chỉ được chuẩn bị dữ liệu nhẹ phục vụ hiển thị và phải escape output đúng ngữ cảnh.
 
+### 2.1. Render nội dung bài viết
+
+- Profile UX Builder của source tắt `wpautop` toàn cục có chủ đích; template không được tự ý bật lại filter này cho toàn website.
+- Bài viết Gutenberg phải được render bằng `the_content()` hoặc nội dung đã đi qua `apply_filters('the_content', $content)` để block và shortcode hoạt động đúng.
+- Không dùng `echo get_the_content()` hoặc xuất trực tiếp giá trị `post_content` để render toàn bộ nội dung bài viết.
+- Nếu cần hỗ trợ bài Classic cũ không có block, kiểm tra bằng `has_blocks()` và chỉ áp dụng `wpautop()` cho chính nội dung đó trước khi đưa qua `the_content` filter.
+- Không gọi `wpautop()` lên nội dung Gutenberg sau khi block đã được render vì có thể phát sinh lại `<p>` hoặc `<br>` ngoài ý muốn.
+- Renderer blog không thay thế cấu hình editor trong trang quản trị; dự án muốn soạn Post bằng Gutenberg phải đồng thời cho phép Block Editor đối với post type `post`.
+
 ## 3. Đặt tên
 
 - Tên thư mục và file mới dùng tiếng Anh, dạng kebab-case và mô tả đúng UI hoặc vai trò render.
