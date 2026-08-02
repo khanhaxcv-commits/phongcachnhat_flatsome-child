@@ -6,7 +6,7 @@ add_action('wp', 'register_category_breadcrumb_hooks');
 
 function register_category_breadcrumb_hooks()
 {
-    if (!is_product_category()) {
+    if (!is_product_category() && !is_shop()) {
         return;
     }
 

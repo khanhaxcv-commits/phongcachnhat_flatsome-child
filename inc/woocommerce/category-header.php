@@ -6,7 +6,7 @@ add_action('wp', 'register_category_header_hooks');
 
 function register_category_header_hooks()
 {
-    if (!is_product_category()) {
+    if (!is_product_category() && !is_shop()) {
         return;
     }
 
@@ -16,12 +16,37 @@ function register_category_header_hooks()
         10
     );
 
+    if (is_shop()) {
+        add_action(
+            'flatsome_after_header',
+            'pcn_render_shop_breadcrumb_header',
+            20
+        );
+
+        return;
+    }
+
     add_action(
         'flatsome_after_header',
         'render_category_header',
         20
     );
 }
+
+/**
+ * Render breadcrumb trang Shop cùng giao diện với danh mục sản phẩm.
+ */
+function pcn_render_shop_breadcrumb_header()
+{
+?>
+    <div class="row container !mt-5">
+        <div>
+            <?php do_action('category_breadcrumb'); ?>
+        </div>
+    </div>
+<?php
+}
+
 /**
  * Render layout header danh mục.
  */

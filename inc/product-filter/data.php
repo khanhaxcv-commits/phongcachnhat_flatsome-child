@@ -163,6 +163,36 @@ function get_product_filter_taxonomies_for_category($category_id)
     return $request_cache[$category_id];
 }
 
+/**
+ * Lấy các taxonomy bộ lọc dùng cho toàn bộ trang Shop.
+ */
+function get_product_filter_taxonomies_for_shop()
+{
+    static $request_cache = null;
+
+    if ($request_cache !== null) {
+        return $request_cache;
+    }
+
+    $config = get_filter_config();
+    $exclude = !empty($config['exclude'])
+        ? (array) $config['exclude']
+        : [];
+    $taxonomies = !empty($config['priority'])
+        ? (array) $config['priority']
+        : wc_get_attribute_taxonomy_names();
+
+    $request_cache = array_values(array_unique(array_filter(
+        array_map('sanitize_key', $taxonomies),
+        function ($taxonomy) use ($exclude) {
+            return taxonomy_exists($taxonomy)
+                && !in_array($taxonomy, $exclude, true);
+        }
+    )));
+
+    return $request_cache;
+}
+
 function prepare_product_filter_options_for_json($filters)
 {
     $payload = [];
@@ -195,20 +225,17 @@ function prepare_product_filter_options_for_json($filters)
 function get_dynamic_product_filters($category_id = 0, $raw_active_filters = null)
 {
     if (!$category_id) {
-        if (!is_product_category()) {
+        if (is_product_category()) {
+            $category_id = get_queried_object_id();
+        } elseif (!is_shop() && $raw_active_filters === null) {
             return [];
         }
-
-        $category_id = get_queried_object_id();
     }
 
     $category_id = (int) $category_id;
-
-    if ($category_id <= 0) {
-        return [];
-    }
-
-    $taxonomies = get_product_filter_taxonomies_for_category($category_id);
+    $taxonomies = $category_id > 0
+        ? get_product_filter_taxonomies_for_category($category_id)
+        : get_product_filter_taxonomies_for_shop();
 
     if (empty($taxonomies)) {
         return [];
@@ -466,7 +493,7 @@ function get_product_filter_faceted_term_ids(
         array_map('sanitize_key', (array) $taxonomies)
     )));
 
-    if ($category_id <= 0 || empty($taxonomies)) {
+    if (empty($taxonomies)) {
         return [];
     }
 
@@ -512,10 +539,12 @@ function get_product_filter_faceted_term_ids(
         return is_array($cached) ? $cached : [];
     }
 
-    $category_tt_ids = get_product_category_scope_tt_ids($category_id);
+    $category_tt_ids = $category_id > 0
+        ? get_product_category_scope_tt_ids($category_id)
+        : [];
     $term_ids_by_taxonomy = array_fill_keys($taxonomies, []);
 
-    if (empty($category_tt_ids)) {
+    if ($category_id > 0 && empty($category_tt_ids)) {
         set_transient(
             $cache_key,
             $term_ids_by_taxonomy,
@@ -547,10 +576,6 @@ function get_product_filter_faceted_term_ids(
         $group_taxonomies = array_values(array_unique(
             $query_group['taxonomies']
         ));
-        $category_placeholders = implode(
-            ', ',
-            array_fill(0, count($category_tt_ids), '%d')
-        );
         $taxonomy_placeholders = implode(
             ', ',
             array_fill(0, count($group_taxonomies), '%s')
@@ -561,14 +586,7 @@ function get_product_filter_faceted_term_ids(
                 attribute_taxonomy.taxonomy,
                 attribute_taxonomy.term_id
 
-            FROM {$wpdb->term_relationships} AS category_relation
-
-            INNER JOIN {$wpdb->term_taxonomy} AS category_taxonomy
-                ON category_relation.term_taxonomy_id =
-                   category_taxonomy.term_taxonomy_id
-
-            INNER JOIN {$wpdb->posts} AS products
-                ON products.ID = category_relation.object_id
+            FROM {$wpdb->posts} AS products
 
             INNER JOIN {$wpdb->term_relationships} AS attribute_relation
                 ON products.ID = attribute_relation.object_id
@@ -577,19 +595,35 @@ function get_product_filter_faceted_term_ids(
                 ON attribute_relation.term_taxonomy_id =
                    attribute_taxonomy.term_taxonomy_id
 
-            WHERE category_taxonomy.taxonomy = 'product_cat'
-              AND category_taxonomy.term_taxonomy_id
-                  IN ({$category_placeholders})
-              AND products.post_type = 'product'
+            WHERE products.post_type = 'product'
               AND products.post_status = 'publish'
               AND attribute_taxonomy.taxonomy
                   IN ({$taxonomy_placeholders})
         ";
 
-        $prepare_args = array_merge(
-            $category_tt_ids,
-            $group_taxonomies
-        );
+        $prepare_args = $group_taxonomies;
+
+        if (!empty($category_tt_ids)) {
+            $category_placeholders = implode(
+                ', ',
+                array_fill(0, count($category_tt_ids), '%d')
+            );
+
+            $sql .= "
+              AND EXISTS (
+                  SELECT 1
+                  FROM {$wpdb->term_relationships} AS category_relation
+                  WHERE category_relation.object_id = products.ID
+                    AND category_relation.term_taxonomy_id
+                        IN ({$category_placeholders})
+              )
+            ";
+
+            $prepare_args = array_merge(
+                $prepare_args,
+                $category_tt_ids
+            );
+        }
 
         $visibility_tt_ids = get_product_filter_excluded_visibility_tt_ids();
 

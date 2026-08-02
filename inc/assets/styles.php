@@ -246,7 +246,11 @@ function enqueue_styles()
         }
     }
 
-    if (function_exists('is_product_category') && is_product_category()) {
+    $is_product_category = function_exists('is_product_category')
+        && is_product_category();
+    $is_shop = function_exists('is_shop') && is_shop();
+
+    if ($is_product_category) {
         if (
             enqueue_css_file(
                 'product-category-css',
@@ -256,7 +260,9 @@ function enqueue_styles()
         ) {
             $page_handles[] = 'product-category-css';
         }
+    }
 
+    if ($is_product_category || $is_shop) {
         if (
             enqueue_css_file(
                 'product-filter-css',

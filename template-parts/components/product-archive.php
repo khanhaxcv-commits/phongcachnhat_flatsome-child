@@ -1,10 +1,12 @@
 <?php
 
 /**
- * Category layout with no sidebar.
+ * UI archive riêng cho Shop và danh mục sản phẩm.
  *
- * @package          Flatsome/WooCommerce/Templates
- * @flatsome-version 3.18.7
+ * Giữ main query và product loop của WooCommerce; bổ sung bộ lọc AJAX cùng
+ * nút xem thêm hiện tại của child theme.
+ *
+ * @package Phongcachnhat
  */
 
 defined('ABSPATH') || exit;
@@ -28,6 +30,10 @@ $total_pages = max(
     1,
     absint(wc_get_loop_prop('total_pages'))
 );
+
+$category_id = is_product_category()
+    ? get_queried_object_id()
+    : 0;
 ?>
 
 <div class="row">
@@ -63,7 +69,7 @@ $total_pages = max(
         <div
             id="product-filter-results"
             class="product-filter-results"
-            data-category-id="<?php echo esc_attr(get_queried_object_id()); ?>"
+            data-category-id="<?php echo esc_attr($category_id); ?>"
             data-per-page="<?php echo esc_attr($per_page); ?>"
             aria-live="polite"
             aria-busy="false">
