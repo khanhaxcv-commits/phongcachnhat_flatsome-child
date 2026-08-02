@@ -9,6 +9,7 @@ defined('ABSPATH') || exit;
 $woocommerce_modules = array(
     'category-header.php',
     'category-breadcrumb.php',
+    'primary-product-category.php',
     'checkout-fields.php',
     'product-tabs.php',
     'installation-gallery.php',

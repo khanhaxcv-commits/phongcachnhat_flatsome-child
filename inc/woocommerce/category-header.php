@@ -48,13 +48,13 @@ function render_category_header()
             </div>
 
             <div class="category-intro__banner">
-                <?php do_action('category_banner'); ?>
+                <?php do_action('render_category_banner'); ?>
             </div>
 
         </div>
 
         <div>
-            <?php do_action('category_subcategories'); ?>
+            <?php do_action('render_category_subcategories'); ?>
         </div>
 
     </div>

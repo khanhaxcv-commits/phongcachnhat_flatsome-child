@@ -8,6 +8,7 @@ defined('ABSPATH') || exit;
 
 $standalone_modules = array(
     // 'preloader.php',
+    'tailwind-database-content.php',
 );
 
 foreach ($standalone_modules as $standalone_module) {

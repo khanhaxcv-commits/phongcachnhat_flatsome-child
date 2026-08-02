@@ -3,8 +3,8 @@
 defined('ABSPATH') || exit;
 
 // Đăng ký action hooks
-add_action('category_banner', 'render_category_banner', 10);
-add_action('category_subcategories', 'render_category_subcategories', 10);
+add_action('render_category_banner', 'render_category_banner', 10);
+add_action('render_category_subcategories', 'render_category_subcategories', 10);
 
 /**
  * Render banner danh mục.
