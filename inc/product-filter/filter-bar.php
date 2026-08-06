@@ -35,10 +35,13 @@ function render_product_filter_bar()
 
     $current_order = isset($_GET['orderby'])
         ? wc_clean(wp_unslash($_GET['orderby']))
-        : 'menu_order';
+        : apply_filters(
+            'woocommerce_default_catalog_orderby',
+            get_option('woocommerce_default_catalog_orderby', 'menu_order')
+        );
 
     $mobile_orders = array(
-        'menu_order' => 'Nổi bật',
+        'rating'     => 'Mặc định',
         'popularity' => 'Bán chạy',
         'date'       => 'Mới nhất',
         'price'      => 'Giá thấp - cao',

@@ -63,6 +63,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const categoryId = resultsContainer.dataset.categoryId || "";
 
+  const defaultOrderby =
+    typeof productFilterAjax !== "undefined" &&
+    productFilterAjax.defaultOrderby
+      ? productFilterAjax.defaultOrderby
+      : "menu_order";
+
   const perPage = Math.max(
     1,
     parseInt(resultsContainer.dataset.perPage || "12", 10) || 12,
@@ -217,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function getOrderbyFromURL(url) {
-    return url.searchParams.get("orderby") || "menu_order";
+    return url.searchParams.get("orderby") || defaultOrderby;
   }
 
   function hasActiveFilterState(url) {
@@ -232,9 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    const orderby = getOrderbyFromURL(url);
-
-    return hasFilter || orderby !== "menu_order";
+    return hasFilter;
   }
 
   /*
@@ -291,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function () {
      */
     if (
       orderby &&
-      orderby !== "menu_order"
+      orderby !== defaultOrderby
     ) {
       url.searchParams.set(
         "orderby",
@@ -375,7 +379,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const optionOrderby =
           optionURL.searchParams.get("orderby") ||
-          "menu_order";
+          defaultOrderby;
 
         option.selected = optionOrderby === orderby;
       });
@@ -555,6 +559,13 @@ document.addEventListener("DOMContentLoaded", function () {
     formData.append(
       "orderby",
       orderby,
+    );
+
+    formData.append(
+      "orderby_explicit",
+      settings.targetURL.searchParams.has("orderby")
+        ? "1"
+        : "0",
     );
 
     formData.append(
@@ -853,9 +864,13 @@ document.addEventListener("DOMContentLoaded", function () {
     clearDesktopBtn.addEventListener(
       "click",
       function () {
+        const currentURL = new URL(
+          window.location.href,
+        );
+
         const targetURL = buildFilterURL(
           {},
-          "menu_order",
+          getOrderbyFromURL(currentURL),
         );
 
         /*
@@ -877,10 +892,7 @@ document.addEventListener("DOMContentLoaded", function () {
             select.value = "";
           });
 
-        if (mobileOrderingSelect) {
-          mobileOrderingSelect.value =
-            "menu_order";
-        }
+        clearDesktopBtn.classList.add("hidden");
 
         requestProducts({
           targetURL: targetURL,
@@ -906,7 +918,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const orderby = mobileOrderingSelect
           ? mobileOrderingSelect.value
-          : "menu_order";
+          : defaultOrderby;
 
         const targetURL = buildFilterURL(
           filters,
@@ -943,10 +955,6 @@ document.addEventListener("DOMContentLoaded", function () {
             select.value = "";
           });
 
-        if (mobileOrderingSelect) {
-          mobileOrderingSelect.value =
-            "menu_order";
-        }
       },
     );
   }

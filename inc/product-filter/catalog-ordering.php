@@ -13,12 +13,15 @@ function render_custom_catalog_ordering()
 {
     $current_order = isset($_GET['orderby'])
         ? wc_clean(wp_unslash($_GET['orderby']))
-        : 'menu_order';
+        : apply_filters(
+            'woocommerce_default_catalog_orderby',
+            get_option('woocommerce_default_catalog_orderby', 'menu_order')
+        );
 
     $base_url = remove_query_arg('orderby');
 
     $orders = [
-        'menu_order' => 'Nổi bật',
+        'rating'     => 'Mặc định',
         'popularity' => 'Bán chạy',
         'date'       => 'Mới nhất',
         'price'      => 'Giá thấp - cao',

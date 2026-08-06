@@ -294,9 +294,39 @@ function load_filtered_products()
         min(100, $per_page)
     );
 
+    $default_orderby = wc_clean(
+        apply_filters(
+            'woocommerce_default_catalog_orderby',
+            get_option('woocommerce_default_catalog_orderby', 'menu_order')
+        )
+    );
+
     $orderby = isset($_POST['orderby'])
         ? wc_clean(wp_unslash($_POST['orderby']))
-        : 'menu_order';
+        : $default_orderby;
+
+    $referer_query = array();
+    $referer       = wp_get_referer();
+
+    if ($referer) {
+        wp_parse_str(
+            (string) wp_parse_url($referer, PHP_URL_QUERY),
+            $referer_query
+        );
+    }
+
+    $orderby_is_explicit = isset($_POST['orderby_explicit'])
+        ? wc_string_to_bool(wp_unslash($_POST['orderby_explicit']))
+        : isset($referer_query['orderby']);
+
+    // Cached JavaScript used to send menu_order even when the archive used
+    // WooCommerce's configured default ordering.
+    if (
+        !$orderby_is_explicit
+        && $orderby === 'menu_order'
+    ) {
+        $orderby = $default_orderby;
+    }
 
     $request_mode = isset($_POST['request_mode'])
         ? sanitize_key(wp_unslash($_POST['request_mode']))
@@ -323,13 +353,16 @@ function load_filtered_products()
     $allowed_orderby = array(
         'menu_order',
         'popularity',
+        'rating',
         'date',
         'price',
         'price-desc',
     );
 
     if (!in_array($orderby, $allowed_orderby, true)) {
-        $orderby = 'menu_order';
+        $orderby = in_array($default_orderby, $allowed_orderby, true)
+            ? $default_orderby
+            : 'menu_order';
     }
 
     /**

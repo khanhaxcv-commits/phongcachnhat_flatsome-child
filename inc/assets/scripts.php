@@ -158,8 +158,12 @@ if (!function_exists('enqueue_theme_scripts')) {
                 'product-filter-js',
                 'productFilterAjax',
                 array(
-                    'ajaxUrl' => admin_url('admin-ajax.php'),
-                    'nonce'   => wp_create_nonce('product_filter_ajax'),
+                    'ajaxUrl'        => admin_url('admin-ajax.php'),
+                    'nonce'          => wp_create_nonce('product_filter_ajax'),
+                    'defaultOrderby' => apply_filters(
+                        'woocommerce_default_catalog_orderby',
+                        get_option('woocommerce_default_catalog_orderby', 'menu_order')
+                    ),
                 )
             );
         }
