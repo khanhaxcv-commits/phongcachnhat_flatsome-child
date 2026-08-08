@@ -76,7 +76,7 @@ add_action('wp_body_open', function () {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
+            border-radius: 9999px;
         }
 
         /* Vòng xoay phải nằm tuyệt đối trong container */
@@ -120,7 +120,7 @@ add_action('wp_body_open', function () {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            border-radius: 0;
+            border-radius: 9999px;
         }
 
         @keyframes pcn-preloader-rotate {

@@ -4,6 +4,24 @@ File này là quy tắc cấp cao nhất của toàn bộ dự án WordPress chi
 
 Mọi file `AGENTS.md` nằm trong thư mục con phải kế thừa các quy tắc tại đây. Quy tắc ở thư mục con chỉ được bổ sung hoặc làm rõ cho phạm vi riêng, không được lặp lại toàn bộ nội dung của file này.
 
+## CORE UI RULES — ĐỌC VÀ ÁP DỤNG TRƯỚC TIÊN
+
+Đây là nhóm quy tắc cốt lõi của dự án. Khi task có liên quan đến UI, frontend markup, template, CSS, Tailwind hoặc responsive, phải áp dụng nhóm quy tắc này trước các hướng dẫn triển khai khác.
+
+- Khi thiết kế hoặc chỉnh sửa UI, **bắt buộc ưu tiên Tailwind CSS utility class trước CSS thuần**.
+- Ưu tiên các semantic token đã khai báo trong `tailwind.config.js`.
+- Thiết kế mobile-first; dùng breakpoint `desktop:` từ `850px` của dự án.
+- Các layout lớn phải giữ cấu trúc `row container` của Flatsome để đồng bộ toàn trang.
+- Không tự thay `row container` bằng `max-w-*` hoặc padding ngang theo cảm tính.
+- Chỉ dùng spacing Tailwind bên trong `row container` khi cần điều chỉnh khoảng cách của component.
+- CSS thuần chỉ được dùng khi Tailwind không xử lý hợp lý, cần selector của WordPress/WooCommerce/Flatsome, pseudo-element hoặc trạng thái quan hệ phức tạp; CSS phải đặt đúng nhóm trong `assets/`.
+- Không dùng Tailwind CDN và không sửa trực tiếp `assets/css/generated/tailwind.css`.
+- Logic PHP phải đặt trong `inc/`.
+- Template giao diện tái sử dụng phải đặt trong `template-parts/`.
+- Template override của WooCommerce phải đặt trong `woocommerce/`.
+
+Khi có xung đột giữa cách triển khai UI thông thường và nhóm quy tắc này, phải chọn phương án tuân thủ nhóm quy tắc cốt lõi trên.
+
 ## 0. Trước khi bắt đầu task
 
 - Trước khi phân tích, sửa file hoặc chạy lệnh làm thay đổi source, phải xác định các thư mục nằm trong phạm vi task.
@@ -198,16 +216,8 @@ Quy tắc đặt tên:
 
 ## 8. Responsive
 
-- Thiết kế theo mobile-first.
-- Class mặc định áp dụng cho mobile.
-- Dùng breakpoint chuẩn của Tailwind và breakpoint tùy chỉnh `desktop: 850px` của dự án.
-- Không tự tạo breakpoint arbitrary nếu chưa có lý do kỹ thuật rõ ràng.
-- Không viết desktop trước rồi dùng `max-width` để vá lại mobile.
-- Không để xuất hiện horizontal scroll ngoài chủ đích.
-- Kiểm tra spacing hai bên trên mobile.
-- Không để text, button, input hoặc table tràn khỏi viewport.
-- Khi task chỉ có hai trạng thái mobile và desktop, dùng class mặc định cho mobile và `desktop:` cho desktop từ 850px.
-- `lg:` chỉ dùng khi layout thật sự cần thay đổi từ 1024px, không dùng thay cho breakpoint desktop của Flatsome.
+- Quy tắc mobile-first và breakpoint cốt lõi nằm trong mục `CORE UI RULES` ở đầu file này.
+- Quy tắc responsive chi tiết nằm trong `assets/AGENTS.md` và phải được đọc khi task liên quan frontend.
 - Trước khi sửa class Tailwind trong PHP, template hoặc JavaScript ở bất kỳ thư mục nào của theme, phải đọc và áp dụng `assets/AGENTS.md`.
 
 ## 9. CSS và Tailwind
@@ -215,10 +225,6 @@ Quy tắc đặt tên:
 - Quy tắc chi tiết về Tailwind, CSS thuần, responsive frontend, Font Awesome và JavaScript nằm trong `assets/AGENTS.md` và áp dụng cho frontend markup trên toàn child theme.
 - Không lặp lại các quy tắc frontend chi tiết tại file gốc này.
 - Không chỉnh sửa trực tiếp file CSS được sinh tự động nếu thay đổi cần thực hiện từ source.
-- Không thêm `!important` tràn lan.
-- Không sửa CSS toàn cục khi task chỉ liên quan một component.
-- Không ghi đè class hệ thống của Flatsome nếu chưa kiểm tra phạm vi ảnh hưởng.
-- Không dùng Tailwind CDN.
 - Sau khi thay đổi Tailwind hoặc source CSS liên quan, phải chạy lệnh build phù hợp.
 
 ## 10. JavaScript và thư viện frontend
